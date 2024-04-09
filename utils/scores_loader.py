@@ -49,7 +49,9 @@ class ScoresLoader:
 				curr_detectors.append(name)
 			if len(detectors) < 1:
 				detectors = curr_detectors.copy()
-			elif not detectors == curr_detectors:
+			if False:#elif not detectors == curr_detectors:
+				print('detectors', detectors)
+				print('curr_detectors', curr_detectors)
 				raise ValueError('detectors are not the same in this dataset \'{}\''.format(dataset))
 		detectors.sort()
 

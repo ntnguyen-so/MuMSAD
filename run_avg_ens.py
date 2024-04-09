@@ -33,12 +33,12 @@ def create_avg_ens(n_jobs=1):
 	metrics = metricsloader.get_names()
 
 	# Load data
-	dataloader = DataLoader(TSB_data_path)
+	dataloader = DataLoader(OBSEA_data_path)
 	datasets = dataloader.get_dataset_names()
 	x, y, fnames = dataloader.load(datasets)
 
 	# Load scores
-	scoresloader = ScoresLoader(TSB_scores_path)
+	scoresloader = ScoresLoader(OBSEA_scores_path)
 	scores, idx_failed = scoresloader.load(fnames)
 
 	# Remove failed idxs
