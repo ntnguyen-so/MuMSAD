@@ -43,7 +43,7 @@ def train_deep_model(
 
 	# Set up
 	window_size = int(re.search(r'\d+', str(args.path)).group())
-	device = 'cuda'
+	device = 'cuda' if torch.cuda.is_available() else 'cpu'
 	save_runs = 'results/runs/'
 	save_weights = 'results/weights/'
 	inf_time = True 		# compute inference time per timeseries
@@ -99,7 +99,7 @@ def train_deep_model(
 	)
 
 	# Check device of torch
-	model_execute.torch_devices_info()
+	#model_execute.torch_devices_info()
 
 	# Run training procedure
 	model, results = model_execute.train(

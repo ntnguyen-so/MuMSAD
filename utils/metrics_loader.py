@@ -58,19 +58,20 @@ class MetricsLoader:
 		df = []
 
 		# Check if metric exists
-		if metric.upper() not in self.get_names():
+		if metric not in self.get_names():
 			raise ValueError(f"{metric} metric is not one of existing metrics")
 		
 		for detector in os.listdir(self.metrics_path):
 			for fname in glob.glob(os.path.join(self.metrics_path, detector, metric + '.csv')):
 				curr_df = pd.read_csv(fname, index_col = 0)
-				df.append(curr_df.sort_index())
+				curr_df = curr_df.groupby(level=0).min()
+				curr_df.sort_index(inplace=True)
+				df.append(curr_df)
 				
 				# Check for consistency (can be disabled)
-				if len(df) > 1 and not np.all(df[-1].index == df[-2].index):
+				if False:# len(df) > 1 and not np.all(df[-1].index == df[-2].index):
 					raise ValueError('timeseries in metric files do not match, {} != {}'.
 						format(df[-1].shape, df[-2].shape))
-
 		return pd.concat(df, axis=1)
 
 	def write(self, data, files_names, detector, metric):

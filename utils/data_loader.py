@@ -67,9 +67,9 @@ class DataLoader:
 					raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
 
 				# Skip files with no anomalies
-				if not np.all(curr_data[0, 1] == curr_data[:, 1]):
+				if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
 					x.append(curr_data[:, 0])
-					y.append(curr_data[:, 1])
+					y.append(curr_data[:, -1])
 					# Remove path from file name, keep dataset, time series name
 					fname = '/'.join(fname.split('/')[-2:])		
 					fnames.append(fname.replace(self.data_path, ''))
@@ -125,9 +125,9 @@ class DataLoader:
 				raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
 
 			# Skip files with no anomalies
-			if not np.all(curr_data[0, 1] == curr_data[:, 1]):
+			if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
 				x.append(curr_data[:, 0])
-				y.append(curr_data[:, 1])
+				y.append(curr_data[:, -1])
 				fnames.append(fname)
 
 		return x, y, fnames

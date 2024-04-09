@@ -26,18 +26,19 @@ path_save_results = 'results/raw_predictions'	# when evaluating a model, the pre
 
 # Detector
 detector_names = [
-	'AE', 
-	'CNN', 
-	'HBOS', 
-	'IFOREST', 
-	'IFOREST1', 
-	'LOF', 
-	'LSTM', 
-	'MP', 
-	'NORMA', 
-	'OCSVM', 
-	'PCA', 
-	'POLY'
+	'PCC', 
+    'HBOS', 
+    'Torsk', 
+    'AutoEncoder (AE)',
+    'DenoisingAutoEncoder (DAE)', 
+    'EncDec-AD', 
+    'DeepAnT', 
+    'Hybrid KNN',
+    'CBLOF', 
+    'COPOD', 
+    'Random Black Forest (RR)', 
+    'RobustPCA', 
+    'LOF'
 ]
 
 
