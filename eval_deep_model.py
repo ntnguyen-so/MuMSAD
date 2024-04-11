@@ -66,9 +66,9 @@ def eval_deep_model(
 		
 		# Change input size according to input
 		if 'original_length' in model_parameters:
-			model_parameters['original_length'] = window_size
+			model_parameters['original_length'] = window_size * num_dimensions
 		if 'timeseries_size' in model_parameters:
-			model_parameters['timeseries_size'] = window_size
+			model_parameters['timeseries_size'] = window_size * num_dimensions
 		
 		# Load model
 		model = deep_models[model_name](**model_parameters)

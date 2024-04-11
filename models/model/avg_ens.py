@@ -56,8 +56,9 @@ class Avg_ens:
 				for i, m in enumerate(['VUS_ROC', 'VUS_PR']):
 					metric_values_dict[m] = metric_values[:, i]
 			else:
-				print(curr_metric)
+				#print(curr_metric)
 				print(scoresloader.compute_metric(labels, avg_ens_scores, metric=curr_metric, n_jobs=n_jobs))
+				print(metric_values_dict)
 				metric_values_dict[curr_metric] = scoresloader.compute_metric(labels, avg_ens_scores, metric=curr_metric, n_jobs=n_jobs)
 
 		return metric_values_dict

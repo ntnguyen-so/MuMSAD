@@ -1,2 +1,3 @@
+# this records the commands for experiments
 python3 create_windows_dataset.py --name OBSEA --save_dir=data/ --path=data/OBSEA/data/ --metric_path=data/OBSEA/metrics/ --window_size=all --metric=Recommendation_ACC
-python3 eval_deep_model.py --data=data/OBSEA_128 --model=resnet --model_path=results/weights/resnet_default_128/model_09042024_164039 --params=models/configuration/resnet_default.json --path_save=results/raw_predictions/
+bash ./reproducibility_guide/train_deep_models.sh

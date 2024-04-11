@@ -56,6 +56,7 @@ python3 train_deep_model.py --path=data/OBSEA_1024/ --split=0.7 --model=sit --pa
 python3 train_deep_model.py --path=data/OBSEA_16/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true
 python3 train_deep_model.py --path=data/OBSEA_32/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true
 python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true
+#re-exec the one below
 python3 train_deep_model.py --path=data/OBSEA_128/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true
 python3 train_deep_model.py --path=data/OBSEA_256/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true
 python3 train_deep_model.py --path=data/OBSEA_512/ --split=0.7 --model=sit --params=models/configuration/sit_stem_original.json --batch=256 --epochs=10 --eval-true

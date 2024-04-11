@@ -29,7 +29,7 @@ def create_avg_ens(n_jobs=1):
 	'''
 
 	# Load metrics' names
-	metricsloader = MetricsLoader(TSB_metrics_path)
+	metricsloader = MetricsLoader(OBSEA_metrics_path)
 	metrics = metricsloader.get_names()
 
 	# Load data
@@ -40,9 +40,10 @@ def create_avg_ens(n_jobs=1):
 	# Load scores
 	scoresloader = ScoresLoader(OBSEA_scores_path)
 	scores, idx_failed = scoresloader.load(fnames)
+	print(scores)
 
 	# Remove failed idxs
-	if len(idx_failed) > 0:
+	if False:# len(idx_failed) > 0:
 		for idx in sorted(idx_failed, reverse=True):
 			del x[idx]
 			del y[idx]
@@ -61,7 +62,7 @@ if __name__ == "__main__":
 		prog='run_avg_ense',
 		description="Create the average ensemble model"
 	)
-	parser.add_argument('-n', '--n_jobs', type=int, default=4,
+	parser.add_argument('-n', '--n_jobs', type=int, default=1,
 		help='Threads to use for parallel computation'
 	)
 	args = parser.parse_args()

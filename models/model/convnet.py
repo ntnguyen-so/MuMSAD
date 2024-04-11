@@ -24,7 +24,7 @@ class ConvNet(nn.Module):
 		kernel_size=3,
 		padding=1,
 		original_dim=1,
-		num_classes=12
+		num_classes=13
 	):
 		super(ConvNet, self).__init__()				
 		

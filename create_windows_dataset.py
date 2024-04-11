@@ -82,7 +82,7 @@ def create_tmp_dataset(
 
 	# Split timeseries and compute labels
 	ts_list, labels = split_and_compute_labels(x, metrics_data, window_size)
-
+	
 	# Uncomment to check the results
 	# fig, axs = plt.subplots(2, 1, sharex=True)
 	# x_new = np.concatenate(ts_list[3])
@@ -98,14 +98,15 @@ def create_tmp_dataset(
 
 	# Save new dataset
 	for ts, label, fname in tqdm(zip(ts_list, labels, fnames), total=len(ts_list), desc='Save dataset'):
+		num_col = ts.shape[1]
 		fname_split = fname.split('/')
 		dataset_name = fname_split[-2]
 		ts_name = fname_split[-1]
 		new_names = [ts_name + '.{}'.format(i) for i in range(len(ts))]
-
-		data = np.concatenate((label[:, np.newaxis], ts), axis=1)
+		
+		data = np.concatenate((label[:, np.newaxis], ts.reshape((ts.shape[0], -1))), axis=1)
 		col_names = ['label']
-		col_names += ["val_{}".format(i) for i in range(window_size)]
+		col_names += ["val_{}".format(i) for i in range(data.shape[1]-1)]
 		
 		df = pd.DataFrame(data, index=new_names, columns=col_names)
 		df.to_csv(os.path.join(save_dir, name, dataset_name, ts_name + '.csv'))
@@ -148,11 +149,7 @@ def split_and_compute_labels(x, metrics_data, window_size):
 
 
 def z_normalization(ts, decimals=5):
-	# Z-normalization (all windows with the same value go to 0)
-	if len(set(ts)) == 1:
-		ts = ts - np.mean(ts)
-	else:
-		ts = (ts - np.mean(ts)) / np.std(ts)
+	ts = (ts - np.mean(ts)) / np.std(ts)
 	ts = np.around(ts, decimals=decimals)
 
 	# Test normalization

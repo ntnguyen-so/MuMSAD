@@ -1,0 +1,1389 @@
+----------------------------------------------------------------
+Epoch [0/10] 85.82secs : acc: 0.184, val_acc: 0.175, loss: 2.454, val_loss: 2.473, top k val_acc: k=1: 0.175 k=2: 0.269 k=3: 0.336 k=4: 0.418
+Epoch [1/10] 169.84secs : acc: 0.201, val_acc: 0.184, loss: 2.345, val_loss: 2.472, top k val_acc: k=1: 0.184 k=2: 0.276 k=3: 0.354 k=4: 0.454
+Epoch [2/10] 253.16secs : acc: 0.204, val_acc: 0.170, loss: 2.313, val_loss: 2.472, top k val_acc: k=1: 0.170 k=2: 0.275 k=3: 0.362 k=4: 0.439
+Epoch [3/10] 338.87secs : acc: 0.209, val_acc: 0.176, loss: 2.294, val_loss: 2.450, top k val_acc: k=1: 0.176 k=2: 0.287 k=3: 0.367 k=4: 0.450
+Epoch [4/10] 422.88secs : acc: 0.210, val_acc: 0.174, loss: 2.283, val_loss: 2.479, top k val_acc: k=1: 0.174 k=2: 0.286 k=3: 0.366 k=4: 0.445
+Epoch [5/10] 507.12secs : acc: 0.212, val_acc: 0.177, loss: 2.274, val_loss: 2.465, top k val_acc: k=1: 0.177 k=2: 0.285 k=3: 0.365 k=4: 0.447
+Epoch [6/10] 591.18secs : acc: 0.214, val_acc: 0.171, loss: 2.266, val_loss: 2.481, top k val_acc: k=1: 0.171 k=2: 0.293 k=3: 0.374 k=4: 0.460
+Epoch [7/10] 674.43secs : acc: 0.214, val_acc: 0.160, loss: 2.260, val_loss: 2.471, top k val_acc: k=1: 0.160 k=2: 0.288 k=3: 0.368 k=4: 0.451
+Epoch [8/10] 758.06secs : acc: 0.212, val_acc: 0.168, loss: 2.254, val_loss: 2.508, top k val_acc: k=1: 0.168 k=2: 0.293 k=3: 0.367 k=4: 0.437
+Epoch [9/10] 841.35secs : acc: 0.216, val_acc: 0.166, loss: 2.248, val_loss: 2.490, top k val_acc: k=1: 0.166 k=2: 0.292 k=3: 0.369 k=4: 0.449
+                                convnet_16_class  convnet_16_inf
+OBSEA/2020-01-02.out                     DeepAnT        0.104178
+OBSEA/2020-01-08.out                  Hybrid KNN        0.124815
+OBSEA/2020-01-10.out                         PCC        0.124474
+OBSEA/2020-01-19.out                     DeepAnT        0.111696
+OBSEA/2020-01-21.out                         PCC        0.110449
+...                                          ...             ...
+OBSEA/2020-12-09.out                  Hybrid KNN        0.102441
+OBSEA/2020-12-11.out  DenoisingAutoEncoder (DAE)        0.109100
+OBSEA/2020-12-12.out                  Hybrid KNN        0.107680
+OBSEA/2020-12-14.out  DenoisingAutoEncoder (DAE)        0.106218
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)        0.111042
+
+[99 rows x 2 columns]
+{'PCC': 38, 'DeepAnT': 24, 'Hybrid KNN': 19, 'DenoisingAutoEncoder (DAE)': 12, 'AutoEncoder (AE)': 2, 'Torsk': 2, 'CBLOF': 1, 'Random Black Forest (RR)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 76.32secs : acc: 0.177, val_acc: 0.183, loss: 2.458, val_loss: 2.442, top k val_acc: k=1: 0.183 k=2: 0.283 k=3: 0.404 k=4: 0.512
+Epoch [1/10] 152.98secs : acc: 0.236, val_acc: 0.194, loss: 2.335, val_loss: 2.432, top k val_acc: k=1: 0.194 k=2: 0.289 k=3: 0.393 k=4: 0.495
+Epoch [2/10] 228.89secs : acc: 0.242, val_acc: 0.204, loss: 2.290, val_loss: 2.429, top k val_acc: k=1: 0.204 k=2: 0.296 k=3: 0.397 k=4: 0.485
+Epoch [3/10] 305.05secs : acc: 0.246, val_acc: 0.207, loss: 2.268, val_loss: 2.439, top k val_acc: k=1: 0.207 k=2: 0.308 k=3: 0.398 k=4: 0.480
+Epoch [4/10] 381.90secs : acc: 0.248, val_acc: 0.221, loss: 2.255, val_loss: 2.447, top k val_acc: k=1: 0.221 k=2: 0.312 k=3: 0.402 k=4: 0.482
+Epoch [5/10] 457.62secs : acc: 0.247, val_acc: 0.227, loss: 2.243, val_loss: 2.462, top k val_acc: k=1: 0.227 k=2: 0.318 k=3: 0.403 k=4: 0.478
+Epoch [6/10] 534.03secs : acc: 0.253, val_acc: 0.219, loss: 2.233, val_loss: 2.455, top k val_acc: k=1: 0.219 k=2: 0.314 k=3: 0.402 k=4: 0.480
+Epoch [7/10] 606.20secs : acc: 0.251, val_acc: 0.208, loss: 2.227, val_loss: 2.459, top k val_acc: k=1: 0.208 k=2: 0.313 k=3: 0.400 k=4: 0.477
+Epoch [8/10] 676.54secs : acc: 0.249, val_acc: 0.211, loss: 2.220, val_loss: 2.474, top k val_acc: k=1: 0.211 k=2: 0.304 k=3: 0.400 k=4: 0.478
+Epoch [9/10] 747.70secs : acc: 0.249, val_acc: 0.199, loss: 2.218, val_loss: 2.474, top k val_acc: k=1: 0.199 k=2: 0.305 k=3: 0.395 k=4: 0.475
+                                convnet_32_class  convnet_32_inf
+OBSEA/2020-01-02.out    Random Black Forest (RR)        0.096942
+OBSEA/2020-01-03.out                  Hybrid KNN        0.165406
+OBSEA/2020-01-12.out            AutoEncoder (AE)        0.093716
+OBSEA/2020-01-16.out                         PCC        0.102769
+OBSEA/2020-01-22.out            AutoEncoder (AE)        0.013954
+...                                          ...             ...
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)        0.100538
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)        0.097645
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)        0.092039
+OBSEA/2020-12-22.out  DenoisingAutoEncoder (DAE)        0.086977
+OBSEA/2020-12-24.out            AutoEncoder (AE)        0.090192
+
+[99 rows x 2 columns]
+{'PCC': 43, 'Random Black Forest (RR)': 25, 'DenoisingAutoEncoder (DAE)': 13, 'Hybrid KNN': 11, 'AutoEncoder (AE)': 7}
+----------------------------------------------------------------
+Epoch [0/10] 67.22secs : acc: 0.172, val_acc: 0.164, loss: 2.514, val_loss: 2.527, top k val_acc: k=1: 0.164 k=2: 0.238 k=3: 0.338 k=4: 0.471
+Epoch [1/10] 135.35secs : acc: 0.225, val_acc: 0.153, loss: 2.420, val_loss: 2.524, top k val_acc: k=1: 0.153 k=2: 0.223 k=3: 0.309 k=4: 0.444
+Epoch [2/10] 202.97secs : acc: 0.224, val_acc: 0.158, loss: 2.360, val_loss: 2.531, top k val_acc: k=1: 0.158 k=2: 0.231 k=3: 0.325 k=4: 0.462
+Epoch [3/10] 271.76secs : acc: 0.221, val_acc: 0.158, loss: 2.326, val_loss: 2.538, top k val_acc: k=1: 0.158 k=2: 0.235 k=3: 0.330 k=4: 0.468
+Epoch [4/10] 339.87secs : acc: 0.215, val_acc: 0.154, loss: 2.301, val_loss: 2.545, top k val_acc: k=1: 0.154 k=2: 0.236 k=3: 0.336 k=4: 0.474
+Epoch [5/10] 407.75secs : acc: 0.215, val_acc: 0.148, loss: 2.283, val_loss: 2.550, top k val_acc: k=1: 0.148 k=2: 0.230 k=3: 0.341 k=4: 0.469
+Epoch [6/10] 476.89secs : acc: 0.209, val_acc: 0.159, loss: 2.270, val_loss: 2.548, top k val_acc: k=1: 0.159 k=2: 0.254 k=3: 0.353 k=4: 0.482
+Epoch [7/10] 544.48secs : acc: 0.208, val_acc: 0.158, loss: 2.261, val_loss: 2.562, top k val_acc: k=1: 0.158 k=2: 0.249 k=3: 0.341 k=4: 0.454
+Epoch [8/10] 612.04secs : acc: 0.215, val_acc: 0.153, loss: 2.252, val_loss: 2.567, top k val_acc: k=1: 0.153 k=2: 0.230 k=3: 0.318 k=4: 0.447
+Epoch [9/10] 679.94secs : acc: 0.208, val_acc: 0.161, loss: 2.248, val_loss: 2.571, top k val_acc: k=1: 0.161 k=2: 0.244 k=3: 0.338 k=4: 0.447
+                                convnet_64_class  convnet_64_inf
+OBSEA/2020-01-02.out                         LOF        0.098172
+OBSEA/2020-01-08.out                         LOF        0.101318
+OBSEA/2020-01-09.out                   RobustPCA        0.087429
+OBSEA/2020-01-10.out                         PCC        0.088563
+OBSEA/2020-01-11.out                         PCC        0.095310
+...                                          ...             ...
+OBSEA/2020-12-11.out                         LOF        0.093450
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)        0.082116
+OBSEA/2020-12-14.out                         LOF        0.094611
+OBSEA/2020-12-25.out                  Hybrid KNN        0.089561
+OBSEA/2020-12-26.out                         LOF        0.091907
+
+[99 rows x 2 columns]
+{'PCC': 47, 'RobustPCA': 19, 'LOF': 17, 'DenoisingAutoEncoder (DAE)': 11, 'HBOS': 3, 'DeepAnT': 1, 'Hybrid KNN': 1}
+----------------------------------------------------------------
+Epoch [0/10] 71.35secs : acc: 0.080, val_acc: 0.174, loss: 2.554, val_loss: 2.557, top k val_acc: k=1: 0.174 k=2: 0.221 k=3: 0.286 k=4: 0.354
+Epoch [1/10] 145.08secs : acc: 0.156, val_acc: 0.203, loss: 2.510, val_loss: 2.527, top k val_acc: k=1: 0.203 k=2: 0.251 k=3: 0.312 k=4: 0.388
+Epoch [2/10] 217.38secs : acc: 0.173, val_acc: 0.211, loss: 2.468, val_loss: 2.508, top k val_acc: k=1: 0.211 k=2: 0.254 k=3: 0.324 k=4: 0.399
+Epoch [3/10] 289.41secs : acc: 0.177, val_acc: 0.210, loss: 2.432, val_loss: 2.495, top k val_acc: k=1: 0.210 k=2: 0.257 k=3: 0.318 k=4: 0.395
+Epoch [4/10] 362.20secs : acc: 0.176, val_acc: 0.211, loss: 2.400, val_loss: 2.483, top k val_acc: k=1: 0.211 k=2: 0.266 k=3: 0.324 k=4: 0.408
+Epoch [5/10] 433.40secs : acc: 0.176, val_acc: 0.212, loss: 2.376, val_loss: 2.475, top k val_acc: k=1: 0.212 k=2: 0.269 k=3: 0.332 k=4: 0.415
+Epoch [6/10] 504.94secs : acc: 0.182, val_acc: 0.216, loss: 2.357, val_loss: 2.466, top k val_acc: k=1: 0.216 k=2: 0.275 k=3: 0.339 k=4: 0.422
+Epoch [7/10] 576.58secs : acc: 0.183, val_acc: 0.216, loss: 2.344, val_loss: 2.472, top k val_acc: k=1: 0.216 k=2: 0.273 k=3: 0.326 k=4: 0.420
+Epoch [8/10] 648.15secs : acc: 0.190, val_acc: 0.221, loss: 2.328, val_loss: 2.463, top k val_acc: k=1: 0.221 k=2: 0.283 k=3: 0.341 k=4: 0.430
+Epoch [9/10] 720.76secs : acc: 0.191, val_acc: 0.223, loss: 2.318, val_loss: 2.455, top k val_acc: k=1: 0.223 k=2: 0.286 k=3: 0.350 k=4: 0.439
+                     convnet_128_class  convnet_128_inf
+OBSEA/2020-01-05.out        Hybrid KNN         0.096819
+OBSEA/2020-01-09.out           DeepAnT         0.092903
+OBSEA/2020-01-10.out               PCC         0.077731
+OBSEA/2020-01-13.out               PCC         0.095324
+OBSEA/2020-01-14.out               PCC         0.080264
+...                                ...              ...
+OBSEA/2020-12-06.out        Hybrid KNN         0.095452
+OBSEA/2020-12-16.out               LOF         0.090331
+OBSEA/2020-12-18.out             COPOD         0.078766
+OBSEA/2020-12-20.out        Hybrid KNN         0.080488
+OBSEA/2020-12-24.out           DeepAnT         0.090217
+
+[99 rows x 2 columns]
+{'PCC': 54, 'DeepAnT': 25, 'Hybrid KNN': 8, 'CBLOF': 5, 'COPOD': 4, 'LOF': 3}
+----------------------------------------------------------------
+Epoch [0/10] 72.67secs : acc: 0.140, val_acc: 0.102, loss: 2.557, val_loss: 2.563, top k val_acc: k=1: 0.102 k=2: 0.199 k=3: 0.283 k=4: 0.359
+Epoch [1/10] 146.27secs : acc: 0.227, val_acc: 0.161, loss: 2.521, val_loss: 2.551, top k val_acc: k=1: 0.161 k=2: 0.230 k=3: 0.298 k=4: 0.361
+Epoch [2/10] 219.54secs : acc: 0.244, val_acc: 0.183, loss: 2.494, val_loss: 2.536, top k val_acc: k=1: 0.183 k=2: 0.248 k=3: 0.324 k=4: 0.396
+Epoch [3/10] 292.10secs : acc: 0.244, val_acc: 0.175, loss: 2.469, val_loss: 2.532, top k val_acc: k=1: 0.175 k=2: 0.245 k=3: 0.317 k=4: 0.374
+Epoch [4/10] 365.67secs : acc: 0.242, val_acc: 0.179, loss: 2.447, val_loss: 2.511, top k val_acc: k=1: 0.179 k=2: 0.249 k=3: 0.323 k=4: 0.399
+Epoch [5/10] 438.23secs : acc: 0.237, val_acc: 0.188, loss: 2.427, val_loss: 2.504, top k val_acc: k=1: 0.188 k=2: 0.257 k=3: 0.328 k=4: 0.409
+Epoch [6/10] 511.32secs : acc: 0.240, val_acc: 0.175, loss: 2.407, val_loss: 2.498, top k val_acc: k=1: 0.175 k=2: 0.245 k=3: 0.331 k=4: 0.404
+Epoch [7/10] 584.94secs : acc: 0.238, val_acc: 0.184, loss: 2.392, val_loss: 2.498, top k val_acc: k=1: 0.184 k=2: 0.256 k=3: 0.332 k=4: 0.411
+Epoch [8/10] 659.03secs : acc: 0.240, val_acc: 0.189, loss: 2.380, val_loss: 2.489, top k val_acc: k=1: 0.189 k=2: 0.267 k=3: 0.338 k=4: 0.404
+Epoch [9/10] 731.93secs : acc: 0.243, val_acc: 0.179, loss: 2.364, val_loss: 2.489, top k val_acc: k=1: 0.179 k=2: 0.259 k=3: 0.326 k=4: 0.405
+                               convnet_256_class  convnet_256_inf
+OBSEA/2020-01-02.out                     DeepAnT         0.071835
+OBSEA/2020-01-04.out                  Hybrid KNN         0.080837
+OBSEA/2020-01-05.out                  Hybrid KNN         0.086670
+OBSEA/2020-01-10.out                         PCC         0.080050
+OBSEA/2020-01-17.out                         PCC         0.080489
+...                                          ...              ...
+OBSEA/2020-11-30.out                     DeepAnT         0.088600
+OBSEA/2020-12-06.out                  Hybrid KNN         0.088425
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)         0.097056
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)         0.087681
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)         0.086242
+
+[99 rows x 2 columns]
+{'PCC': 45, 'DeepAnT': 25, 'DenoisingAutoEncoder (DAE)': 20, 'Hybrid KNN': 9}
+----------------------------------------------------------------
+Epoch [0/10] 70.57secs : acc: 0.085, val_acc: 0.047, loss: 2.560, val_loss: 2.559, top k val_acc: k=1: 0.047 k=2: 0.076 k=3: 0.105 k=4: 0.160
+Epoch [1/10] 141.93secs : acc: 0.124, val_acc: 0.118, loss: 2.541, val_loss: 2.549, top k val_acc: k=1: 0.118 k=2: 0.239 k=3: 0.334 k=4: 0.405
+Epoch [2/10] 212.72secs : acc: 0.175, val_acc: 0.204, loss: 2.525, val_loss: 2.545, top k val_acc: k=1: 0.204 k=2: 0.302 k=3: 0.378 k=4: 0.448
+Epoch [3/10] 283.85secs : acc: 0.185, val_acc: 0.218, loss: 2.512, val_loss: 2.544, top k val_acc: k=1: 0.218 k=2: 0.302 k=3: 0.382 k=4: 0.441
+Epoch [4/10] 354.82secs : acc: 0.186, val_acc: 0.206, loss: 2.500, val_loss: 2.546, top k val_acc: k=1: 0.206 k=2: 0.298 k=3: 0.385 k=4: 0.438
+Epoch [5/10] 425.88secs : acc: 0.162, val_acc: 0.174, loss: 2.488, val_loss: 2.546, top k val_acc: k=1: 0.174 k=2: 0.298 k=3: 0.391 k=4: 0.445
+Epoch [6/10] 497.19secs : acc: 0.152, val_acc: 0.163, loss: 2.477, val_loss: 2.554, top k val_acc: k=1: 0.163 k=2: 0.303 k=3: 0.388 k=4: 0.439
+Epoch [7/10] 567.61secs : acc: 0.144, val_acc: 0.163, loss: 2.466, val_loss: 2.553, top k val_acc: k=1: 0.163 k=2: 0.301 k=3: 0.381 k=4: 0.445
+Epoch [8/10] 638.74secs : acc: 0.152, val_acc: 0.167, loss: 2.454, val_loss: 2.555, top k val_acc: k=1: 0.167 k=2: 0.311 k=3: 0.392 k=4: 0.451
+Epoch [9/10] 710.58secs : acc: 0.147, val_acc: 0.159, loss: 2.440, val_loss: 2.562, top k val_acc: k=1: 0.159 k=2: 0.302 k=3: 0.385 k=4: 0.448
+                     convnet_512_class  convnet_512_inf
+OBSEA/2020-01-01.out               PCC         0.094353
+OBSEA/2020-01-05.out             Torsk         0.125262
+OBSEA/2020-01-06.out             Torsk         0.111816
+OBSEA/2020-01-07.out               LOF         0.101456
+OBSEA/2020-01-09.out         RobustPCA         0.100415
+...                                ...              ...
+OBSEA/2020-12-15.out               LOF         0.088103
+OBSEA/2020-12-24.out         RobustPCA         0.090894
+OBSEA/2020-12-25.out               LOF         0.084908
+OBSEA/2020-12-27.out               LOF         0.092472
+OBSEA/2020-12-28.out               LOF         0.049001
+
+[99 rows x 2 columns]
+{'PCC': 44, 'RobustPCA': 27, 'LOF': 21, 'COPOD': 4, 'Torsk': 3}
+----------------------------------------------------------------
+Epoch [0/10] 73.89secs : acc: 0.114, val_acc: 0.057, loss: 2.569, val_loss: 2.566, top k val_acc: k=1: 0.057 k=2: 0.141 k=3: 0.247 k=4: 0.500
+Epoch [1/10] 149.06secs : acc: 0.109, val_acc: 0.082, loss: 2.551, val_loss: 2.563, top k val_acc: k=1: 0.082 k=2: 0.137 k=3: 0.187 k=4: 0.231
+Epoch [2/10] 224.01secs : acc: 0.106, val_acc: 0.075, loss: 2.537, val_loss: 2.553, top k val_acc: k=1: 0.075 k=2: 0.132 k=3: 0.210 k=4: 0.321
+Epoch [3/10] 299.15secs : acc: 0.122, val_acc: 0.079, loss: 2.524, val_loss: 2.543, top k val_acc: k=1: 0.079 k=2: 0.161 k=3: 0.280 k=4: 0.394
+Epoch [4/10] 374.68secs : acc: 0.126, val_acc: 0.090, loss: 2.512, val_loss: 2.535, top k val_acc: k=1: 0.090 k=2: 0.194 k=3: 0.327 k=4: 0.444
+Epoch [5/10] 451.05secs : acc: 0.135, val_acc: 0.105, loss: 2.500, val_loss: 2.531, top k val_acc: k=1: 0.105 k=2: 0.224 k=3: 0.359 k=4: 0.467
+Epoch [6/10] 526.91secs : acc: 0.155, val_acc: 0.128, loss: 2.489, val_loss: 2.524, top k val_acc: k=1: 0.128 k=2: 0.253 k=3: 0.375 k=4: 0.498
+Epoch [7/10] 601.86secs : acc: 0.163, val_acc: 0.150, loss: 2.477, val_loss: 2.518, top k val_acc: k=1: 0.150 k=2: 0.269 k=3: 0.385 k=4: 0.509
+Epoch [8/10] 677.42secs : acc: 0.172, val_acc: 0.167, loss: 2.469, val_loss: 2.516, top k val_acc: k=1: 0.167 k=2: 0.276 k=3: 0.382 k=4: 0.511
+Epoch [9/10] 752.92secs : acc: 0.178, val_acc: 0.176, loss: 2.457, val_loss: 2.510, top k val_acc: k=1: 0.176 k=2: 0.279 k=3: 0.390 k=4: 0.515
+                     convnet_768_class  convnet_768_inf
+OBSEA/2020-01-05.out        Hybrid KNN         0.095697
+OBSEA/2020-01-09.out               PCC         0.105716
+OBSEA/2020-01-13.out               PCC         0.098733
+OBSEA/2020-01-19.out           DeepAnT         0.101911
+OBSEA/2020-01-21.out               PCC         0.095750
+...                                ...              ...
+OBSEA/2020-12-05.out             COPOD         0.085956
+OBSEA/2020-12-08.out             COPOD         0.091314
+OBSEA/2020-12-18.out             COPOD         0.093742
+OBSEA/2020-12-21.out             COPOD         0.104016
+OBSEA/2020-12-23.out        Hybrid KNN         0.103532
+
+[99 rows x 2 columns]
+{'PCC': 33, 'Hybrid KNN': 22, 'DeepAnT': 20, 'COPOD': 15, 'Random Black Forest (RR)': 6, 'HBOS': 3}
+----------------------------------------------------------------
+Epoch [0/10] 73.07secs : acc: 0.103, val_acc: 0.203, loss: 2.547, val_loss: 2.558, top k val_acc: k=1: 0.203 k=2: 0.340 k=3: 0.354 k=4: 0.392
+Epoch [1/10] 148.50secs : acc: 0.091, val_acc: 0.181, loss: 2.537, val_loss: 2.556, top k val_acc: k=1: 0.181 k=2: 0.286 k=3: 0.386 k=4: 0.433
+Epoch [2/10] 224.51secs : acc: 0.135, val_acc: 0.113, loss: 2.529, val_loss: 2.548, top k val_acc: k=1: 0.113 k=2: 0.233 k=3: 0.331 k=4: 0.448
+Epoch [3/10] 308.63secs : acc: 0.165, val_acc: 0.102, loss: 2.516, val_loss: 2.540, top k val_acc: k=1: 0.102 k=2: 0.244 k=3: 0.339 k=4: 0.446
+Epoch [4/10] 384.25secs : acc: 0.201, val_acc: 0.168, loss: 2.501, val_loss: 2.525, top k val_acc: k=1: 0.168 k=2: 0.289 k=3: 0.384 k=4: 0.484
+Epoch [5/10] 459.18secs : acc: 0.215, val_acc: 0.169, loss: 2.495, val_loss: 2.521, top k val_acc: k=1: 0.169 k=2: 0.276 k=3: 0.373 k=4: 0.472
+Epoch [6/10] 533.93secs : acc: 0.229, val_acc: 0.198, loss: 2.481, val_loss: 2.515, top k val_acc: k=1: 0.198 k=2: 0.287 k=3: 0.377 k=4: 0.473
+Epoch [7/10] 609.32secs : acc: 0.248, val_acc: 0.207, loss: 2.468, val_loss: 2.508, top k val_acc: k=1: 0.207 k=2: 0.299 k=3: 0.379 k=4: 0.473
+Epoch [8/10] 684.79secs : acc: 0.229, val_acc: 0.212, loss: 2.468, val_loss: 2.498, top k val_acc: k=1: 0.212 k=2: 0.304 k=3: 0.396 k=4: 0.487
+Epoch [9/10] 758.74secs : acc: 0.241, val_acc: 0.204, loss: 2.447, val_loss: 2.494, top k val_acc: k=1: 0.204 k=2: 0.295 k=3: 0.393 k=4: 0.493
+                              convnet_1024_class  convnet_1024_inf
+OBSEA/2020-01-06.out                       Torsk          0.097957
+OBSEA/2020-01-09.out                   RobustPCA          0.114846
+OBSEA/2020-01-10.out                         PCC          0.100725
+OBSEA/2020-01-13.out                         PCC          0.100352
+OBSEA/2020-01-14.out                         PCC          0.100793
+...                                          ...               ...
+OBSEA/2020-12-09.out                  Hybrid KNN          0.087845
+OBSEA/2020-12-10.out  DenoisingAutoEncoder (DAE)          0.099287
+OBSEA/2020-12-12.out                  Hybrid KNN          0.100104
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)          0.096638
+OBSEA/2020-12-25.out                       Torsk          0.098007
+
+[99 rows x 2 columns]
+{'PCC': 38, 'Random Black Forest (RR)': 27, 'Hybrid KNN': 12, 'DenoisingAutoEncoder (DAE)': 10, 'Torsk': 8, 'RobustPCA': 4}
+----------------------------------------------------------------
+Epoch [0/10] 206.59secs : acc: 0.092, val_acc: 0.162, loss: 2.472, val_loss: 2.524, top k val_acc: k=1: 0.162 k=2: 0.244 k=3: 0.314 k=4: 0.405
+Epoch [1/10] 414.28secs : acc: 0.179, val_acc: 0.164, loss: 2.397, val_loss: 2.530, top k val_acc: k=1: 0.164 k=2: 0.229 k=3: 0.293 k=4: 0.423
+Epoch [2/10] 621.99secs : acc: 0.179, val_acc: 0.175, loss: 2.377, val_loss: 2.527, top k val_acc: k=1: 0.175 k=2: 0.247 k=3: 0.307 k=4: 0.446
+Epoch [3/10] 831.70secs : acc: 0.181, val_acc: 0.179, loss: 2.363, val_loss: 2.544, top k val_acc: k=1: 0.179 k=2: 0.243 k=3: 0.314 k=4: 0.429
+Epoch [4/10] 1039.90secs : acc: 0.182, val_acc: 0.175, loss: 2.351, val_loss: 2.532, top k val_acc: k=1: 0.175 k=2: 0.259 k=3: 0.326 k=4: 0.444
+Epoch [5/10] 1246.86secs : acc: 0.182, val_acc: 0.173, loss: 2.338, val_loss: 2.548, top k val_acc: k=1: 0.173 k=2: 0.255 k=3: 0.327 k=4: 0.419
+Epoch [6/10] 1462.58secs : acc: 0.185, val_acc: 0.177, loss: 2.330, val_loss: 2.530, top k val_acc: k=1: 0.177 k=2: 0.260 k=3: 0.340 k=4: 0.448
+Epoch [7/10] 1677.90secs : acc: 0.185, val_acc: 0.165, loss: 2.325, val_loss: 2.530, top k val_acc: k=1: 0.165 k=2: 0.252 k=3: 0.333 k=4: 0.463
+Epoch [8/10] 1884.43secs : acc: 0.183, val_acc: 0.182, loss: 2.320, val_loss: 2.517, top k val_acc: k=1: 0.182 k=2: 0.264 k=3: 0.333 k=4: 0.451
+Epoch [9/10] 2091.55secs : acc: 0.188, val_acc: 0.154, loss: 2.316, val_loss: 2.522, top k val_acc: k=1: 0.154 k=2: 0.252 k=3: 0.321 k=4: 0.440
+                     inception_time_16_class  inception_time_16_inf
+OBSEA/2020-01-13.out                     PCC               0.263134
+OBSEA/2020-01-15.out                     PCC               0.221191
+OBSEA/2020-01-18.out                     PCC               0.253107
+OBSEA/2020-01-20.out                     PCC               0.263843
+OBSEA/2020-02-16.out                     PCC               0.287927
+...                                      ...                    ...
+OBSEA/2020-12-20.out              Hybrid KNN               0.231150
+OBSEA/2020-12-21.out                   COPOD               0.245127
+OBSEA/2020-12-22.out              Hybrid KNN               0.235546
+OBSEA/2020-12-24.out               RobustPCA               0.218424
+OBSEA/2020-12-26.out              Hybrid KNN               0.217348
+
+[99 rows x 2 columns]
+{'PCC': 55, 'COPOD': 18, 'DeepAnT': 12, 'Hybrid KNN': 11, 'RobustPCA': 3}
+----------------------------------------------------------------
+Epoch [0/10] 200.31secs : acc: 0.170, val_acc: 0.126, loss: 2.439, val_loss: 2.616, top k val_acc: k=1: 0.126 k=2: 0.244 k=3: 0.319 k=4: 0.418
+Epoch [1/10] 403.60secs : acc: 0.179, val_acc: 0.191, loss: 2.304, val_loss: 2.696, top k val_acc: k=1: 0.191 k=2: 0.242 k=3: 0.332 k=4: 0.429
+Epoch [2/10] 603.97secs : acc: 0.169, val_acc: 0.091, loss: 2.285, val_loss: 2.746, top k val_acc: k=1: 0.091 k=2: 0.244 k=3: 0.319 k=4: 0.441
+Epoch [3/10] 802.78secs : acc: 0.160, val_acc: 0.079, loss: 2.281, val_loss: 2.807, top k val_acc: k=1: 0.079 k=2: 0.209 k=3: 0.311 k=4: 0.435
+Epoch [4/10] 1003.19secs : acc: 0.153, val_acc: 0.139, loss: 2.277, val_loss: 2.772, top k val_acc: k=1: 0.139 k=2: 0.241 k=3: 0.335 k=4: 0.465
+Epoch [5/10] 1202.88secs : acc: 0.155, val_acc: 0.131, loss: 2.271, val_loss: 2.776, top k val_acc: k=1: 0.131 k=2: 0.229 k=3: 0.314 k=4: 0.435
+Epoch [6/10] 1402.78secs : acc: 0.161, val_acc: 0.138, loss: 2.269, val_loss: 2.788, top k val_acc: k=1: 0.138 k=2: 0.238 k=3: 0.336 k=4: 0.447
+Epoch [7/10] 1615.14secs : acc: 0.154, val_acc: 0.158, loss: 2.264, val_loss: 2.747, top k val_acc: k=1: 0.158 k=2: 0.230 k=3: 0.335 k=4: 0.468
+Epoch [8/10] 1843.80secs : acc: 0.160, val_acc: 0.152, loss: 2.263, val_loss: 2.817, top k val_acc: k=1: 0.152 k=2: 0.233 k=3: 0.330 k=4: 0.459
+Epoch [9/10] 2043.84secs : acc: 0.158, val_acc: 0.097, loss: 2.259, val_loss: 2.769, top k val_acc: k=1: 0.097 k=2: 0.223 k=3: 0.305 k=4: 0.435
+                     inception_time_32_class  inception_time_32_inf
+OBSEA/2020-01-02.out                     LOF               0.249915
+OBSEA/2020-01-05.out                   COPOD               0.222700
+OBSEA/2020-01-06.out                     PCC               0.226799
+OBSEA/2020-01-07.out                     LOF               0.283580
+OBSEA/2020-01-10.out                     PCC               0.228589
+...                                      ...                    ...
+OBSEA/2020-12-12.out                     LOF               0.263055
+OBSEA/2020-12-20.out                     LOF               0.215581
+OBSEA/2020-12-25.out                   COPOD               0.227052
+OBSEA/2020-12-26.out                     LOF               0.235517
+OBSEA/2020-12-28.out                   CBLOF               0.120190
+
+[99 rows x 2 columns]
+{'PCC': 55, 'LOF': 18, 'RobustPCA': 12, 'COPOD': 9, 'CBLOF': 5}
+----------------------------------------------------------------
+Epoch [0/10] 201.89secs : acc: 0.125, val_acc: 0.232, loss: 2.485, val_loss: 2.576, top k val_acc: k=1: 0.232 k=2: 0.320 k=3: 0.384 k=4: 0.443
+Epoch [1/10] 403.88secs : acc: 0.238, val_acc: 0.174, loss: 2.379, val_loss: 2.649, top k val_acc: k=1: 0.174 k=2: 0.284 k=3: 0.354 k=4: 0.430
+Epoch [2/10] 605.39secs : acc: 0.209, val_acc: 0.163, loss: 2.353, val_loss: 2.675, top k val_acc: k=1: 0.163 k=2: 0.237 k=3: 0.332 k=4: 0.432
+Epoch [3/10] 807.79secs : acc: 0.208, val_acc: 0.185, loss: 2.340, val_loss: 2.744, top k val_acc: k=1: 0.185 k=2: 0.258 k=3: 0.341 k=4: 0.439
+Epoch [4/10] 1009.57secs : acc: 0.199, val_acc: 0.186, loss: 2.327, val_loss: 2.775, top k val_acc: k=1: 0.186 k=2: 0.255 k=3: 0.331 k=4: 0.420
+Epoch [5/10] 1214.32secs : acc: 0.204, val_acc: 0.171, loss: 2.312, val_loss: 2.776, top k val_acc: k=1: 0.171 k=2: 0.242 k=3: 0.322 k=4: 0.412
+Epoch [6/10] 1449.58secs : acc: 0.205, val_acc: 0.149, loss: 2.304, val_loss: 2.781, top k val_acc: k=1: 0.149 k=2: 0.243 k=3: 0.328 k=4: 0.421
+Epoch [7/10] 1652.52secs : acc: 0.208, val_acc: 0.180, loss: 2.293, val_loss: 2.773, top k val_acc: k=1: 0.180 k=2: 0.256 k=3: 0.345 k=4: 0.448
+Epoch [8/10] 1855.72secs : acc: 0.209, val_acc: 0.176, loss: 2.289, val_loss: 2.845, top k val_acc: k=1: 0.176 k=2: 0.243 k=3: 0.329 k=4: 0.431
+Epoch [9/10] 2057.93secs : acc: 0.204, val_acc: 0.195, loss: 2.282, val_loss: 2.789, top k val_acc: k=1: 0.195 k=2: 0.270 k=3: 0.363 k=4: 0.458
+                     inception_time_64_class  inception_time_64_inf
+OBSEA/2020-01-07.out                     LOF               0.263953
+OBSEA/2020-01-11.out                     PCC               0.230634
+OBSEA/2020-01-14.out                     PCC               0.225643
+OBSEA/2020-01-16.out                     PCC               0.233911
+OBSEA/2020-01-17.out                     PCC               0.225876
+...                                      ...                    ...
+OBSEA/2020-12-10.out                     LOF               0.220238
+OBSEA/2020-12-11.out                     LOF               0.215441
+OBSEA/2020-12-12.out                     LOF               0.215662
+OBSEA/2020-12-13.out                     LOF               0.228550
+OBSEA/2020-12-16.out                     LOF               0.226381
+
+[99 rows x 2 columns]
+{'PCC': 71, 'LOF': 21, 'DenoisingAutoEncoder (DAE)': 7}
+----------------------------------------------------------------
+Epoch [0/10] 194.86secs : acc: 0.112, val_acc: 0.095, loss: 2.517, val_loss: 2.482, top k val_acc: k=1: 0.095 k=2: 0.196 k=3: 0.265 k=4: 0.366
+Epoch [1/10] 398.76secs : acc: 0.132, val_acc: 0.159, loss: 2.369, val_loss: 2.432, top k val_acc: k=1: 0.159 k=2: 0.251 k=3: 0.338 k=4: 0.433
+Epoch [2/10] 609.77secs : acc: 0.177, val_acc: 0.150, loss: 2.333, val_loss: 2.480, top k val_acc: k=1: 0.150 k=2: 0.250 k=3: 0.322 k=4: 0.407
+Epoch [3/10] 806.15secs : acc: 0.195, val_acc: 0.188, loss: 2.316, val_loss: 2.449, top k val_acc: k=1: 0.188 k=2: 0.269 k=3: 0.342 k=4: 0.437
+Epoch [4/10] 1002.42secs : acc: 0.218, val_acc: 0.202, loss: 2.306, val_loss: 2.428, top k val_acc: k=1: 0.202 k=2: 0.297 k=3: 0.386 k=4: 0.475
+Epoch [5/10] 1201.55secs : acc: 0.220, val_acc: 0.196, loss: 2.304, val_loss: 2.472, top k val_acc: k=1: 0.196 k=2: 0.281 k=3: 0.399 k=4: 0.504
+Epoch [6/10] 1398.28secs : acc: 0.227, val_acc: 0.204, loss: 2.300, val_loss: 2.470, top k val_acc: k=1: 0.204 k=2: 0.263 k=3: 0.338 k=4: 0.417
+Epoch [7/10] 1594.28secs : acc: 0.225, val_acc: 0.204, loss: 2.292, val_loss: 2.495, top k val_acc: k=1: 0.204 k=2: 0.283 k=3: 0.374 k=4: 0.463
+Epoch [8/10] 1791.01secs : acc: 0.237, val_acc: 0.216, loss: 2.290, val_loss: 2.468, top k val_acc: k=1: 0.216 k=2: 0.281 k=3: 0.372 k=4: 0.489
+Epoch [9/10] 1986.51secs : acc: 0.234, val_acc: 0.186, loss: 2.289, val_loss: 2.509, top k val_acc: k=1: 0.186 k=2: 0.263 k=3: 0.348 k=4: 0.456
+                        inception_time_128_class  inception_time_128_inf
+OBSEA/2020-01-01.out                         PCC                0.232583
+OBSEA/2020-01-04.out                         PCC                0.185686
+OBSEA/2020-01-17.out                         PCC                0.216431
+OBSEA/2020-02-18.out                         PCC                0.214044
+OBSEA/2020-02-21.out                         PCC                0.226951
+...                                          ...                     ...
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)                0.182570
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)                0.212810
+OBSEA/2020-12-24.out    Random Black Forest (RR)                0.203955
+OBSEA/2020-12-25.out  DenoisingAutoEncoder (DAE)                0.205237
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)                0.101549
+
+[99 rows x 2 columns]
+{'PCC': 50, 'Random Black Forest (RR)': 18, 'DenoisingAutoEncoder (DAE)': 15, 'LOF': 11, 'Hybrid KNN': 4, 'Torsk': 1}
+----------------------------------------------------------------
+Epoch [0/10] 193.35secs : acc: 0.095, val_acc: 0.012, loss: 2.562, val_loss: 2.525, top k val_acc: k=1: 0.012 k=2: 0.121 k=3: 0.211 k=4: 0.272
+Epoch [1/10] 387.16secs : acc: 0.112, val_acc: 0.109, loss: 2.476, val_loss: 2.485, top k val_acc: k=1: 0.109 k=2: 0.176 k=3: 0.246 k=4: 0.330
+Epoch [2/10] 581.01secs : acc: 0.138, val_acc: 0.126, loss: 2.425, val_loss: 2.485, top k val_acc: k=1: 0.126 k=2: 0.205 k=3: 0.292 k=4: 0.395
+Epoch [3/10] 775.78secs : acc: 0.166, val_acc: 0.156, loss: 2.391, val_loss: 2.500, top k val_acc: k=1: 0.156 k=2: 0.269 k=3: 0.363 k=4: 0.443
+Epoch [4/10] 969.68secs : acc: 0.186, val_acc: 0.160, loss: 2.377, val_loss: 2.510, top k val_acc: k=1: 0.160 k=2: 0.268 k=3: 0.342 k=4: 0.428
+Epoch [5/10] 1162.88secs : acc: 0.178, val_acc: 0.169, loss: 2.369, val_loss: 2.501, top k val_acc: k=1: 0.169 k=2: 0.289 k=3: 0.379 k=4: 0.469
+Epoch [6/10] 1357.04secs : acc: 0.183, val_acc: 0.136, loss: 2.349, val_loss: 2.517, top k val_acc: k=1: 0.136 k=2: 0.250 k=3: 0.331 k=4: 0.424
+Epoch [7/10] 1550.71secs : acc: 0.186, val_acc: 0.164, loss: 2.344, val_loss: 2.517, top k val_acc: k=1: 0.164 k=2: 0.277 k=3: 0.358 k=4: 0.436
+Epoch [8/10] 1743.80secs : acc: 0.173, val_acc: 0.156, loss: 2.333, val_loss: 2.544, top k val_acc: k=1: 0.156 k=2: 0.281 k=3: 0.375 k=4: 0.461
+Epoch [9/10] 1938.57secs : acc: 0.188, val_acc: 0.166, loss: 2.334, val_loss: 2.541, top k val_acc: k=1: 0.166 k=2: 0.281 k=3: 0.389 k=4: 0.467
+                     inception_time_256_class  inception_time_256_inf
+OBSEA/2020-01-02.out                    COPOD                0.217085
+OBSEA/2020-01-03.out               Hybrid KNN                0.200761
+OBSEA/2020-01-04.out                    Torsk                0.194646
+OBSEA/2020-01-06.out                    Torsk                0.235737
+OBSEA/2020-01-14.out                      PCC                0.207618
+...                                       ...                     ...
+OBSEA/2020-12-20.out               Hybrid KNN                0.205475
+OBSEA/2020-12-23.out               Hybrid KNN                0.224558
+OBSEA/2020-12-25.out               Hybrid KNN                0.222617
+OBSEA/2020-12-26.out               Hybrid KNN                0.200899
+OBSEA/2020-12-27.out               Hybrid KNN                0.181204
+
+[99 rows x 2 columns]
+{'PCC': 51, 'COPOD': 15, 'Hybrid KNN': 15, 'DeepAnT': 7, 'Torsk': 6, 'Random Black Forest (RR)': 3, 'RobustPCA': 2}
+----------------------------------------------------------------
+Epoch [0/10] 203.23secs : acc: 0.196, val_acc: 0.213, loss: 2.566, val_loss: 2.567, top k val_acc: k=1: 0.213 k=2: 0.279 k=3: 0.346 k=4: 0.432
+Epoch [1/10] 409.15secs : acc: 0.224, val_acc: 0.186, loss: 2.526, val_loss: 2.516, top k val_acc: k=1: 0.186 k=2: 0.298 k=3: 0.380 k=4: 0.499
+Epoch [2/10] 621.41secs : acc: 0.186, val_acc: 0.180, loss: 2.490, val_loss: 2.454, top k val_acc: k=1: 0.180 k=2: 0.288 k=3: 0.371 k=4: 0.460
+Epoch [3/10] 827.24secs : acc: 0.217, val_acc: 0.215, loss: 2.460, val_loss: 2.419, top k val_acc: k=1: 0.215 k=2: 0.349 k=3: 0.448 k=4: 0.520
+Epoch [4/10] 1032.07secs : acc: 0.251, val_acc: 0.246, loss: 2.450, val_loss: 2.401, top k val_acc: k=1: 0.246 k=2: 0.356 k=3: 0.456 k=4: 0.542
+Epoch [5/10] 1238.76secs : acc: 0.226, val_acc: 0.208, loss: 2.436, val_loss: 2.426, top k val_acc: k=1: 0.208 k=2: 0.300 k=3: 0.376 k=4: 0.444
+Epoch [6/10] 1482.41secs : acc: 0.232, val_acc: 0.232, loss: 2.422, val_loss: 2.411, top k val_acc: k=1: 0.232 k=2: 0.316 k=3: 0.391 k=4: 0.487
+Epoch [7/10] 1716.63secs : acc: 0.233, val_acc: 0.217, loss: 2.420, val_loss: 2.428, top k val_acc: k=1: 0.217 k=2: 0.316 k=3: 0.392 k=4: 0.458
+Epoch [8/10] 1970.49secs : acc: 0.231, val_acc: 0.220, loss: 2.412, val_loss: 2.420, top k val_acc: k=1: 0.220 k=2: 0.312 k=3: 0.402 k=4: 0.466
+Epoch [9/10] 2175.54secs : acc: 0.236, val_acc: 0.216, loss: 2.408, val_loss: 2.418, top k val_acc: k=1: 0.216 k=2: 0.304 k=3: 0.374 k=4: 0.459
+                        inception_time_512_class  inception_time_512_inf
+OBSEA/2020-01-01.out                         PCC                0.221889
+OBSEA/2020-01-06.out                  Hybrid KNN                0.198077
+OBSEA/2020-01-07.out  DenoisingAutoEncoder (DAE)                0.186624
+OBSEA/2020-01-10.out                         PCC                0.206756
+OBSEA/2020-01-12.out            AutoEncoder (AE)                0.201293
+...                                          ...                     ...
+OBSEA/2020-12-09.out  DenoisingAutoEncoder (DAE)                0.195554
+OBSEA/2020-12-12.out  DenoisingAutoEncoder (DAE)                0.200054
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)                0.211291
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)                0.211366
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)                0.186918
+
+[99 rows x 2 columns]
+{'PCC': 44, 'DenoisingAutoEncoder (DAE)': 26, 'RobustPCA': 21, 'AutoEncoder (AE)': 6, 'Hybrid KNN': 1, 'COPOD': 1}
+----------------------------------------------------------------
+Epoch [0/10] 212.10secs : acc: 0.046, val_acc: 0.057, loss: 2.564, val_loss: 2.572, top k val_acc: k=1: 0.057 k=2: 0.132 k=3: 0.215 k=4: 0.278
+Epoch [1/10] 425.65secs : acc: 0.091, val_acc: 0.116, loss: 2.520, val_loss: 2.558, top k val_acc: k=1: 0.116 k=2: 0.219 k=3: 0.313 k=4: 0.348
+Epoch [2/10] 639.94secs : acc: 0.174, val_acc: 0.161, loss: 2.473, val_loss: 2.524, top k val_acc: k=1: 0.161 k=2: 0.218 k=3: 0.327 k=4: 0.391
+Epoch [3/10] 854.78secs : acc: 0.226, val_acc: 0.187, loss: 2.427, val_loss: 2.506, top k val_acc: k=1: 0.187 k=2: 0.244 k=3: 0.320 k=4: 0.379
+Epoch [4/10] 1068.35secs : acc: 0.223, val_acc: 0.164, loss: 2.385, val_loss: 2.462, top k val_acc: k=1: 0.164 k=2: 0.238 k=3: 0.325 k=4: 0.413
+Epoch [5/10] 1283.14secs : acc: 0.222, val_acc: 0.232, loss: 2.350, val_loss: 2.444, top k val_acc: k=1: 0.232 k=2: 0.302 k=3: 0.410 k=4: 0.490
+Epoch [6/10] 1496.79secs : acc: 0.215, val_acc: 0.209, loss: 2.335, val_loss: 2.443, top k val_acc: k=1: 0.209 k=2: 0.282 k=3: 0.369 k=4: 0.465
+Epoch [7/10] 1711.15secs : acc: 0.229, val_acc: 0.245, loss: 2.324, val_loss: 2.432, top k val_acc: k=1: 0.245 k=2: 0.325 k=3: 0.415 k=4: 0.493
+Epoch [8/10] 1924.64secs : acc: 0.241, val_acc: 0.237, loss: 2.316, val_loss: 2.455, top k val_acc: k=1: 0.237 k=2: 0.319 k=3: 0.422 k=4: 0.495
+Epoch [9/10] 2138.20secs : acc: 0.230, val_acc: 0.226, loss: 2.307, val_loss: 2.420, top k val_acc: k=1: 0.226 k=2: 0.292 k=3: 0.386 k=4: 0.474
+                        inception_time_768_class  inception_time_768_inf
+OBSEA/2020-01-02.out  DenoisingAutoEncoder (DAE)                0.230731
+OBSEA/2020-01-04.out                       Torsk                0.190582
+OBSEA/2020-01-05.out                         PCC                0.232788
+OBSEA/2020-01-06.out                         PCC                0.223729
+OBSEA/2020-01-11.out    Random Black Forest (RR)                0.204418
+...                                          ...                     ...
+OBSEA/2020-12-06.out                  Hybrid KNN                0.188996
+OBSEA/2020-12-10.out  DenoisingAutoEncoder (DAE)                0.197894
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)                0.205529
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)                0.225793
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)                0.240362
+
+[99 rows x 2 columns]
+{'PCC': 55, 'DenoisingAutoEncoder (DAE)': 14, 'Random Black Forest (RR)': 13, 'AutoEncoder (AE)': 8, 'Hybrid KNN': 4, 'COPOD': 3, 'Torsk': 2}
+----------------------------------------------------------------
+----------------------------------------------------------------
+Epoch [0/10] 59.98secs : acc: 0.147, val_acc: 0.213, loss: 2.464, val_loss: 2.501, top k val_acc: k=1: 0.213 k=2: 0.274 k=3: 0.357 k=4: 0.422
+Epoch [1/10] 119.98secs : acc: 0.206, val_acc: 0.208, loss: 2.359, val_loss: 2.487, top k val_acc: k=1: 0.208 k=2: 0.267 k=3: 0.367 k=4: 0.444
+Epoch [2/10] 180.62secs : acc: 0.212, val_acc: 0.208, loss: 2.313, val_loss: 2.467, top k val_acc: k=1: 0.208 k=2: 0.286 k=3: 0.387 k=4: 0.469
+Epoch [3/10] 241.19secs : acc: 0.221, val_acc: 0.206, loss: 2.282, val_loss: 2.478, top k val_acc: k=1: 0.206 k=2: 0.289 k=3: 0.377 k=4: 0.468
+Epoch [4/10] 310.06secs : acc: 0.228, val_acc: 0.223, loss: 2.262, val_loss: 2.490, top k val_acc: k=1: 0.223 k=2: 0.301 k=3: 0.389 k=4: 0.469
+Epoch [5/10] 381.09secs : acc: 0.226, val_acc: 0.213, loss: 2.243, val_loss: 2.490, top k val_acc: k=1: 0.213 k=2: 0.298 k=3: 0.388 k=4: 0.467
+Epoch [6/10] 452.05secs : acc: 0.226, val_acc: 0.184, loss: 2.228, val_loss: 2.471, top k val_acc: k=1: 0.184 k=2: 0.280 k=3: 0.376 k=4: 0.459
+Epoch [7/10] 516.27secs : acc: 0.222, val_acc: 0.186, loss: 2.216, val_loss: 2.496, top k val_acc: k=1: 0.186 k=2: 0.274 k=3: 0.368 k=4: 0.447
+Epoch [8/10] 576.22secs : acc: 0.219, val_acc: 0.201, loss: 2.207, val_loss: 2.496, top k val_acc: k=1: 0.201 k=2: 0.303 k=3: 0.395 k=4: 0.468
+Epoch [9/10] 636.33secs : acc: 0.220, val_acc: 0.194, loss: 2.197, val_loss: 2.523, top k val_acc: k=1: 0.194 k=2: 0.301 k=3: 0.390 k=4: 0.473
+                                 resnet_16_class  resnet_16_inf
+OBSEA/2020-01-04.out                       Torsk       0.131405
+OBSEA/2020-01-10.out                         PCC       0.097189
+OBSEA/2020-01-20.out                         PCC       0.082479
+OBSEA/2020-01-21.out                         PCC       0.077137
+OBSEA/2020-02-15.out                         PCC       0.090968
+...                                          ...            ...
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)       0.081145
+OBSEA/2020-12-22.out                  Hybrid KNN       0.089553
+OBSEA/2020-12-23.out                  Hybrid KNN       0.072430
+OBSEA/2020-12-24.out            AutoEncoder (AE)       0.086605
+OBSEA/2020-12-25.out                       Torsk       0.082807
+
+[99 rows x 2 columns]
+{'PCC': 42, 'Random Black Forest (RR)': 35, 'Hybrid KNN': 14, 'Torsk': 3, 'AutoEncoder (AE)': 3, 'DenoisingAutoEncoder (DAE)': 2}
+----------------------------------------------------------------
+Epoch [0/10] 55.90secs : acc: 0.124, val_acc: 0.151, loss: 2.497, val_loss: 2.605, top k val_acc: k=1: 0.151 k=2: 0.219 k=3: 0.310 k=4: 0.430
+Epoch [1/10] 112.08secs : acc: 0.200, val_acc: 0.163, loss: 2.399, val_loss: 2.610, top k val_acc: k=1: 0.163 k=2: 0.248 k=3: 0.327 k=4: 0.441
+Epoch [2/10] 168.08secs : acc: 0.209, val_acc: 0.147, loss: 2.353, val_loss: 2.626, top k val_acc: k=1: 0.147 k=2: 0.244 k=3: 0.326 k=4: 0.430
+Epoch [3/10] 224.09secs : acc: 0.211, val_acc: 0.149, loss: 2.326, val_loss: 2.617, top k val_acc: k=1: 0.149 k=2: 0.252 k=3: 0.331 k=4: 0.430
+Epoch [4/10] 280.54secs : acc: 0.207, val_acc: 0.163, loss: 2.306, val_loss: 2.621, top k val_acc: k=1: 0.163 k=2: 0.256 k=3: 0.330 k=4: 0.440
+Epoch [5/10] 336.56secs : acc: 0.212, val_acc: 0.159, loss: 2.291, val_loss: 2.619, top k val_acc: k=1: 0.159 k=2: 0.254 k=3: 0.337 k=4: 0.440
+Epoch [6/10] 392.81secs : acc: 0.211, val_acc: 0.156, loss: 2.281, val_loss: 2.621, top k val_acc: k=1: 0.156 k=2: 0.255 k=3: 0.338 k=4: 0.440
+Epoch [7/10] 449.01secs : acc: 0.214, val_acc: 0.170, loss: 2.268, val_loss: 2.624, top k val_acc: k=1: 0.170 k=2: 0.273 k=3: 0.356 k=4: 0.446
+Epoch [8/10] 505.48secs : acc: 0.212, val_acc: 0.173, loss: 2.260, val_loss: 2.616, top k val_acc: k=1: 0.173 k=2: 0.272 k=3: 0.352 k=4: 0.437
+Epoch [9/10] 561.94secs : acc: 0.214, val_acc: 0.158, loss: 2.251, val_loss: 2.616, top k val_acc: k=1: 0.158 k=2: 0.264 k=3: 0.342 k=4: 0.435
+                                 resnet_32_class  resnet_32_inf
+OBSEA/2020-01-01.out                         PCC       0.088794
+OBSEA/2020-01-09.out                   RobustPCA       0.085201
+OBSEA/2020-01-11.out                         PCC       0.082070
+OBSEA/2020-01-17.out                         PCC       0.080902
+OBSEA/2020-01-18.out                         PCC       0.072459
+...                                          ...            ...
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)       0.080482
+OBSEA/2020-12-20.out                  Hybrid KNN       0.056544
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)       0.070675
+OBSEA/2020-12-23.out                  Hybrid KNN       0.080237
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)       0.040248
+
+[99 rows x 2 columns]
+{'PCC': 41, 'DeepAnT': 25, 'DenoisingAutoEncoder (DAE)': 17, 'Hybrid KNN': 8, 'RobustPCA': 6, 'AutoEncoder (AE)': 2}
+----------------------------------------------------------------
+Epoch [0/10] 53.91secs : acc: 0.111, val_acc: 0.127, loss: 2.509, val_loss: 2.508, top k val_acc: k=1: 0.127 k=2: 0.221 k=3: 0.307 k=4: 0.369
+Epoch [1/10] 107.56secs : acc: 0.156, val_acc: 0.155, loss: 2.425, val_loss: 2.501, top k val_acc: k=1: 0.155 k=2: 0.241 k=3: 0.342 k=4: 0.413
+Epoch [2/10] 161.33secs : acc: 0.191, val_acc: 0.156, loss: 2.379, val_loss: 2.512, top k val_acc: k=1: 0.156 k=2: 0.243 k=3: 0.345 k=4: 0.417
+Epoch [3/10] 215.07secs : acc: 0.203, val_acc: 0.159, loss: 2.350, val_loss: 2.521, top k val_acc: k=1: 0.159 k=2: 0.241 k=3: 0.345 k=4: 0.414
+Epoch [4/10] 268.66secs : acc: 0.209, val_acc: 0.167, loss: 2.326, val_loss: 2.530, top k val_acc: k=1: 0.167 k=2: 0.245 k=3: 0.336 k=4: 0.416
+Epoch [5/10] 322.58secs : acc: 0.211, val_acc: 0.162, loss: 2.313, val_loss: 2.538, top k val_acc: k=1: 0.162 k=2: 0.247 k=3: 0.332 k=4: 0.415
+Epoch [6/10] 376.62secs : acc: 0.214, val_acc: 0.171, loss: 2.299, val_loss: 2.544, top k val_acc: k=1: 0.171 k=2: 0.253 k=3: 0.338 k=4: 0.415
+Epoch [7/10] 430.62secs : acc: 0.219, val_acc: 0.170, loss: 2.285, val_loss: 2.545, top k val_acc: k=1: 0.170 k=2: 0.257 k=3: 0.338 k=4: 0.429
+Epoch [8/10] 484.07secs : acc: 0.217, val_acc: 0.172, loss: 2.274, val_loss: 2.567, top k val_acc: k=1: 0.172 k=2: 0.247 k=3: 0.337 k=4: 0.427
+Epoch [9/10] 537.99secs : acc: 0.215, val_acc: 0.166, loss: 2.264, val_loss: 2.555, top k val_acc: k=1: 0.166 k=2: 0.259 k=3: 0.346 k=4: 0.433
+                                 resnet_64_class  resnet_64_inf
+OBSEA/2020-01-04.out                       Torsk       0.095252
+OBSEA/2020-01-06.out                         PCC       0.074396
+OBSEA/2020-01-08.out                  Hybrid KNN       0.079214
+OBSEA/2020-01-11.out                         PCC       0.072345
+OBSEA/2020-01-16.out                         PCC       0.060362
+...                                          ...            ...
+OBSEA/2020-12-12.out                  Hybrid KNN       0.068821
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)       0.065487
+OBSEA/2020-12-14.out                  Hybrid KNN       0.066820
+OBSEA/2020-12-16.out                  Hybrid KNN       0.069942
+OBSEA/2020-12-19.out                  Hybrid KNN       0.075010
+
+[99 rows x 2 columns]
+{'PCC': 44, 'DeepAnT': 23, 'Hybrid KNN': 19, 'DenoisingAutoEncoder (DAE)': 9, 'COPOD': 2, 'Torsk': 1, 'HBOS': 1}
+----------------------------------------------------------------
+Epoch [0/10] 52.49secs : acc: 0.076, val_acc: 0.073, loss: 2.523, val_loss: 2.797, top k val_acc: k=1: 0.073 k=2: 0.176 k=3: 0.265 k=4: 0.385
+Epoch [1/10] 104.99secs : acc: 0.084, val_acc: 0.090, loss: 2.451, val_loss: 2.847, top k val_acc: k=1: 0.090 k=2: 0.215 k=3: 0.319 k=4: 0.436
+Epoch [2/10] 158.03secs : acc: 0.097, val_acc: 0.091, loss: 2.400, val_loss: 2.894, top k val_acc: k=1: 0.091 k=2: 0.224 k=3: 0.332 k=4: 0.447
+Epoch [3/10] 210.76secs : acc: 0.111, val_acc: 0.090, loss: 2.363, val_loss: 2.924, top k val_acc: k=1: 0.090 k=2: 0.240 k=3: 0.345 k=4: 0.461
+Epoch [4/10] 263.49secs : acc: 0.109, val_acc: 0.102, loss: 2.337, val_loss: 2.979, top k val_acc: k=1: 0.102 k=2: 0.245 k=3: 0.351 k=4: 0.458
+Epoch [5/10] 317.21secs : acc: 0.121, val_acc: 0.113, loss: 2.319, val_loss: 3.017, top k val_acc: k=1: 0.113 k=2: 0.253 k=3: 0.356 k=4: 0.462
+Epoch [6/10] 370.27secs : acc: 0.122, val_acc: 0.106, loss: 2.307, val_loss: 3.062, top k val_acc: k=1: 0.106 k=2: 0.260 k=3: 0.353 k=4: 0.451
+Epoch [7/10] 422.89secs : acc: 0.129, val_acc: 0.102, loss: 2.285, val_loss: 3.041, top k val_acc: k=1: 0.102 k=2: 0.267 k=3: 0.352 k=4: 0.449
+Epoch [8/10] 475.83secs : acc: 0.132, val_acc: 0.103, loss: 2.285, val_loss: 3.072, top k val_acc: k=1: 0.103 k=2: 0.268 k=3: 0.352 k=4: 0.455
+Epoch [9/10] 528.53secs : acc: 0.133, val_acc: 0.109, loss: 2.267, val_loss: 3.075, top k val_acc: k=1: 0.109 k=2: 0.278 k=3: 0.376 k=4: 0.468
+                                resnet_128_class  resnet_128_inf
+OBSEA/2020-01-01.out                  Hybrid KNN        0.070918
+OBSEA/2020-01-06.out                         PCC        0.075046
+OBSEA/2020-01-07.out  DenoisingAutoEncoder (DAE)        0.069515
+OBSEA/2020-01-09.out                     DeepAnT        0.077703
+OBSEA/2020-01-11.out                         PCC        0.072314
+...                                          ...             ...
+OBSEA/2020-12-20.out  DenoisingAutoEncoder (DAE)        0.068198
+OBSEA/2020-12-24.out                     DeepAnT        0.070338
+OBSEA/2020-12-25.out                        HBOS        0.064179
+OBSEA/2020-12-26.out  DenoisingAutoEncoder (DAE)        0.068111
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)        0.065436
+
+[99 rows x 2 columns]
+{'DeepAnT': 36, 'Hybrid KNN': 22, 'PCC': 15, 'DenoisingAutoEncoder (DAE)': 14, 'LOF': 4, 'CBLOF': 3, 'HBOS': 3, 'COPOD': 1, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 57.74secs : acc: 0.034, val_acc: 0.047, loss: 2.573, val_loss: 2.566, top k val_acc: k=1: 0.047 k=2: 0.085 k=3: 0.134 k=4: 0.175
+Epoch [1/10] 113.56secs : acc: 0.071, val_acc: 0.036, loss: 2.526, val_loss: 2.552, top k val_acc: k=1: 0.036 k=2: 0.133 k=3: 0.192 k=4: 0.240
+Epoch [2/10] 168.98secs : acc: 0.100, val_acc: 0.068, loss: 2.496, val_loss: 2.535, top k val_acc: k=1: 0.068 k=2: 0.144 k=3: 0.195 k=4: 0.265
+Epoch [3/10] 224.65secs : acc: 0.126, val_acc: 0.081, loss: 2.468, val_loss: 2.550, top k val_acc: k=1: 0.081 k=2: 0.163 k=3: 0.204 k=4: 0.257
+Epoch [4/10] 280.39secs : acc: 0.132, val_acc: 0.104, loss: 2.450, val_loss: 2.526, top k val_acc: k=1: 0.104 k=2: 0.209 k=3: 0.254 k=4: 0.310
+Epoch [5/10] 336.74secs : acc: 0.138, val_acc: 0.127, loss: 2.431, val_loss: 2.539, top k val_acc: k=1: 0.127 k=2: 0.203 k=3: 0.244 k=4: 0.300
+Epoch [6/10] 393.03secs : acc: 0.151, val_acc: 0.112, loss: 2.412, val_loss: 2.523, top k val_acc: k=1: 0.112 k=2: 0.197 k=3: 0.236 k=4: 0.303
+Epoch [7/10] 448.70secs : acc: 0.143, val_acc: 0.094, loss: 2.404, val_loss: 2.532, top k val_acc: k=1: 0.094 k=2: 0.178 k=3: 0.222 k=4: 0.296
+Epoch [8/10] 504.18secs : acc: 0.150, val_acc: 0.102, loss: 2.397, val_loss: 2.532, top k val_acc: k=1: 0.102 k=2: 0.180 k=3: 0.242 k=4: 0.306
+Epoch [9/10] 560.94secs : acc: 0.156, val_acc: 0.116, loss: 2.380, val_loss: 2.530, top k val_acc: k=1: 0.116 k=2: 0.193 k=3: 0.258 k=4: 0.327
+                                resnet_256_class  resnet_256_inf
+OBSEA/2020-01-03.out                  Hybrid KNN        0.079146
+OBSEA/2020-01-04.out                  Hybrid KNN        0.072279
+OBSEA/2020-01-06.out                  Hybrid KNN        0.066797
+OBSEA/2020-01-07.out                  Hybrid KNN        0.062187
+OBSEA/2020-01-08.out                         LOF        0.066936
+...                                          ...             ...
+OBSEA/2020-12-06.out                  Hybrid KNN        0.079713
+OBSEA/2020-12-10.out  DenoisingAutoEncoder (DAE)        0.065297
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)        0.050576
+OBSEA/2020-12-20.out                  Hybrid KNN        0.065072
+OBSEA/2020-12-23.out                  Hybrid KNN        0.072622
+
+[99 rows x 2 columns]
+{'DeepAnT': 34, 'PCC': 20, 'Hybrid KNN': 16, 'COPOD': 10, 'Torsk': 7, 'DenoisingAutoEncoder (DAE)': 5, 'Random Black Forest (RR)': 4, 'LOF': 3}
+----------------------------------------------------------------
+Epoch [0/10] 56.87secs : acc: 0.028, val_acc: 0.003, loss: 2.559, val_loss: 2.566, top k val_acc: k=1: 0.003 k=2: 0.012 k=3: 0.068 k=4: 0.105
+Epoch [1/10] 114.09secs : acc: 0.051, val_acc: 0.031, loss: 2.520, val_loss: 2.568, top k val_acc: k=1: 0.031 k=2: 0.125 k=3: 0.191 k=4: 0.256
+Epoch [2/10] 171.33secs : acc: 0.085, val_acc: 0.078, loss: 2.495, val_loss: 2.576, top k val_acc: k=1: 0.078 k=2: 0.218 k=3: 0.264 k=4: 0.321
+Epoch [3/10] 230.23secs : acc: 0.124, val_acc: 0.094, loss: 2.475, val_loss: 2.581, top k val_acc: k=1: 0.094 k=2: 0.235 k=3: 0.296 k=4: 0.345
+Epoch [4/10] 297.33secs : acc: 0.130, val_acc: 0.123, loss: 2.460, val_loss: 2.580, top k val_acc: k=1: 0.123 k=2: 0.239 k=3: 0.318 k=4: 0.378
+Epoch [5/10] 363.82secs : acc: 0.140, val_acc: 0.134, loss: 2.446, val_loss: 2.576, top k val_acc: k=1: 0.134 k=2: 0.243 k=3: 0.330 k=4: 0.389
+Epoch [6/10] 426.59secs : acc: 0.139, val_acc: 0.132, loss: 2.433, val_loss: 2.575, top k val_acc: k=1: 0.132 k=2: 0.242 k=3: 0.329 k=4: 0.385
+Epoch [7/10] 490.05secs : acc: 0.145, val_acc: 0.141, loss: 2.422, val_loss: 2.574, top k val_acc: k=1: 0.141 k=2: 0.247 k=3: 0.331 k=4: 0.378
+Epoch [8/10] 552.73secs : acc: 0.154, val_acc: 0.149, loss: 2.411, val_loss: 2.574, top k val_acc: k=1: 0.149 k=2: 0.254 k=3: 0.345 k=4: 0.392
+Epoch [9/10] 614.91secs : acc: 0.153, val_acc: 0.144, loss: 2.399, val_loss: 2.577, top k val_acc: k=1: 0.144 k=2: 0.247 k=3: 0.340 k=4: 0.382
+                                resnet_512_class  resnet_512_inf
+OBSEA/2020-01-01.out                         PCC        0.085526
+OBSEA/2020-01-03.out                  Hybrid KNN        0.081842
+OBSEA/2020-01-10.out                         PCC        0.080879
+OBSEA/2020-01-14.out                         PCC        0.077911
+OBSEA/2020-01-15.out                         PCC        0.098595
+...                                          ...             ...
+OBSEA/2020-11-30.out                     DeepAnT        0.068959
+OBSEA/2020-12-01.out                         LOF        0.075191
+OBSEA/2020-12-13.out                         LOF        0.066786
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)        0.073005
+OBSEA/2020-12-21.out                  Hybrid KNN        0.097552
+
+[99 rows x 2 columns]
+{'PCC': 36, 'DeepAnT': 32, 'Hybrid KNN': 16, 'LOF': 6, 'Torsk': 4, 'DenoisingAutoEncoder (DAE)': 4, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 65.79secs : acc: 0.118, val_acc: 0.020, loss: 2.567, val_loss: 2.573, top k val_acc: k=1: 0.020 k=2: 0.086 k=3: 0.136 k=4: 0.179
+Epoch [1/10] 132.44secs : acc: 0.151, val_acc: 0.020, loss: 2.543, val_loss: 2.582, top k val_acc: k=1: 0.020 k=2: 0.075 k=3: 0.127 k=4: 0.215
+Epoch [2/10] 197.95secs : acc: 0.176, val_acc: 0.053, loss: 2.526, val_loss: 2.566, top k val_acc: k=1: 0.053 k=2: 0.159 k=3: 0.296 k=4: 0.368
+Epoch [3/10] 263.34secs : acc: 0.182, val_acc: 0.063, loss: 2.512, val_loss: 2.548, top k val_acc: k=1: 0.063 k=2: 0.194 k=3: 0.333 k=4: 0.415
+Epoch [4/10] 328.89secs : acc: 0.183, val_acc: 0.109, loss: 2.498, val_loss: 2.524, top k val_acc: k=1: 0.109 k=2: 0.258 k=3: 0.382 k=4: 0.494
+Epoch [5/10] 394.13secs : acc: 0.186, val_acc: 0.171, loss: 2.490, val_loss: 2.513, top k val_acc: k=1: 0.171 k=2: 0.321 k=3: 0.451 k=4: 0.538
+Epoch [6/10] 459.84secs : acc: 0.193, val_acc: 0.185, loss: 2.477, val_loss: 2.506, top k val_acc: k=1: 0.185 k=2: 0.320 k=3: 0.434 k=4: 0.533
+Epoch [7/10] 525.92secs : acc: 0.197, val_acc: 0.186, loss: 2.465, val_loss: 2.496, top k val_acc: k=1: 0.186 k=2: 0.325 k=3: 0.431 k=4: 0.534
+Epoch [8/10] 591.26secs : acc: 0.205, val_acc: 0.187, loss: 2.457, val_loss: 2.495, top k val_acc: k=1: 0.187 k=2: 0.326 k=3: 0.427 k=4: 0.541
+Epoch [9/10] 656.26secs : acc: 0.211, val_acc: 0.202, loss: 2.448, val_loss: 2.488, top k val_acc: k=1: 0.202 k=2: 0.324 k=3: 0.428 k=4: 0.541
+                      resnet_768_class  resnet_768_inf
+OBSEA/2020-01-06.out             Torsk        0.099280
+OBSEA/2020-01-11.out  AutoEncoder (AE)        0.085991
+OBSEA/2020-01-12.out  AutoEncoder (AE)        0.077088
+OBSEA/2020-01-14.out               PCC        0.082049
+OBSEA/2020-01-16.out               PCC        0.078372
+...                                ...             ...
+OBSEA/2020-12-06.out             Torsk        0.075820
+OBSEA/2020-12-21.out               LOF        0.066288
+OBSEA/2020-12-23.out               LOF        0.068035
+OBSEA/2020-12-26.out               LOF        0.081650
+OBSEA/2020-12-28.out               LOF        0.047576
+
+[99 rows x 2 columns]
+{'Torsk': 34, 'PCC': 29, 'LOF': 17, 'AutoEncoder (AE)': 12, 'Random Black Forest (RR)': 5, 'CBLOF': 2}
+----------------------------------------------------------------
+Epoch [0/10] 66.94secs : acc: 0.060, val_acc: 0.126, loss: 2.582, val_loss: 2.547, top k val_acc: k=1: 0.126 k=2: 0.205 k=3: 0.257 k=4: 0.280
+Epoch [1/10] 135.39secs : acc: 0.102, val_acc: 0.104, loss: 2.557, val_loss: 2.552, top k val_acc: k=1: 0.104 k=2: 0.140 k=3: 0.202 k=4: 0.275
+Epoch [2/10] 213.30secs : acc: 0.120, val_acc: 0.146, loss: 2.539, val_loss: 2.556, top k val_acc: k=1: 0.146 k=2: 0.196 k=3: 0.228 k=4: 0.295
+Epoch [3/10] 306.28secs : acc: 0.130, val_acc: 0.159, loss: 2.517, val_loss: 2.579, top k val_acc: k=1: 0.159 k=2: 0.214 k=3: 0.273 k=4: 0.328
+Epoch [4/10] 392.00secs : acc: 0.141, val_acc: 0.162, loss: 2.514, val_loss: 2.595, top k val_acc: k=1: 0.162 k=2: 0.223 k=3: 0.303 k=4: 0.364
+Epoch [5/10] 478.26secs : acc: 0.160, val_acc: 0.163, loss: 2.499, val_loss: 2.603, top k val_acc: k=1: 0.163 k=2: 0.228 k=3: 0.312 k=4: 0.382
+Epoch [6/10] 551.59secs : acc: 0.162, val_acc: 0.165, loss: 2.491, val_loss: 2.613, top k val_acc: k=1: 0.165 k=2: 0.242 k=3: 0.313 k=4: 0.391
+Epoch [7/10] 621.74secs : acc: 0.147, val_acc: 0.152, loss: 2.484, val_loss: 2.621, top k val_acc: k=1: 0.152 k=2: 0.232 k=3: 0.318 k=4: 0.388
+Epoch [8/10] 689.31secs : acc: 0.172, val_acc: 0.172, loss: 2.467, val_loss: 2.622, top k val_acc: k=1: 0.172 k=2: 0.236 k=3: 0.313 k=4: 0.386
+Epoch [9/10] 755.42secs : acc: 0.158, val_acc: 0.163, loss: 2.468, val_loss: 2.609, top k val_acc: k=1: 0.163 k=2: 0.249 k=3: 0.331 k=4: 0.402
+                             resnet_1024_class  resnet_1024_inf
+OBSEA/2020-01-03.out                      HBOS         0.119187
+OBSEA/2020-01-06.out                      HBOS         0.085315
+OBSEA/2020-01-07.out                       LOF         0.143939
+OBSEA/2020-01-08.out                       LOF         0.082912
+OBSEA/2020-01-09.out  Random Black Forest (RR)         0.088110
+...                                        ...              ...
+OBSEA/2020-12-17.out                       LOF         0.084224
+OBSEA/2020-12-22.out                      HBOS         0.079742
+OBSEA/2020-12-24.out                      HBOS         0.086742
+OBSEA/2020-12-25.out                     Torsk         0.079319
+OBSEA/2020-12-28.out                     CBLOF         0.058190
+
+[99 rows x 2 columns]
+{'PCC': 32, 'HBOS': 31, 'CBLOF': 13, 'LOF': 11, 'Random Black Forest (RR)': 9, 'Torsk': 3}
+----------------------------------------------------------------
+Epoch [0/10] 123.03secs : acc: 0.242, val_acc: 0.282, loss: 2.484, val_loss: 2.440, top k val_acc: k=1: 0.282 k=2: 0.467 k=3: 0.580 k=4: 0.678
+Epoch [1/10] 238.02secs : acc: 0.304, val_acc: 0.256, loss: 2.402, val_loss: 2.421, top k val_acc: k=1: 0.256 k=2: 0.295 k=3: 0.365 k=4: 0.447
+Epoch [2/10] 352.19secs : acc: 0.297, val_acc: 0.233, loss: 2.372, val_loss: 2.427, top k val_acc: k=1: 0.233 k=2: 0.279 k=3: 0.354 k=4: 0.428
+Epoch [3/10] 466.53secs : acc: 0.277, val_acc: 0.206, loss: 2.360, val_loss: 2.440, top k val_acc: k=1: 0.206 k=2: 0.271 k=3: 0.355 k=4: 0.426
+Epoch [4/10] 580.36secs : acc: 0.258, val_acc: 0.197, loss: 2.348, val_loss: 2.462, top k val_acc: k=1: 0.197 k=2: 0.262 k=3: 0.373 k=4: 0.442
+Epoch [5/10] 694.86secs : acc: 0.249, val_acc: 0.195, loss: 2.334, val_loss: 2.483, top k val_acc: k=1: 0.195 k=2: 0.257 k=3: 0.372 k=4: 0.446
+Epoch [6/10] 810.32secs : acc: 0.247, val_acc: 0.186, loss: 2.329, val_loss: 2.500, top k val_acc: k=1: 0.186 k=2: 0.242 k=3: 0.346 k=4: 0.442
+Epoch [7/10] 925.10secs : acc: 0.246, val_acc: 0.180, loss: 2.324, val_loss: 2.503, top k val_acc: k=1: 0.180 k=2: 0.241 k=3: 0.337 k=4: 0.436
+Epoch [8/10] 1040.18secs : acc: 0.247, val_acc: 0.180, loss: 2.321, val_loss: 2.517, top k val_acc: k=1: 0.180 k=2: 0.245 k=3: 0.338 k=4: 0.438
+Epoch [9/10] 1154.33secs : acc: 0.248, val_acc: 0.185, loss: 2.318, val_loss: 2.517, top k val_acc: k=1: 0.185 k=2: 0.253 k=3: 0.337 k=4: 0.444
+                                    sit_16_class  sit_16_inf
+OBSEA/2020-01-05.out  DenoisingAutoEncoder (DAE)    0.151520
+OBSEA/2020-01-09.out                         PCC    0.165618
+OBSEA/2020-01-11.out                         PCC    0.152855
+OBSEA/2020-01-12.out            AutoEncoder (AE)    0.147227
+OBSEA/2020-01-13.out                         PCC    0.184355
+...                                          ...         ...
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)    0.150390
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)    0.154401
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)    0.162027
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)    0.164900
+OBSEA/2020-12-20.out  DenoisingAutoEncoder (DAE)    0.200487
+
+[99 rows x 2 columns]
+{'PCC': 65, 'DenoisingAutoEncoder (DAE)': 32, 'AutoEncoder (AE)': 2}
+----------------------------------------------------------------
+Epoch [0/10] 93.15secs : acc: 0.212, val_acc: 0.270, loss: 2.531, val_loss: 2.555, top k val_acc: k=1: 0.270 k=2: 0.426 k=3: 0.496 k=4: 0.540
+Epoch [1/10] 184.65secs : acc: 0.272, val_acc: 0.253, loss: 2.466, val_loss: 2.586, top k val_acc: k=1: 0.253 k=2: 0.334 k=3: 0.407 k=4: 0.533
+Epoch [2/10] 276.29secs : acc: 0.263, val_acc: 0.237, loss: 2.425, val_loss: 2.621, top k val_acc: k=1: 0.237 k=2: 0.319 k=3: 0.399 k=4: 0.494
+Epoch [3/10] 367.25secs : acc: 0.248, val_acc: 0.225, loss: 2.399, val_loss: 2.658, top k val_acc: k=1: 0.225 k=2: 0.291 k=3: 0.352 k=4: 0.422
+Epoch [4/10] 458.83secs : acc: 0.241, val_acc: 0.200, loss: 2.380, val_loss: 2.687, top k val_acc: k=1: 0.200 k=2: 0.271 k=3: 0.346 k=4: 0.438
+Epoch [5/10] 550.20secs : acc: 0.215, val_acc: 0.197, loss: 2.367, val_loss: 2.707, top k val_acc: k=1: 0.197 k=2: 0.258 k=3: 0.337 k=4: 0.437
+Epoch [6/10] 641.66secs : acc: 0.206, val_acc: 0.195, loss: 2.354, val_loss: 2.721, top k val_acc: k=1: 0.195 k=2: 0.258 k=3: 0.336 k=4: 0.434
+Epoch [7/10] 733.32secs : acc: 0.200, val_acc: 0.210, loss: 2.343, val_loss: 2.707, top k val_acc: k=1: 0.210 k=2: 0.270 k=3: 0.349 k=4: 0.454
+Epoch [8/10] 824.38secs : acc: 0.206, val_acc: 0.202, loss: 2.335, val_loss: 2.709, top k val_acc: k=1: 0.202 k=2: 0.266 k=3: 0.343 k=4: 0.451
+Epoch [9/10] 916.12secs : acc: 0.207, val_acc: 0.219, loss: 2.322, val_loss: 2.694, top k val_acc: k=1: 0.219 k=2: 0.284 k=3: 0.359 k=4: 0.455
+                     sit_32_class  sit_32_inf
+OBSEA/2020-01-01.out          PCC    0.125070
+OBSEA/2020-01-06.out          PCC    0.151145
+OBSEA/2020-01-09.out          PCC    0.136606
+OBSEA/2020-01-10.out          PCC    0.142556
+OBSEA/2020-01-20.out          PCC    0.173045
+...                           ...         ...
+OBSEA/2020-12-13.out   Hybrid KNN    0.131842
+OBSEA/2020-12-23.out   Hybrid KNN    0.136961
+OBSEA/2020-12-24.out          PCC    0.123259
+OBSEA/2020-12-25.out   Hybrid KNN    0.132723
+OBSEA/2020-12-27.out   Hybrid KNN    0.129527
+
+[99 rows x 2 columns]
+{'PCC': 74, 'Hybrid KNN': 25}
+----------------------------------------------------------------
+Epoch [0/10] 80.08secs : acc: 0.163, val_acc: 0.211, loss: 2.537, val_loss: 2.504, top k val_acc: k=1: 0.211 k=2: 0.445 k=3: 0.558 k=4: 0.674
+Epoch [1/10] 159.72secs : acc: 0.275, val_acc: 0.296, loss: 2.488, val_loss: 2.475, top k val_acc: k=1: 0.296 k=2: 0.473 k=3: 0.543 k=4: 0.626
+Epoch [2/10] 239.91secs : acc: 0.295, val_acc: 0.293, loss: 2.453, val_loss: 2.450, top k val_acc: k=1: 0.293 k=2: 0.376 k=3: 0.509 k=4: 0.590
+Epoch [3/10] 319.24secs : acc: 0.286, val_acc: 0.290, loss: 2.425, val_loss: 2.442, top k val_acc: k=1: 0.290 k=2: 0.327 k=3: 0.438 k=4: 0.574
+Epoch [4/10] 399.21secs : acc: 0.282, val_acc: 0.282, loss: 2.404, val_loss: 2.437, top k val_acc: k=1: 0.282 k=2: 0.316 k=3: 0.401 k=4: 0.533
+Epoch [5/10] 479.25secs : acc: 0.277, val_acc: 0.265, loss: 2.387, val_loss: 2.439, top k val_acc: k=1: 0.265 k=2: 0.309 k=3: 0.390 k=4: 0.534
+Epoch [6/10] 558.98secs : acc: 0.271, val_acc: 0.261, loss: 2.375, val_loss: 2.442, top k val_acc: k=1: 0.261 k=2: 0.308 k=3: 0.389 k=4: 0.466
+Epoch [7/10] 638.87secs : acc: 0.263, val_acc: 0.248, loss: 2.366, val_loss: 2.449, top k val_acc: k=1: 0.248 k=2: 0.299 k=3: 0.379 k=4: 0.441
+Epoch [8/10] 719.33secs : acc: 0.261, val_acc: 0.255, loss: 2.358, val_loss: 2.453, top k val_acc: k=1: 0.255 k=2: 0.298 k=3: 0.380 k=4: 0.443
+Epoch [9/10] 800.01secs : acc: 0.259, val_acc: 0.244, loss: 2.352, val_loss: 2.473, top k val_acc: k=1: 0.244 k=2: 0.285 k=3: 0.361 k=4: 0.440
+                          sit_64_class  sit_64_inf
+OBSEA/2020-01-04.out               PCC    0.121360
+OBSEA/2020-01-05.out  AutoEncoder (AE)    0.118559
+OBSEA/2020-01-09.out               PCC    0.137193
+OBSEA/2020-01-10.out               PCC    0.123200
+OBSEA/2020-01-12.out  AutoEncoder (AE)    0.100803
+...                                ...         ...
+OBSEA/2020-12-12.out             COPOD    0.113324
+OBSEA/2020-12-14.out             COPOD    0.109274
+OBSEA/2020-12-21.out             COPOD    0.117370
+OBSEA/2020-12-24.out  AutoEncoder (AE)    0.117324
+OBSEA/2020-12-26.out             COPOD    0.107764
+
+[99 rows x 2 columns]
+{'PCC': 67, 'COPOD': 17, 'AutoEncoder (AE)': 12, 'DenoisingAutoEncoder (DAE)': 3}
+----------------------------------------------------------------
+Epoch [0/10] 75.22secs : acc: 0.157, val_acc: 0.250, loss: 2.559, val_loss: 2.545, top k val_acc: k=1: 0.250 k=2: 0.370 k=3: 0.475 k=4: 0.582
+Epoch [1/10] 150.29secs : acc: 0.252, val_acc: 0.245, loss: 2.541, val_loss: 2.528, top k val_acc: k=1: 0.245 k=2: 0.341 k=3: 0.424 k=4: 0.578
+Epoch [2/10] 225.06secs : acc: 0.278, val_acc: 0.267, loss: 2.524, val_loss: 2.511, top k val_acc: k=1: 0.267 k=2: 0.354 k=3: 0.438 k=4: 0.593
+Epoch [3/10] 299.98secs : acc: 0.266, val_acc: 0.239, loss: 2.509, val_loss: 2.499, top k val_acc: k=1: 0.239 k=2: 0.338 k=3: 0.424 k=4: 0.558
+Epoch [4/10] 374.60secs : acc: 0.259, val_acc: 0.252, loss: 2.495, val_loss: 2.486, top k val_acc: k=1: 0.252 k=2: 0.341 k=3: 0.426 k=4: 0.522
+Epoch [5/10] 449.54secs : acc: 0.246, val_acc: 0.194, loss: 2.484, val_loss: 2.479, top k val_acc: k=1: 0.194 k=2: 0.324 k=3: 0.414 k=4: 0.501
+Epoch [6/10] 524.30secs : acc: 0.232, val_acc: 0.220, loss: 2.472, val_loss: 2.475, top k val_acc: k=1: 0.220 k=2: 0.332 k=3: 0.406 k=4: 0.474
+Epoch [7/10] 598.64secs : acc: 0.228, val_acc: 0.217, loss: 2.461, val_loss: 2.462, top k val_acc: k=1: 0.217 k=2: 0.325 k=3: 0.392 k=4: 0.486
+Epoch [8/10] 673.00secs : acc: 0.228, val_acc: 0.175, loss: 2.451, val_loss: 2.463, top k val_acc: k=1: 0.175 k=2: 0.281 k=3: 0.349 k=4: 0.457
+Epoch [9/10] 747.71secs : acc: 0.214, val_acc: 0.197, loss: 2.442, val_loss: 2.457, top k val_acc: k=1: 0.197 k=2: 0.297 k=3: 0.375 k=4: 0.472
+                                   sit_128_class  sit_128_inf
+OBSEA/2020-01-09.out                         PCC     0.106835
+OBSEA/2020-01-10.out                         PCC     0.096337
+OBSEA/2020-01-20.out                         PCC     0.108077
+OBSEA/2020-01-21.out                         PCC     0.103072
+OBSEA/2020-02-23.out                         PCC     0.100188
+...                                          ...          ...
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)     0.102800
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.088472
+OBSEA/2020-12-26.out  DenoisingAutoEncoder (DAE)     0.088461
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)     0.098877
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)     0.043220
+
+[99 rows x 2 columns]
+{'PCC': 70, 'DenoisingAutoEncoder (DAE)': 17, 'Hybrid KNN': 7, 'Random Black Forest (RR)': 5}
+----------------------------------------------------------------
+Epoch [0/10] 70.84secs : acc: 0.188, val_acc: 0.168, loss: 2.559, val_loss: 2.552, top k val_acc: k=1: 0.168 k=2: 0.234 k=3: 0.284 k=4: 0.404
+Epoch [1/10] 141.79secs : acc: 0.217, val_acc: 0.160, loss: 2.542, val_loss: 2.538, top k val_acc: k=1: 0.160 k=2: 0.228 k=3: 0.345 k=4: 0.455
+Epoch [2/10] 212.40secs : acc: 0.218, val_acc: 0.161, loss: 2.527, val_loss: 2.526, top k val_acc: k=1: 0.161 k=2: 0.357 k=3: 0.472 k=4: 0.576
+Epoch [3/10] 283.11secs : acc: 0.219, val_acc: 0.162, loss: 2.513, val_loss: 2.516, top k val_acc: k=1: 0.162 k=2: 0.380 k=3: 0.504 k=4: 0.594
+Epoch [4/10] 353.64secs : acc: 0.253, val_acc: 0.230, loss: 2.502, val_loss: 2.508, top k val_acc: k=1: 0.230 k=2: 0.412 k=3: 0.520 k=4: 0.608
+Epoch [5/10] 424.24secs : acc: 0.334, val_acc: 0.250, loss: 2.492, val_loss: 2.499, top k val_acc: k=1: 0.250 k=2: 0.423 k=3: 0.523 k=4: 0.606
+Epoch [6/10] 494.63secs : acc: 0.339, val_acc: 0.252, loss: 2.482, val_loss: 2.491, top k val_acc: k=1: 0.252 k=2: 0.402 k=3: 0.519 k=4: 0.617
+Epoch [7/10] 565.96secs : acc: 0.332, val_acc: 0.263, loss: 2.472, val_loss: 2.485, top k val_acc: k=1: 0.263 k=2: 0.388 k=3: 0.490 k=4: 0.578
+Epoch [8/10] 637.63secs : acc: 0.331, val_acc: 0.263, loss: 2.464, val_loss: 2.478, top k val_acc: k=1: 0.263 k=2: 0.372 k=3: 0.483 k=4: 0.572
+Epoch [9/10] 708.75secs : acc: 0.324, val_acc: 0.265, loss: 2.455, val_loss: 2.477, top k val_acc: k=1: 0.265 k=2: 0.349 k=3: 0.441 k=4: 0.550
+                                   sit_256_class  sit_256_inf
+OBSEA/2020-01-04.out                         PCC     0.082050
+OBSEA/2020-01-11.out                         PCC     0.100071
+OBSEA/2020-01-14.out                         PCC     0.106656
+OBSEA/2020-01-15.out                         PCC     0.103767
+OBSEA/2020-02-15.out                         PCC     0.095624
+...                                          ...          ...
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)     0.102534
+OBSEA/2020-12-20.out  DenoisingAutoEncoder (DAE)     0.092520
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)     0.097353
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)     0.095028
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)     0.101560
+
+[99 rows x 2 columns]
+{'PCC': 67, 'DenoisingAutoEncoder (DAE)': 31, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 71.09secs : acc: 0.233, val_acc: 0.239, loss: 2.563, val_loss: 2.562, top k val_acc: k=1: 0.239 k=2: 0.346 k=3: 0.443 k=4: 0.509
+Epoch [1/10] 142.72secs : acc: 0.232, val_acc: 0.175, loss: 2.555, val_loss: 2.556, top k val_acc: k=1: 0.175 k=2: 0.299 k=3: 0.375 k=4: 0.441
+Epoch [2/10] 212.83secs : acc: 0.212, val_acc: 0.172, loss: 2.546, val_loss: 2.550, top k val_acc: k=1: 0.172 k=2: 0.238 k=3: 0.324 k=4: 0.434
+Epoch [3/10] 283.14secs : acc: 0.211, val_acc: 0.181, loss: 2.538, val_loss: 2.548, top k val_acc: k=1: 0.181 k=2: 0.231 k=3: 0.332 k=4: 0.461
+Epoch [4/10] 353.40secs : acc: 0.214, val_acc: 0.178, loss: 2.530, val_loss: 2.541, top k val_acc: k=1: 0.178 k=2: 0.289 k=3: 0.346 k=4: 0.608
+Epoch [5/10] 424.93secs : acc: 0.216, val_acc: 0.174, loss: 2.522, val_loss: 2.536, top k val_acc: k=1: 0.174 k=2: 0.405 k=3: 0.472 k=4: 0.587
+Epoch [6/10] 493.78secs : acc: 0.213, val_acc: 0.177, loss: 2.516, val_loss: 2.533, top k val_acc: k=1: 0.177 k=2: 0.497 k=3: 0.603 k=4: 0.653
+Epoch [7/10] 563.13secs : acc: 0.215, val_acc: 0.182, loss: 2.510, val_loss: 2.529, top k val_acc: k=1: 0.182 k=2: 0.440 k=3: 0.507 k=4: 0.620
+Epoch [8/10] 633.17secs : acc: 0.221, val_acc: 0.195, loss: 2.503, val_loss: 2.525, top k val_acc: k=1: 0.195 k=2: 0.455 k=3: 0.522 k=4: 0.674
+Epoch [9/10] 703.81secs : acc: 0.235, val_acc: 0.228, loss: 2.498, val_loss: 2.520, top k val_acc: k=1: 0.228 k=2: 0.418 k=3: 0.559 k=4: 0.652
+                         sit_512_class  sit_512_inf
+OBSEA/2020-01-01.out  AutoEncoder (AE)     0.106607
+OBSEA/2020-01-07.out  AutoEncoder (AE)     0.104993
+OBSEA/2020-01-15.out  AutoEncoder (AE)     0.087280
+OBSEA/2020-01-16.out  AutoEncoder (AE)     0.104109
+OBSEA/2020-01-18.out  AutoEncoder (AE)     0.087261
+...                                ...          ...
+OBSEA/2020-12-14.out  AutoEncoder (AE)     0.105964
+OBSEA/2020-12-15.out  AutoEncoder (AE)     0.107083
+OBSEA/2020-12-16.out  AutoEncoder (AE)     0.099757
+OBSEA/2020-12-21.out  AutoEncoder (AE)     0.084152
+OBSEA/2020-12-22.out  AutoEncoder (AE)     0.099655
+
+[99 rows x 2 columns]
+{'AutoEncoder (AE)': 98, 'PCC': 1}
+----------------------------------------------------------------
+Epoch [0/10] 75.81secs : acc: 0.063, val_acc: 0.051, loss: 2.564, val_loss: 2.563, top k val_acc: k=1: 0.051 k=2: 0.190 k=3: 0.246 k=4: 0.280
+Epoch [1/10] 149.63secs : acc: 0.088, val_acc: 0.113, loss: 2.562, val_loss: 2.561, top k val_acc: k=1: 0.113 k=2: 0.182 k=3: 0.234 k=4: 0.281
+Epoch [2/10] 223.97secs : acc: 0.143, val_acc: 0.126, loss: 2.559, val_loss: 2.559, top k val_acc: k=1: 0.126 k=2: 0.190 k=3: 0.288 k=4: 0.370
+Epoch [3/10] 298.02secs : acc: 0.161, val_acc: 0.158, loss: 2.556, val_loss: 2.555, top k val_acc: k=1: 0.158 k=2: 0.264 k=3: 0.322 k=4: 0.412
+Epoch [4/10] 372.34secs : acc: 0.180, val_acc: 0.161, loss: 2.553, val_loss: 2.553, top k val_acc: k=1: 0.161 k=2: 0.249 k=3: 0.331 k=4: 0.414
+Epoch [5/10] 446.80secs : acc: 0.192, val_acc: 0.174, loss: 2.549, val_loss: 2.548, top k val_acc: k=1: 0.174 k=2: 0.268 k=3: 0.374 k=4: 0.484
+Epoch [6/10] 521.30secs : acc: 0.194, val_acc: 0.175, loss: 2.544, val_loss: 2.546, top k val_acc: k=1: 0.175 k=2: 0.290 k=3: 0.381 k=4: 0.482
+Epoch [7/10] 595.70secs : acc: 0.197, val_acc: 0.190, loss: 2.540, val_loss: 2.543, top k val_acc: k=1: 0.190 k=2: 0.294 k=3: 0.392 k=4: 0.482
+Epoch [8/10] 670.01secs : acc: 0.222, val_acc: 0.203, loss: 2.535, val_loss: 2.539, top k val_acc: k=1: 0.203 k=2: 0.320 k=3: 0.404 k=4: 0.489
+Epoch [9/10] 745.02secs : acc: 0.239, val_acc: 0.212, loss: 2.531, val_loss: 2.537, top k val_acc: k=1: 0.212 k=2: 0.325 k=3: 0.407 k=4: 0.496
+                                   sit_768_class  sit_768_inf
+OBSEA/2020-01-01.out                         PCC     0.104755
+OBSEA/2020-01-03.out                  Hybrid KNN     0.123438
+OBSEA/2020-01-08.out  DenoisingAutoEncoder (DAE)     0.123387
+OBSEA/2020-01-10.out                         PCC     0.085951
+OBSEA/2020-01-14.out                         PCC     0.112469
+...                                          ...          ...
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)     0.106152
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.107583
+OBSEA/2020-12-20.out  DenoisingAutoEncoder (DAE)     0.106128
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)     0.105914
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)     0.065195
+
+[99 rows x 2 columns]
+{'PCC': 35, 'Random Black Forest (RR)': 31, 'DenoisingAutoEncoder (DAE)': 30, 'Hybrid KNN': 3}
+----------------------------------------------------------------
+Epoch [0/10] 88.01secs : acc: 0.077, val_acc: 0.055, loss: 2.564, val_loss: 2.562, top k val_acc: k=1: 0.055 k=2: 0.226 k=3: 0.291 k=4: 0.336
+Epoch [1/10] 165.50secs : acc: 0.072, val_acc: 0.171, loss: 2.562, val_loss: 2.561, top k val_acc: k=1: 0.171 k=2: 0.270 k=3: 0.317 k=4: 0.380
+Epoch [2/10] 241.78secs : acc: 0.142, val_acc: 0.186, loss: 2.559, val_loss: 2.560, top k val_acc: k=1: 0.186 k=2: 0.275 k=3: 0.324 k=4: 0.410
+Epoch [3/10] 317.93secs : acc: 0.149, val_acc: 0.178, loss: 2.557, val_loss: 2.559, top k val_acc: k=1: 0.178 k=2: 0.311 k=3: 0.389 k=4: 0.462
+Epoch [4/10] 394.90secs : acc: 0.171, val_acc: 0.255, loss: 2.553, val_loss: 2.561, top k val_acc: k=1: 0.255 k=2: 0.367 k=3: 0.450 k=4: 0.530
+Epoch [5/10] 471.41secs : acc: 0.212, val_acc: 0.281, loss: 2.549, val_loss: 2.562, top k val_acc: k=1: 0.281 k=2: 0.379 k=3: 0.459 k=4: 0.533
+Epoch [6/10] 547.51secs : acc: 0.233, val_acc: 0.330, loss: 2.544, val_loss: 2.559, top k val_acc: k=1: 0.330 k=2: 0.384 k=3: 0.483 k=4: 0.574
+Epoch [7/10] 623.96secs : acc: 0.241, val_acc: 0.318, loss: 2.538, val_loss: 2.556, top k val_acc: k=1: 0.318 k=2: 0.376 k=3: 0.452 k=4: 0.558
+Epoch [8/10] 699.51secs : acc: 0.252, val_acc: 0.319, loss: 2.535, val_loss: 2.563, top k val_acc: k=1: 0.319 k=2: 0.380 k=3: 0.466 k=4: 0.563
+Epoch [9/10] 774.55secs : acc: 0.233, val_acc: 0.326, loss: 2.526, val_loss: 2.558, top k val_acc: k=1: 0.326 k=2: 0.377 k=3: 0.460 k=4: 0.565
+                     sit_1024_class  sit_1024_inf
+OBSEA/2020-01-01.out            PCC      0.105461
+OBSEA/2020-01-06.out            PCC      0.110147
+OBSEA/2020-01-21.out            PCC      0.098599
+OBSEA/2020-02-16.out            PCC      0.098314
+OBSEA/2020-02-18.out            PCC      0.111421
+...                             ...           ...
+OBSEA/2020-12-15.out            LOF      0.109998
+OBSEA/2020-12-17.out            LOF      0.105244
+OBSEA/2020-12-18.out            LOF      0.099467
+OBSEA/2020-12-21.out            LOF      0.105959
+OBSEA/2020-12-25.out            PCC      0.109541
+
+[99 rows x 2 columns]
+{'PCC': 72, 'LOF': 26, 'Random Black Forest (RR)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 117.86secs : acc: 0.202, val_acc: 0.306, loss: 2.524, val_loss: 2.488, top k val_acc: k=1: 0.306 k=2: 0.348 k=3: 0.395 k=4: 0.460
+Epoch [1/10] 232.29secs : acc: 0.259, val_acc: 0.226, loss: 2.463, val_loss: 2.468, top k val_acc: k=1: 0.226 k=2: 0.296 k=3: 0.368 k=4: 0.439
+Epoch [2/10] 347.15secs : acc: 0.232, val_acc: 0.208, loss: 2.428, val_loss: 2.464, top k val_acc: k=1: 0.208 k=2: 0.265 k=3: 0.337 k=4: 0.408
+Epoch [3/10] 461.15secs : acc: 0.205, val_acc: 0.201, loss: 2.404, val_loss: 2.470, top k val_acc: k=1: 0.201 k=2: 0.255 k=3: 0.316 k=4: 0.400
+Epoch [4/10] 588.08secs : acc: 0.199, val_acc: 0.197, loss: 2.388, val_loss: 2.473, top k val_acc: k=1: 0.197 k=2: 0.251 k=3: 0.320 k=4: 0.385
+Epoch [5/10] 723.79secs : acc: 0.199, val_acc: 0.194, loss: 2.379, val_loss: 2.483, top k val_acc: k=1: 0.194 k=2: 0.243 k=3: 0.300 k=4: 0.390
+Epoch [6/10] 840.79secs : acc: 0.198, val_acc: 0.197, loss: 2.370, val_loss: 2.483, top k val_acc: k=1: 0.197 k=2: 0.245 k=3: 0.303 k=4: 0.394
+Epoch [7/10] 955.54secs : acc: 0.201, val_acc: 0.194, loss: 2.365, val_loss: 2.481, top k val_acc: k=1: 0.194 k=2: 0.243 k=3: 0.302 k=4: 0.387
+Epoch [8/10] 1069.77secs : acc: 0.201, val_acc: 0.189, loss: 2.362, val_loss: 2.487, top k val_acc: k=1: 0.189 k=2: 0.238 k=3: 0.311 k=4: 0.385
+Epoch [9/10] 1185.60secs : acc: 0.203, val_acc: 0.189, loss: 2.355, val_loss: 2.493, top k val_acc: k=1: 0.189 k=2: 0.241 k=3: 0.316 k=4: 0.383
+                                    sit_16_class  sit_16_inf
+OBSEA/2020-01-02.out  DenoisingAutoEncoder (DAE)    0.185933
+OBSEA/2020-01-05.out                         PCC    0.170955
+OBSEA/2020-01-08.out  DenoisingAutoEncoder (DAE)    0.156288
+OBSEA/2020-01-10.out                         PCC    0.165709
+OBSEA/2020-01-12.out                         PCC    0.148712
+...                                          ...         ...
+OBSEA/2020-12-08.out  DenoisingAutoEncoder (DAE)    0.147281
+OBSEA/2020-12-14.out  DenoisingAutoEncoder (DAE)    0.167875
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)    0.148984
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)    0.137641
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)    0.103510
+
+[99 rows x 2 columns]
+{'PCC': 69, 'DenoisingAutoEncoder (DAE)': 30}
+----------------------------------------------------------------
+Epoch [0/10] 92.34secs : acc: 0.247, val_acc: 0.309, loss: 2.540, val_loss: 2.522, top k val_acc: k=1: 0.309 k=2: 0.362 k=3: 0.444 k=4: 0.565
+Epoch [1/10] 183.65secs : acc: 0.293, val_acc: 0.305, loss: 2.497, val_loss: 2.500, top k val_acc: k=1: 0.305 k=2: 0.355 k=3: 0.426 k=4: 0.472
+Epoch [2/10] 275.08secs : acc: 0.286, val_acc: 0.291, loss: 2.472, val_loss: 2.480, top k val_acc: k=1: 0.291 k=2: 0.344 k=3: 0.398 k=4: 0.450
+Epoch [3/10] 370.66secs : acc: 0.280, val_acc: 0.306, loss: 2.457, val_loss: 2.478, top k val_acc: k=1: 0.306 k=2: 0.352 k=3: 0.388 k=4: 0.425
+Epoch [4/10] 469.06secs : acc: 0.282, val_acc: 0.294, loss: 2.447, val_loss: 2.474, top k val_acc: k=1: 0.294 k=2: 0.340 k=3: 0.374 k=4: 0.409
+Epoch [5/10] 562.82secs : acc: 0.273, val_acc: 0.283, loss: 2.440, val_loss: 2.466, top k val_acc: k=1: 0.283 k=2: 0.328 k=3: 0.372 k=4: 0.406
+Epoch [6/10] 674.51secs : acc: 0.262, val_acc: 0.256, loss: 2.433, val_loss: 2.474, top k val_acc: k=1: 0.256 k=2: 0.306 k=3: 0.375 k=4: 0.410
+Epoch [7/10] 766.29secs : acc: 0.209, val_acc: 0.194, loss: 2.426, val_loss: 2.470, top k val_acc: k=1: 0.194 k=2: 0.270 k=3: 0.369 k=4: 0.409
+Epoch [8/10] 857.44secs : acc: 0.173, val_acc: 0.199, loss: 2.419, val_loss: 2.454, top k val_acc: k=1: 0.199 k=2: 0.281 k=3: 0.365 k=4: 0.422
+Epoch [9/10] 948.62secs : acc: 0.202, val_acc: 0.213, loss: 2.409, val_loss: 2.445, top k val_acc: k=1: 0.213 k=2: 0.275 k=3: 0.363 k=4: 0.422
+                                    sit_32_class  sit_32_inf
+OBSEA/2020-01-05.out                         PCC    0.134538
+OBSEA/2020-01-08.out  DenoisingAutoEncoder (DAE)    0.145590
+OBSEA/2020-01-09.out                         PCC    0.129590
+OBSEA/2020-01-10.out                         PCC    0.160230
+OBSEA/2020-01-18.out                         PCC    0.220981
+...                                          ...         ...
+OBSEA/2020-11-20.out  DenoisingAutoEncoder (DAE)    0.129023
+OBSEA/2020-11-21.out  DenoisingAutoEncoder (DAE)    0.133586
+OBSEA/2020-11-29.out                         PCC    0.131760
+OBSEA/2020-12-02.out  DenoisingAutoEncoder (DAE)    0.118421
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)    0.124426
+
+[99 rows x 2 columns]
+{'PCC': 75, 'DenoisingAutoEncoder (DAE)': 24}
+----------------------------------------------------------------
+Epoch [0/10] 81.11secs : acc: 0.208, val_acc: 0.281, loss: 2.551, val_loss: 2.561, top k val_acc: k=1: 0.281 k=2: 0.331 k=3: 0.401 k=4: 0.516
+Epoch [1/10] 165.35secs : acc: 0.289, val_acc: 0.240, loss: 2.515, val_loss: 2.577, top k val_acc: k=1: 0.240 k=2: 0.319 k=3: 0.375 k=4: 0.498
+Epoch [2/10] 251.83secs : acc: 0.269, val_acc: 0.232, loss: 2.487, val_loss: 2.596, top k val_acc: k=1: 0.232 k=2: 0.296 k=3: 0.376 k=4: 0.498
+Epoch [3/10] 339.19secs : acc: 0.269, val_acc: 0.233, loss: 2.467, val_loss: 2.617, top k val_acc: k=1: 0.233 k=2: 0.275 k=3: 0.366 k=4: 0.488
+Epoch [4/10] 422.59secs : acc: 0.264, val_acc: 0.230, loss: 2.452, val_loss: 2.637, top k val_acc: k=1: 0.230 k=2: 0.269 k=3: 0.365 k=4: 0.483
+Epoch [5/10] 506.66secs : acc: 0.258, val_acc: 0.219, loss: 2.441, val_loss: 2.661, top k val_acc: k=1: 0.219 k=2: 0.257 k=3: 0.361 k=4: 0.468
+Epoch [6/10] 597.66secs : acc: 0.258, val_acc: 0.224, loss: 2.429, val_loss: 2.662, top k val_acc: k=1: 0.224 k=2: 0.264 k=3: 0.361 k=4: 0.427
+Epoch [7/10] 682.37secs : acc: 0.255, val_acc: 0.207, loss: 2.425, val_loss: 2.685, top k val_acc: k=1: 0.207 k=2: 0.254 k=3: 0.346 k=4: 0.399
+Epoch [8/10] 767.14secs : acc: 0.245, val_acc: 0.179, loss: 2.415, val_loss: 2.707, top k val_acc: k=1: 0.179 k=2: 0.224 k=3: 0.316 k=4: 0.365
+Epoch [9/10] 849.85secs : acc: 0.227, val_acc: 0.176, loss: 2.407, val_loss: 2.689, top k val_acc: k=1: 0.176 k=2: 0.227 k=3: 0.307 k=4: 0.367
+                                    sit_64_class  sit_64_inf
+OBSEA/2020-01-06.out                         PCC    0.174011
+OBSEA/2020-01-07.out  DenoisingAutoEncoder (DAE)    0.142812
+OBSEA/2020-01-09.out                         PCC    0.120893
+OBSEA/2020-01-11.out                         PCC    0.135509
+OBSEA/2020-01-12.out            AutoEncoder (AE)    0.131850
+...                                          ...         ...
+OBSEA/2020-12-11.out  DenoisingAutoEncoder (DAE)    0.112309
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)    0.119893
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)    0.108417
+OBSEA/2020-12-22.out  DenoisingAutoEncoder (DAE)    0.110756
+OBSEA/2020-12-24.out                         PCC    0.110579
+
+[99 rows x 2 columns]
+{'PCC': 68, 'DenoisingAutoEncoder (DAE)': 30, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 77.78secs : acc: 0.130, val_acc: 0.191, loss: 2.559, val_loss: 2.551, top k val_acc: k=1: 0.191 k=2: 0.245 k=3: 0.308 k=4: 0.379
+Epoch [1/10] 155.87secs : acc: 0.246, val_acc: 0.313, loss: 2.542, val_loss: 2.538, top k val_acc: k=1: 0.313 k=2: 0.387 k=3: 0.454 k=4: 0.527
+Epoch [2/10] 234.57secs : acc: 0.290, val_acc: 0.327, loss: 2.525, val_loss: 2.525, top k val_acc: k=1: 0.327 k=2: 0.404 k=3: 0.467 k=4: 0.544
+Epoch [3/10] 313.28secs : acc: 0.290, val_acc: 0.312, loss: 2.510, val_loss: 2.516, top k val_acc: k=1: 0.312 k=2: 0.391 k=3: 0.473 k=4: 0.551
+Epoch [4/10] 397.82secs : acc: 0.282, val_acc: 0.346, loss: 2.497, val_loss: 2.493, top k val_acc: k=1: 0.346 k=2: 0.404 k=3: 0.504 k=4: 0.584
+Epoch [5/10] 498.75secs : acc: 0.278, val_acc: 0.303, loss: 2.487, val_loss: 2.498, top k val_acc: k=1: 0.303 k=2: 0.366 k=3: 0.455 k=4: 0.527
+Epoch [6/10] 585.69secs : acc: 0.277, val_acc: 0.298, loss: 2.477, val_loss: 2.488, top k val_acc: k=1: 0.298 k=2: 0.355 k=3: 0.447 k=4: 0.535
+Epoch [7/10] 676.26secs : acc: 0.269, val_acc: 0.303, loss: 2.468, val_loss: 2.484, top k val_acc: k=1: 0.303 k=2: 0.378 k=3: 0.459 k=4: 0.552
+Epoch [8/10] 773.95secs : acc: 0.270, val_acc: 0.302, loss: 2.461, val_loss: 2.487, top k val_acc: k=1: 0.302 k=2: 0.361 k=3: 0.435 k=4: 0.490
+Epoch [9/10] 874.71secs : acc: 0.255, val_acc: 0.292, loss: 2.453, val_loss: 2.473, top k val_acc: k=1: 0.292 k=2: 0.355 k=3: 0.389 k=4: 0.472
+                                   sit_128_class  sit_128_inf
+OBSEA/2020-01-01.out                         PCC     0.165435
+OBSEA/2020-01-04.out                         PCC     0.150038
+OBSEA/2020-01-10.out                         PCC     0.123843
+OBSEA/2020-02-15.out                         PCC     0.135394
+OBSEA/2020-02-18.out                         PCC     0.141069
+...                                          ...          ...
+OBSEA/2020-12-12.out  DenoisingAutoEncoder (DAE)     0.104082
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)     0.114249
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)     0.110286
+OBSEA/2020-12-22.out  DenoisingAutoEncoder (DAE)     0.110039
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)     0.065516
+
+[99 rows x 2 columns]
+{'PCC': 73, 'DenoisingAutoEncoder (DAE)': 26}
+----------------------------------------------------------------
+Epoch [0/10] 86.19secs : acc: 0.175, val_acc: 0.142, loss: 2.559, val_loss: 2.552, top k val_acc: k=1: 0.142 k=2: 0.237 k=3: 0.293 k=4: 0.400
+Epoch [1/10] 170.38secs : acc: 0.172, val_acc: 0.163, loss: 2.542, val_loss: 2.536, top k val_acc: k=1: 0.163 k=2: 0.260 k=3: 0.363 k=4: 0.434
+Epoch [2/10] 251.48secs : acc: 0.218, val_acc: 0.236, loss: 2.527, val_loss: 2.525, top k val_acc: k=1: 0.236 k=2: 0.384 k=3: 0.493 k=4: 0.619
+Epoch [3/10] 336.55secs : acc: 0.278, val_acc: 0.256, loss: 2.513, val_loss: 2.515, top k val_acc: k=1: 0.256 k=2: 0.419 k=3: 0.524 k=4: 0.591
+Epoch [4/10] 436.89secs : acc: 0.290, val_acc: 0.284, loss: 2.501, val_loss: 2.507, top k val_acc: k=1: 0.284 k=2: 0.383 k=3: 0.491 k=4: 0.594
+Epoch [5/10] 553.91secs : acc: 0.305, val_acc: 0.297, loss: 2.490, val_loss: 2.495, top k val_acc: k=1: 0.297 k=2: 0.400 k=3: 0.501 k=4: 0.596
+Epoch [6/10] 646.64secs : acc: 0.306, val_acc: 0.304, loss: 2.479, val_loss: 2.489, top k val_acc: k=1: 0.304 k=2: 0.377 k=3: 0.461 k=4: 0.593
+Epoch [7/10] 732.26secs : acc: 0.305, val_acc: 0.296, loss: 2.470, val_loss: 2.483, top k val_acc: k=1: 0.296 k=2: 0.373 k=3: 0.443 k=4: 0.567
+Epoch [8/10] 810.86secs : acc: 0.307, val_acc: 0.308, loss: 2.461, val_loss: 2.475, top k val_acc: k=1: 0.308 k=2: 0.374 k=3: 0.430 k=4: 0.531
+Epoch [9/10] 885.87secs : acc: 0.301, val_acc: 0.291, loss: 2.452, val_loss: 2.470, top k val_acc: k=1: 0.291 k=2: 0.341 k=3: 0.416 k=4: 0.495
+                                   sit_256_class  sit_256_inf
+OBSEA/2020-01-01.out                         PCC     0.158174
+OBSEA/2020-01-11.out                         PCC     0.134439
+OBSEA/2020-01-12.out            AutoEncoder (AE)     0.105688
+OBSEA/2020-01-18.out                         PCC     0.125780
+OBSEA/2020-01-19.out                         PCC     0.124194
+...                                          ...          ...
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)     0.124986
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.123101
+OBSEA/2020-12-20.out  DenoisingAutoEncoder (DAE)     0.119833
+OBSEA/2020-12-22.out  DenoisingAutoEncoder (DAE)     0.108241
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)     0.106188
+
+[99 rows x 2 columns]
+{'PCC': 66, 'DenoisingAutoEncoder (DAE)': 31, 'AutoEncoder (AE)': 2}
+----------------------------------------------------------------
+Epoch [0/10] 75.75secs : acc: 0.077, val_acc: 0.181, loss: 2.564, val_loss: 2.560, top k val_acc: k=1: 0.181 k=2: 0.255 k=3: 0.288 k=4: 0.316
+Epoch [1/10] 150.87secs : acc: 0.119, val_acc: 0.165, loss: 2.560, val_loss: 2.555, top k val_acc: k=1: 0.165 k=2: 0.262 k=3: 0.308 k=4: 0.361
+Epoch [2/10] 223.05secs : acc: 0.231, val_acc: 0.234, loss: 2.555, val_loss: 2.551, top k val_acc: k=1: 0.234 k=2: 0.316 k=3: 0.421 k=4: 0.481
+Epoch [3/10] 301.32secs : acc: 0.273, val_acc: 0.230, loss: 2.550, val_loss: 2.550, top k val_acc: k=1: 0.230 k=2: 0.339 k=3: 0.455 k=4: 0.512
+Epoch [4/10] 396.80secs : acc: 0.281, val_acc: 0.227, loss: 2.543, val_loss: 2.546, top k val_acc: k=1: 0.227 k=2: 0.341 k=3: 0.456 k=4: 0.516
+Epoch [5/10] 471.43secs : acc: 0.282, val_acc: 0.245, loss: 2.535, val_loss: 2.544, top k val_acc: k=1: 0.245 k=2: 0.355 k=3: 0.469 k=4: 0.527
+Epoch [6/10] 548.55secs : acc: 0.281, val_acc: 0.240, loss: 2.528, val_loss: 2.543, top k val_acc: k=1: 0.240 k=2: 0.355 k=3: 0.478 k=4: 0.538
+Epoch [7/10] 623.31secs : acc: 0.286, val_acc: 0.247, loss: 2.522, val_loss: 2.541, top k val_acc: k=1: 0.247 k=2: 0.358 k=3: 0.482 k=4: 0.537
+Epoch [8/10] 699.03secs : acc: 0.281, val_acc: 0.244, loss: 2.516, val_loss: 2.540, top k val_acc: k=1: 0.244 k=2: 0.355 k=3: 0.486 k=4: 0.541
+Epoch [9/10] 780.52secs : acc: 0.284, val_acc: 0.237, loss: 2.513, val_loss: 2.536, top k val_acc: k=1: 0.237 k=2: 0.345 k=3: 0.477 k=4: 0.536
+                     sit_512_class  sit_512_inf
+OBSEA/2020-01-10.out           PCC     0.127339
+OBSEA/2020-01-12.out           PCC     0.122861
+OBSEA/2020-01-14.out           PCC     0.116579
+OBSEA/2020-01-21.out           PCC     0.109882
+OBSEA/2020-02-15.out           PCC     0.091008
+...                            ...          ...
+OBSEA/2020-12-15.out           LOF     0.261531
+OBSEA/2020-12-16.out           LOF     0.112780
+OBSEA/2020-12-17.out           LOF     0.100403
+OBSEA/2020-12-18.out           LOF     0.111138
+OBSEA/2020-12-19.out           LOF     0.106704
+
+[99 rows x 2 columns]
+{'PCC': 66, 'LOF': 33}
+----------------------------------------------------------------
+Epoch [0/10] 91.04secs : acc: 0.169, val_acc: 0.144, loss: 2.563, val_loss: 2.561, top k val_acc: k=1: 0.144 k=2: 0.244 k=3: 0.376 k=4: 0.426
+Epoch [1/10] 174.11secs : acc: 0.120, val_acc: 0.106, loss: 2.558, val_loss: 2.556, top k val_acc: k=1: 0.106 k=2: 0.215 k=3: 0.370 k=4: 0.383
+Epoch [2/10] 255.06secs : acc: 0.122, val_acc: 0.123, loss: 2.552, val_loss: 2.549, top k val_acc: k=1: 0.123 k=2: 0.229 k=3: 0.365 k=4: 0.483
+Epoch [3/10] 335.40secs : acc: 0.153, val_acc: 0.144, loss: 2.546, val_loss: 2.543, top k val_acc: k=1: 0.144 k=2: 0.249 k=3: 0.364 k=4: 0.467
+Epoch [4/10] 418.30secs : acc: 0.187, val_acc: 0.145, loss: 2.540, val_loss: 2.537, top k val_acc: k=1: 0.145 k=2: 0.329 k=3: 0.396 k=4: 0.501
+Epoch [5/10] 499.72secs : acc: 0.201, val_acc: 0.172, loss: 2.534, val_loss: 2.532, top k val_acc: k=1: 0.172 k=2: 0.342 k=3: 0.459 k=4: 0.512
+Epoch [6/10] 589.33secs : acc: 0.201, val_acc: 0.171, loss: 2.528, val_loss: 2.526, top k val_acc: k=1: 0.171 k=2: 0.375 k=3: 0.484 k=4: 0.551
+Epoch [7/10] 674.96secs : acc: 0.198, val_acc: 0.195, loss: 2.523, val_loss: 2.521, top k val_acc: k=1: 0.195 k=2: 0.409 k=3: 0.515 k=4: 0.588
+Epoch [8/10] 761.02secs : acc: 0.224, val_acc: 0.228, loss: 2.518, val_loss: 2.517, top k val_acc: k=1: 0.228 k=2: 0.434 k=3: 0.520 k=4: 0.600
+Epoch [9/10] 3257.80secs : acc: 0.245, val_acc: 0.223, loss: 2.513, val_loss: 2.513, top k val_acc: k=1: 0.223 k=2: 0.422 k=3: 0.519 k=4: 0.598
+                                   sit_768_class  sit_768_inf
+OBSEA/2020-01-06.out            AutoEncoder (AE)     0.116099
+OBSEA/2020-01-09.out            AutoEncoder (AE)     0.099686
+OBSEA/2020-01-14.out            AutoEncoder (AE)     0.105737
+OBSEA/2020-01-20.out            AutoEncoder (AE)     0.114855
+OBSEA/2020-01-22.out            AutoEncoder (AE)     0.032290
+...                                          ...          ...
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)     0.125086
+OBSEA/2020-12-22.out  DenoisingAutoEncoder (DAE)     0.101547
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)     0.557528
+OBSEA/2020-12-25.out            AutoEncoder (AE)     0.186183
+OBSEA/2020-12-28.out  DenoisingAutoEncoder (DAE)     0.061528
+
+[99 rows x 2 columns]
+{'AutoEncoder (AE)': 77, 'DenoisingAutoEncoder (DAE)': 16, 'PCC': 6}
+----------------------------------------------------------------
+Epoch [0/10] 112.08secs : acc: 0.114, val_acc: 0.133, loss: 2.565, val_loss: 2.564, top k val_acc: k=1: 0.133 k=2: 0.238 k=3: 0.346 k=4: 0.427
+Epoch [1/10] 211.74secs : acc: 0.163, val_acc: 0.137, loss: 2.563, val_loss: 2.564, top k val_acc: k=1: 0.137 k=2: 0.236 k=3: 0.365 k=4: 0.484
+Epoch [2/10] 301.83secs : acc: 0.113, val_acc: 0.069, loss: 2.560, val_loss: 2.562, top k val_acc: k=1: 0.069 k=2: 0.200 k=3: 0.315 k=4: 0.436
+Epoch [3/10] 390.30secs : acc: 0.079, val_acc: 0.096, loss: 2.559, val_loss: 2.560, top k val_acc: k=1: 0.096 k=2: 0.188 k=3: 0.300 k=4: 0.398
+Epoch [4/10] 475.63secs : acc: 0.101, val_acc: 0.080, loss: 2.557, val_loss: 2.560, top k val_acc: k=1: 0.080 k=2: 0.215 k=3: 0.358 k=4: 0.476
+Epoch [5/10] 575.61secs : acc: 0.098, val_acc: 0.128, loss: 2.554, val_loss: 2.559, top k val_acc: k=1: 0.128 k=2: 0.287 k=3: 0.379 k=4: 0.485
+Epoch [6/10] 672.23secs : acc: 0.095, val_acc: 0.136, loss: 2.551, val_loss: 2.557, top k val_acc: k=1: 0.136 k=2: 0.296 k=3: 0.379 k=4: 0.474
+Epoch [7/10] 763.82secs : acc: 0.140, val_acc: 0.188, loss: 2.547, val_loss: 2.555, top k val_acc: k=1: 0.188 k=2: 0.322 k=3: 0.408 k=4: 0.514
+Epoch [8/10] 869.74secs : acc: 0.224, val_acc: 0.208, loss: 2.544, val_loss: 2.555, top k val_acc: k=1: 0.208 k=2: 0.318 k=3: 0.389 k=4: 0.510
+Epoch [9/10] 957.72secs : acc: 0.276, val_acc: 0.222, loss: 2.540, val_loss: 2.557, top k val_acc: k=1: 0.222 k=2: 0.329 k=3: 0.412 k=4: 0.499
+                     sit_1024_class  sit_1024_inf
+OBSEA/2020-01-05.out          COPOD      0.125443
+OBSEA/2020-01-09.out            PCC      0.153413
+OBSEA/2020-01-10.out            PCC      0.190816
+OBSEA/2020-01-13.out            PCC      0.326728
+OBSEA/2020-01-17.out            PCC      0.428230
+...                             ...           ...
+OBSEA/2020-11-28.out            PCC      0.099472
+OBSEA/2020-12-02.out          COPOD      0.107898
+OBSEA/2020-12-03.out          COPOD      0.102484
+OBSEA/2020-12-21.out          COPOD      0.124123
+OBSEA/2020-12-23.out          COPOD      0.101386
+
+[99 rows x 2 columns]
+{'PCC': 66, 'COPOD': 31, 'HBOS': 1, 'Random Black Forest (RR)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 194.88secs : acc: 0.259, val_acc: 0.299, loss: 2.521, val_loss: 2.486, top k val_acc: k=1: 0.299 k=2: 0.373 k=3: 0.461 k=4: 0.561
+Epoch [1/10] 420.72secs : acc: 0.267, val_acc: 0.269, loss: 2.473, val_loss: 2.468, top k val_acc: k=1: 0.269 k=2: 0.364 k=3: 0.422 k=4: 0.548
+Epoch [2/10] 637.53secs : acc: 0.254, val_acc: 0.282, loss: 2.455, val_loss: 2.470, top k val_acc: k=1: 0.282 k=2: 0.381 k=3: 0.403 k=4: 0.479
+Epoch [3/10] 852.11secs : acc: 0.239, val_acc: 0.275, loss: 2.447, val_loss: 2.448, top k val_acc: k=1: 0.275 k=2: 0.372 k=3: 0.401 k=4: 0.467
+Epoch [4/10] 1059.08secs : acc: 0.234, val_acc: 0.247, loss: 2.440, val_loss: 2.464, top k val_acc: k=1: 0.247 k=2: 0.329 k=3: 0.373 k=4: 0.448
+Epoch [5/10] 1266.62secs : acc: 0.224, val_acc: 0.221, loss: 2.427, val_loss: 2.452, top k val_acc: k=1: 0.221 k=2: 0.275 k=3: 0.340 k=4: 0.428
+Epoch [6/10] 1479.36secs : acc: 0.199, val_acc: 0.220, loss: 2.417, val_loss: 2.446, top k val_acc: k=1: 0.220 k=2: 0.276 k=3: 0.350 k=4: 0.429
+Epoch [7/10] 1715.10secs : acc: 0.188, val_acc: 0.212, loss: 2.407, val_loss: 2.435, top k val_acc: k=1: 0.212 k=2: 0.279 k=3: 0.345 k=4: 0.433
+Epoch [8/10] 1919.99secs : acc: 0.186, val_acc: 0.220, loss: 2.398, val_loss: 2.446, top k val_acc: k=1: 0.220 k=2: 0.278 k=3: 0.336 k=4: 0.429
+Epoch [9/10] 2188.83secs : acc: 0.187, val_acc: 0.211, loss: 2.393, val_loss: 2.446, top k val_acc: k=1: 0.211 k=2: 0.276 k=3: 0.340 k=4: 0.431
+                                    sit_16_class  sit_16_inf
+OBSEA/2020-01-15.out                         PCC    0.348740
+OBSEA/2020-01-16.out                         PCC    0.299427
+OBSEA/2020-01-18.out                         PCC    0.310391
+OBSEA/2020-01-20.out                         PCC    0.572574
+OBSEA/2020-01-22.out  DenoisingAutoEncoder (DAE)    0.049730
+...                                          ...         ...
+OBSEA/2020-12-10.out  DenoisingAutoEncoder (DAE)    0.346411
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)    0.362985
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)    0.367730
+OBSEA/2020-12-26.out  DenoisingAutoEncoder (DAE)    0.575651
+OBSEA/2020-12-27.out                       COPOD    0.290444
+
+[99 rows x 2 columns]
+{'PCC': 72, 'DenoisingAutoEncoder (DAE)': 20, 'COPOD': 7}
+----------------------------------------------------------------
+Epoch [0/10] 266.90secs : acc: 0.272, val_acc: 0.201, loss: 2.529, val_loss: 2.533, top k val_acc: k=1: 0.201 k=2: 0.261 k=3: 0.315 k=4: 0.415
+Epoch [1/10] 494.69secs : acc: 0.287, val_acc: 0.183, loss: 2.470, val_loss: 2.522, top k val_acc: k=1: 0.183 k=2: 0.239 k=3: 0.299 k=4: 0.353
+Epoch [2/10] 697.15secs : acc: 0.261, val_acc: 0.190, loss: 2.438, val_loss: 2.515, top k val_acc: k=1: 0.190 k=2: 0.249 k=3: 0.321 k=4: 0.354
+Epoch [3/10] 895.92secs : acc: 0.267, val_acc: 0.095, loss: 2.418, val_loss: 2.531, top k val_acc: k=1: 0.095 k=2: 0.177 k=3: 0.258 k=4: 0.332
+Epoch [4/10] 1091.26secs : acc: 0.192, val_acc: 0.078, loss: 2.402, val_loss: 2.547, top k val_acc: k=1: 0.078 k=2: 0.161 k=3: 0.226 k=4: 0.328
+Epoch [5/10] 1268.24secs : acc: 0.200, val_acc: 0.091, loss: 2.384, val_loss: 2.526, top k val_acc: k=1: 0.091 k=2: 0.155 k=3: 0.239 k=4: 0.342
+Epoch [6/10] 1477.73secs : acc: 0.202, val_acc: 0.095, loss: 2.364, val_loss: 2.541, top k val_acc: k=1: 0.095 k=2: 0.153 k=3: 0.230 k=4: 0.346
+Epoch [7/10] 1686.18secs : acc: 0.194, val_acc: 0.113, loss: 2.351, val_loss: 2.554, top k val_acc: k=1: 0.113 k=2: 0.161 k=3: 0.233 k=4: 0.335
+Epoch [8/10] 1859.34secs : acc: 0.198, val_acc: 0.095, loss: 2.342, val_loss: 2.562, top k val_acc: k=1: 0.095 k=2: 0.143 k=3: 0.210 k=4: 0.314
+Epoch [9/10] 2027.80secs : acc: 0.191, val_acc: 0.093, loss: 2.334, val_loss: 2.574, top k val_acc: k=1: 0.093 k=2: 0.142 k=3: 0.213 k=4: 0.317
+                     sit_32_class  sit_32_inf
+OBSEA/2020-01-02.out          PCC    0.224085
+OBSEA/2020-01-04.out          PCC    0.228307
+OBSEA/2020-01-06.out          PCC    0.195517
+OBSEA/2020-01-13.out          PCC    0.193798
+OBSEA/2020-01-15.out          PCC    0.237113
+...                           ...         ...
+OBSEA/2020-12-16.out   Hybrid KNN    0.213482
+OBSEA/2020-12-19.out   Hybrid KNN    0.204679
+OBSEA/2020-12-20.out   Hybrid KNN    0.229737
+OBSEA/2020-12-22.out   Hybrid KNN    0.224886
+OBSEA/2020-12-25.out   Hybrid KNN    0.218775
+
+[99 rows x 2 columns]
+{'PCC': 77, 'Hybrid KNN': 21, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 186.82secs : acc: 0.227, val_acc: 0.356, loss: 2.552, val_loss: 2.542, top k val_acc: k=1: 0.356 k=2: 0.407 k=3: 0.466 k=4: 0.705
+Epoch [1/10] 387.94secs : acc: 0.305, val_acc: 0.342, loss: 2.532, val_loss: 2.522, top k val_acc: k=1: 0.342 k=2: 0.413 k=3: 0.640 k=4: 0.722
+Epoch [2/10] 596.97secs : acc: 0.272, val_acc: 0.299, loss: 2.517, val_loss: 2.506, top k val_acc: k=1: 0.299 k=2: 0.354 k=3: 0.543 k=4: 0.669
+Epoch [3/10] 796.64secs : acc: 0.244, val_acc: 0.307, loss: 2.502, val_loss: 2.490, top k val_acc: k=1: 0.307 k=2: 0.354 k=3: 0.404 k=4: 0.580
+Epoch [4/10] 972.96secs : acc: 0.248, val_acc: 0.295, loss: 2.488, val_loss: 2.476, top k val_acc: k=1: 0.295 k=2: 0.341 k=3: 0.392 k=4: 0.559
+Epoch [5/10] 1145.40secs : acc: 0.231, val_acc: 0.203, loss: 2.476, val_loss: 2.473, top k val_acc: k=1: 0.203 k=2: 0.259 k=3: 0.323 k=4: 0.466
+Epoch [6/10] 1332.15secs : acc: 0.223, val_acc: 0.274, loss: 2.469, val_loss: 2.457, top k val_acc: k=1: 0.274 k=2: 0.330 k=3: 0.375 k=4: 0.560
+Epoch [7/10] 1542.63secs : acc: 0.228, val_acc: 0.149, loss: 2.460, val_loss: 2.462, top k val_acc: k=1: 0.149 k=2: 0.235 k=3: 0.317 k=4: 0.476
+Epoch [8/10] 1752.27secs : acc: 0.194, val_acc: 0.228, loss: 2.454, val_loss: 2.451, top k val_acc: k=1: 0.228 k=2: 0.308 k=3: 0.446 k=4: 0.544
+Epoch [9/10] 1933.69secs : acc: 0.201, val_acc: 0.224, loss: 2.450, val_loss: 2.455, top k val_acc: k=1: 0.224 k=2: 0.315 k=3: 0.386 k=4: 0.519
+                     sit_64_class  sit_64_inf
+OBSEA/2020-01-04.out          PCC    0.256284
+OBSEA/2020-01-05.out          PCC    0.205986
+OBSEA/2020-01-09.out          PCC    0.234017
+OBSEA/2020-01-10.out          PCC    0.208727
+OBSEA/2020-01-12.out          PCC    0.295849
+...                           ...         ...
+OBSEA/2020-12-06.out          PCC    0.377786
+OBSEA/2020-12-08.out          PCC    0.193902
+OBSEA/2020-12-22.out          PCC    0.215364
+OBSEA/2020-12-23.out          PCC    0.237559
+OBSEA/2020-12-24.out          PCC    0.237834
+
+[99 rows x 2 columns]
+{'PCC': 99}
+----------------------------------------------------------------
+Epoch [0/50] 170.54secs : acc: 0.114, val_acc: 0.408, loss: 2.559, val_loss: 2.547, top k val_acc: k=1: 0.408 k=2: 0.594 k=3: 0.664 k=4: 0.762
+Epoch [1/50] 325.61secs : acc: 0.237, val_acc: 0.397, loss: 2.545, val_loss: 2.533, top k val_acc: k=1: 0.397 k=2: 0.536 k=3: 0.636 k=4: 0.703
+Epoch [2/50] 471.14secs : acc: 0.216, val_acc: 0.320, loss: 2.532, val_loss: 2.519, top k val_acc: k=1: 0.320 k=2: 0.431 k=3: 0.584 k=4: 0.660
+Epoch [3/50] 629.84secs : acc: 0.208, val_acc: 0.247, loss: 2.520, val_loss: 2.507, top k val_acc: k=1: 0.247 k=2: 0.346 k=3: 0.531 k=4: 0.604
+Epoch [4/50] 805.43secs : acc: 0.170, val_acc: 0.242, loss: 2.509, val_loss: 2.497, top k val_acc: k=1: 0.242 k=2: 0.314 k=3: 0.499 k=4: 0.659
+Epoch [5/50] 966.67secs : acc: 0.167, val_acc: 0.222, loss: 2.497, val_loss: 2.488, top k val_acc: k=1: 0.222 k=2: 0.302 k=3: 0.496 k=4: 0.660
+Epoch [6/50] 1130.20secs : acc: 0.171, val_acc: 0.233, loss: 2.487, val_loss: 2.476, top k val_acc: k=1: 0.233 k=2: 0.298 k=3: 0.449 k=4: 0.569
+Epoch [7/50] 1292.38secs : acc: 0.161, val_acc: 0.239, loss: 2.479, val_loss: 2.465, top k val_acc: k=1: 0.239 k=2: 0.319 k=3: 0.453 k=4: 0.527
+Epoch [8/50] 1451.03secs : acc: 0.166, val_acc: 0.229, loss: 2.472, val_loss: 2.461, top k val_acc: k=1: 0.229 k=2: 0.317 k=3: 0.464 k=4: 0.524
+Epoch [9/50] 1610.98secs : acc: 0.170, val_acc: 0.237, loss: 2.463, val_loss: 2.448, top k val_acc: k=1: 0.237 k=2: 0.328 k=3: 0.465 k=4: 0.514
+Epoch [10/50] 1770.86secs : acc: 0.171, val_acc: 0.231, loss: 2.454, val_loss: 2.443, top k val_acc: k=1: 0.231 k=2: 0.338 k=3: 0.463 k=4: 0.503
+Epoch [11/50] 1928.08secs : acc: 0.168, val_acc: 0.228, loss: 2.448, val_loss: 2.437, top k val_acc: k=1: 0.228 k=2: 0.321 k=3: 0.451 k=4: 0.492
+Epoch [12/50] 2086.62secs : acc: 0.169, val_acc: 0.231, loss: 2.444, val_loss: 2.430, top k val_acc: k=1: 0.231 k=2: 0.351 k=3: 0.458 k=4: 0.506
+Epoch [13/50] 2269.14secs : acc: 0.173, val_acc: 0.249, loss: 2.436, val_loss: 2.420, top k val_acc: k=1: 0.249 k=2: 0.371 k=3: 0.482 k=4: 0.547
+Epoch [14/50] 2450.57secs : acc: 0.179, val_acc: 0.267, loss: 2.429, val_loss: 2.413, top k val_acc: k=1: 0.267 k=2: 0.399 k=3: 0.496 k=4: 0.586
+Epoch [15/50] 2605.33secs : acc: 0.172, val_acc: 0.277, loss: 2.423, val_loss: 2.411, top k val_acc: k=1: 0.277 k=2: 0.397 k=3: 0.481 k=4: 0.577
+Epoch [16/50] 2749.27secs : acc: 0.188, val_acc: 0.248, loss: 2.421, val_loss: 2.401, top k val_acc: k=1: 0.248 k=2: 0.386 k=3: 0.476 k=4: 0.566
+Epoch [17/50] 2893.37secs : acc: 0.184, val_acc: 0.301, loss: 2.414, val_loss: 2.394, top k val_acc: k=1: 0.301 k=2: 0.429 k=3: 0.507 k=4: 0.614
+Epoch [18/50] 3036.28secs : acc: 0.179, val_acc: 0.222, loss: 2.414, val_loss: 2.406, top k val_acc: k=1: 0.222 k=2: 0.284 k=3: 0.363 k=4: 0.511
+Epoch [19/50] 3179.08secs : acc: 0.180, val_acc: 0.266, loss: 2.410, val_loss: 2.391, top k val_acc: k=1: 0.266 k=2: 0.372 k=3: 0.469 k=4: 0.581
+Epoch [20/50] 3353.73secs : acc: 0.183, val_acc: 0.254, loss: 2.407, val_loss: 2.393, top k val_acc: k=1: 0.254 k=2: 0.360 k=3: 0.467 k=4: 0.582
+Epoch [21/50] 3498.66secs : acc: 0.181, val_acc: 0.232, loss: 2.404, val_loss: 2.390, top k val_acc: k=1: 0.232 k=2: 0.316 k=3: 0.410 k=4: 0.528
+Epoch [22/50] 3642.46secs : acc: 0.183, val_acc: 0.257, loss: 2.401, val_loss: 2.398, top k val_acc: k=1: 0.257 k=2: 0.355 k=3: 0.456 k=4: 0.567
+Epoch [23/50] 3789.67secs : acc: 0.191, val_acc: 0.237, loss: 2.401, val_loss: 2.383, top k val_acc: k=1: 0.237 k=2: 0.330 k=3: 0.427 k=4: 0.552
+Epoch [24/50] 3975.79secs : acc: 0.185, val_acc: 0.316, loss: 2.392, val_loss: 2.375, top k val_acc: k=1: 0.316 k=2: 0.418 k=3: 0.493 k=4: 0.585
+----------------------------------------------------------------
+Epoch [0/10] 182.75secs : acc: 0.147, val_acc: 0.178, loss: 2.562, val_loss: 2.558, top k val_acc: k=1: 0.178 k=2: 0.295 k=3: 0.406 k=4: 0.522
+Epoch [1/10] 359.55secs : acc: 0.230, val_acc: 0.242, loss: 2.553, val_loss: 2.552, top k val_acc: k=1: 0.242 k=2: 0.362 k=3: 0.433 k=4: 0.564
+Epoch [2/10] 523.05secs : acc: 0.242, val_acc: 0.277, loss: 2.543, val_loss: 2.552, top k val_acc: k=1: 0.277 k=2: 0.370 k=3: 0.417 k=4: 0.594
+Epoch [3/10] 713.20secs : acc: 0.265, val_acc: 0.264, loss: 2.532, val_loss: 2.552, top k val_acc: k=1: 0.264 k=2: 0.347 k=3: 0.399 k=4: 0.580
+Epoch [4/10] 881.92secs : acc: 0.265, val_acc: 0.250, loss: 2.521, val_loss: 2.545, top k val_acc: k=1: 0.250 k=2: 0.330 k=3: 0.386 k=4: 0.532
+Epoch [5/10] 1050.61secs : acc: 0.270, val_acc: 0.216, loss: 2.511, val_loss: 2.549, top k val_acc: k=1: 0.216 k=2: 0.292 k=3: 0.355 k=4: 0.496
+Epoch [6/10] 1210.53secs : acc: 0.272, val_acc: 0.251, loss: 2.500, val_loss: 2.547, top k val_acc: k=1: 0.251 k=2: 0.346 k=3: 0.412 k=4: 0.557
+Epoch [7/10] 1381.74secs : acc: 0.276, val_acc: 0.241, loss: 2.490, val_loss: 2.560, top k val_acc: k=1: 0.241 k=2: 0.326 k=3: 0.378 k=4: 0.503
+Epoch [8/10] 1551.84secs : acc: 0.271, val_acc: 0.250, loss: 2.482, val_loss: 2.563, top k val_acc: k=1: 0.250 k=2: 0.342 k=3: 0.393 k=4: 0.482
+Epoch [9/10] 1722.74secs : acc: 0.264, val_acc: 0.247, loss: 2.475, val_loss: 2.535, top k val_acc: k=1: 0.247 k=2: 0.338 k=3: 0.400 k=4: 0.488
+                                   sit_256_class  sit_256_inf
+OBSEA/2020-01-01.out                         PCC     0.316601
+OBSEA/2020-01-02.out                         PCC     0.205080
+OBSEA/2020-01-05.out                  Hybrid KNN     0.208195
+OBSEA/2020-01-06.out                         PCC     0.321803
+OBSEA/2020-01-09.out                         PCC     0.235528
+...                                          ...          ...
+OBSEA/2020-12-11.out  DenoisingAutoEncoder (DAE)     0.207364
+OBSEA/2020-12-15.out    Random Black Forest (RR)     0.193591
+OBSEA/2020-12-16.out  DenoisingAutoEncoder (DAE)     0.192456
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.190460
+OBSEA/2020-12-27.out                         PCC     0.305464
+
+[99 rows x 2 columns]
+{'PCC': 76, 'DenoisingAutoEncoder (DAE)': 8, 'Hybrid KNN': 5, 'RobustPCA': 5, 'COPOD': 2, 'Random Black Forest (RR)': 2, 'AutoEncoder (AE)': 1}
+----------------------------------------------------------------
+Epoch [0/10] 179.48secs : acc: 0.174, val_acc: 0.349, loss: 2.563, val_loss: 2.560, top k val_acc: k=1: 0.349 k=2: 0.398 k=3: 0.447 k=4: 0.506
+Epoch [1/10] 353.98secs : acc: 0.266, val_acc: 0.329, loss: 2.559, val_loss: 2.555, top k val_acc: k=1: 0.329 k=2: 0.405 k=3: 0.481 k=4: 0.578
+Epoch [2/10] 526.95secs : acc: 0.279, val_acc: 0.280, loss: 2.553, val_loss: 2.554, top k val_acc: k=1: 0.280 k=2: 0.347 k=3: 0.414 k=4: 0.493
+Epoch [3/10] 702.91secs : acc: 0.286, val_acc: 0.253, loss: 2.546, val_loss: 2.551, top k val_acc: k=1: 0.253 k=2: 0.326 k=3: 0.393 k=4: 0.461
+Epoch [4/10] 875.01secs : acc: 0.281, val_acc: 0.246, loss: 2.540, val_loss: 2.549, top k val_acc: k=1: 0.246 k=2: 0.316 k=3: 0.376 k=4: 0.458
+Epoch [5/10] 1047.94secs : acc: 0.279, val_acc: 0.247, loss: 2.533, val_loss: 2.547, top k val_acc: k=1: 0.247 k=2: 0.324 k=3: 0.371 k=4: 0.443
+Epoch [6/10] 1222.15secs : acc: 0.278, val_acc: 0.237, loss: 2.526, val_loss: 2.545, top k val_acc: k=1: 0.237 k=2: 0.314 k=3: 0.372 k=4: 0.431
+Epoch [7/10] 1424.30secs : acc: 0.261, val_acc: 0.227, loss: 2.519, val_loss: 2.543, top k val_acc: k=1: 0.227 k=2: 0.314 k=3: 0.369 k=4: 0.437
+Epoch [8/10] 1606.63secs : acc: 0.265, val_acc: 0.222, loss: 2.512, val_loss: 2.543, top k val_acc: k=1: 0.222 k=2: 0.309 k=3: 0.365 k=4: 0.427
+Epoch [9/10] 1801.24secs : acc: 0.259, val_acc: 0.224, loss: 2.505, val_loss: 2.540, top k val_acc: k=1: 0.224 k=2: 0.292 k=3: 0.370 k=4: 0.429
+                     sit_512_class  sit_512_inf
+OBSEA/2020-01-03.out           PCC     0.405515
+OBSEA/2020-01-04.out           PCC     0.208065
+OBSEA/2020-01-10.out           PCC     0.216497
+OBSEA/2020-01-11.out           PCC     0.225152
+OBSEA/2020-01-13.out           PCC     0.249195
+...                            ...          ...
+OBSEA/2020-12-10.out           PCC     0.462106
+OBSEA/2020-12-15.out           PCC     0.191911
+OBSEA/2020-12-17.out           PCC     0.240665
+OBSEA/2020-12-19.out           PCC     0.193063
+OBSEA/2020-12-25.out           PCC     0.356053
+
+[99 rows x 2 columns]
+{'PCC': 99}
+----------------------------------------------------------------
+Epoch [0/10] 192.77secs : acc: 0.124, val_acc: 0.084, loss: 2.564, val_loss: 2.563, top k val_acc: k=1: 0.084 k=2: 0.131 k=3: 0.173 k=4: 0.266
+----------------------------------------------------------------
+Epoch [0/10] 221.07secs : acc: 0.190, val_acc: 0.075, loss: 2.565, val_loss: 2.561, top k val_acc: k=1: 0.075 k=2: 0.144 k=3: 0.422 k=4: 0.583
+Epoch [1/10] 441.31secs : acc: 0.144, val_acc: 0.148, loss: 2.562, val_loss: 2.559, top k val_acc: k=1: 0.148 k=2: 0.342 k=3: 0.488 k=4: 0.520
+Epoch [2/10] 644.29secs : acc: 0.162, val_acc: 0.137, loss: 2.560, val_loss: 2.556, top k val_acc: k=1: 0.137 k=2: 0.365 k=3: 0.489 k=4: 0.587
+Epoch [3/10] 868.43secs : acc: 0.226, val_acc: 0.281, loss: 2.557, val_loss: 2.553, top k val_acc: k=1: 0.281 k=2: 0.388 k=3: 0.496 k=4: 0.638
+Epoch [4/10] 1090.69secs : acc: 0.227, val_acc: 0.279, loss: 2.556, val_loss: 2.550, top k val_acc: k=1: 0.279 k=2: 0.372 k=3: 0.495 k=4: 0.645
+Epoch [5/10] 1337.50secs : acc: 0.197, val_acc: 0.284, loss: 2.554, val_loss: 2.549, top k val_acc: k=1: 0.284 k=2: 0.372 k=3: 0.547 k=4: 0.653
+Epoch [6/10] 1609.82secs : acc: 0.243, val_acc: 0.272, loss: 2.553, val_loss: 2.548, top k val_acc: k=1: 0.272 k=2: 0.369 k=3: 0.535 k=4: 0.644
+----------------------------------------------------------------
+Epoch [0/10] 155.96secs : acc: 0.267, val_acc: 0.233, loss: 2.480, val_loss: 2.455, top k val_acc: k=1: 0.233 k=2: 0.319 k=3: 0.376 k=4: 0.471
+Epoch [1/10] 295.28secs : acc: 0.271, val_acc: 0.222, loss: 2.391, val_loss: 2.444, top k val_acc: k=1: 0.222 k=2: 0.303 k=3: 0.392 k=4: 0.482
+Epoch [2/10] 428.97secs : acc: 0.266, val_acc: 0.216, loss: 2.362, val_loss: 2.448, top k val_acc: k=1: 0.216 k=2: 0.301 k=3: 0.393 k=4: 0.466
+Epoch [3/10] 570.24secs : acc: 0.262, val_acc: 0.223, loss: 2.352, val_loss: 2.458, top k val_acc: k=1: 0.223 k=2: 0.307 k=3: 0.400 k=4: 0.478
+Epoch [4/10] 711.08secs : acc: 0.263, val_acc: 0.219, loss: 2.348, val_loss: 2.476, top k val_acc: k=1: 0.219 k=2: 0.302 k=3: 0.391 k=4: 0.471
+Epoch [5/10] 851.65secs : acc: 0.261, val_acc: 0.209, loss: 2.345, val_loss: 2.483, top k val_acc: k=1: 0.209 k=2: 0.291 k=3: 0.386 k=4: 0.468
+Epoch [6/10] 988.17secs : acc: 0.261, val_acc: 0.211, loss: 2.344, val_loss: 2.494, top k val_acc: k=1: 0.211 k=2: 0.294 k=3: 0.386 k=4: 0.467
+Epoch [7/10] 1130.96secs : acc: 0.261, val_acc: 0.203, loss: 2.341, val_loss: 2.510, top k val_acc: k=1: 0.203 k=2: 0.283 k=3: 0.377 k=4: 0.458
+Epoch [8/10] 1266.92secs : acc: 0.255, val_acc: 0.198, loss: 2.338, val_loss: 2.512, top k val_acc: k=1: 0.198 k=2: 0.282 k=3: 0.379 k=4: 0.475
+Epoch [9/10] 1416.02secs : acc: 0.231, val_acc: 0.202, loss: 2.328, val_loss: 2.503, top k val_acc: k=1: 0.202 k=2: 0.288 k=3: 0.400 k=4: 0.489
+                                    sit_16_class  sit_16_inf
+OBSEA/2020-01-01.out                         PCC    0.202258
+OBSEA/2020-01-02.out  DenoisingAutoEncoder (DAE)    0.172731
+OBSEA/2020-01-06.out  DenoisingAutoEncoder (DAE)    0.200723
+OBSEA/2020-01-08.out                       COPOD    0.186242
+OBSEA/2020-01-10.out                         PCC    0.167617
+...                                          ...         ...
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)    0.190221
+OBSEA/2020-12-19.out                       COPOD    0.197911
+OBSEA/2020-12-20.out                       COPOD    0.172604
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)    0.177261
+OBSEA/2020-12-24.out                         PCC    0.175300
+
+[99 rows x 2 columns]
+{'PCC': 71, 'DenoisingAutoEncoder (DAE)': 16, 'COPOD': 12}
+----------------------------------------------------------------
+Epoch [0/10] 105.46secs : acc: 0.294, val_acc: 0.196, loss: 2.513, val_loss: 2.484, top k val_acc: k=1: 0.196 k=2: 0.278 k=3: 0.646 k=4: 0.733
+Epoch [1/10] 212.12secs : acc: 0.250, val_acc: 0.324, loss: 2.453, val_loss: 2.450, top k val_acc: k=1: 0.324 k=2: 0.475 k=3: 0.568 k=4: 0.654
+Epoch [2/10] 318.70secs : acc: 0.291, val_acc: 0.256, loss: 2.417, val_loss: 2.427, top k val_acc: k=1: 0.256 k=2: 0.355 k=3: 0.468 k=4: 0.576
+Epoch [3/10] 423.80secs : acc: 0.235, val_acc: 0.221, loss: 2.385, val_loss: 2.415, top k val_acc: k=1: 0.221 k=2: 0.333 k=3: 0.433 k=4: 0.519
+Epoch [4/10] 529.43secs : acc: 0.223, val_acc: 0.187, loss: 2.361, val_loss: 2.402, top k val_acc: k=1: 0.187 k=2: 0.296 k=3: 0.389 k=4: 0.488
+Epoch [5/10] 634.06secs : acc: 0.217, val_acc: 0.206, loss: 2.347, val_loss: 2.413, top k val_acc: k=1: 0.206 k=2: 0.306 k=3: 0.377 k=4: 0.484
+Epoch [6/10] 738.87secs : acc: 0.215, val_acc: 0.191, loss: 2.337, val_loss: 2.422, top k val_acc: k=1: 0.191 k=2: 0.288 k=3: 0.358 k=4: 0.452
+Epoch [7/10] 843.67secs : acc: 0.218, val_acc: 0.207, loss: 2.333, val_loss: 2.422, top k val_acc: k=1: 0.207 k=2: 0.302 k=3: 0.378 k=4: 0.472
+Epoch [8/10] 948.09secs : acc: 0.220, val_acc: 0.191, loss: 2.328, val_loss: 2.419, top k val_acc: k=1: 0.191 k=2: 0.279 k=3: 0.359 k=4: 0.448
+Epoch [9/10] 1052.42secs : acc: 0.217, val_acc: 0.201, loss: 2.325, val_loss: 2.433, top k val_acc: k=1: 0.201 k=2: 0.290 k=3: 0.370 k=4: 0.461
+                                    sit_32_class  sit_32_inf
+OBSEA/2020-01-01.out                         PCC    0.179147
+OBSEA/2020-01-13.out                         PCC    0.171498
+OBSEA/2020-01-17.out                         PCC    0.170107
+OBSEA/2020-01-18.out                         PCC    0.145813
+OBSEA/2020-01-20.out                         PCC    0.152065
+...                                          ...         ...
+OBSEA/2020-12-17.out  DenoisingAutoEncoder (DAE)    0.145025
+OBSEA/2020-12-18.out  DenoisingAutoEncoder (DAE)    0.147204
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)    0.143962
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)    0.131469
+OBSEA/2020-12-28.out            AutoEncoder (AE)    0.076251
+
+[99 rows x 2 columns]
+{'PCC': 75, 'DenoisingAutoEncoder (DAE)': 21, 'AutoEncoder (AE)': 3}
+----------------------------------------------------------------
+Epoch [0/10] 89.03secs : acc: 0.255, val_acc: 0.263, loss: 2.545, val_loss: 2.570, top k val_acc: k=1: 0.263 k=2: 0.339 k=3: 0.399 k=4: 0.453
+Epoch [1/10] 167.52secs : acc: 0.246, val_acc: 0.268, loss: 2.506, val_loss: 2.595, top k val_acc: k=1: 0.268 k=2: 0.328 k=3: 0.401 k=4: 0.470
+Epoch [2/10] 246.60secs : acc: 0.249, val_acc: 0.258, loss: 2.477, val_loss: 2.622, top k val_acc: k=1: 0.258 k=2: 0.316 k=3: 0.395 k=4: 0.462
+Epoch [3/10] 333.20secs : acc: 0.242, val_acc: 0.258, loss: 2.458, val_loss: 2.644, top k val_acc: k=1: 0.258 k=2: 0.307 k=3: 0.386 k=4: 0.424
+Epoch [4/10] 431.05secs : acc: 0.239, val_acc: 0.252, loss: 2.444, val_loss: 2.672, top k val_acc: k=1: 0.252 k=2: 0.302 k=3: 0.361 k=4: 0.417
+Epoch [5/10] 520.23secs : acc: 0.234, val_acc: 0.236, loss: 2.432, val_loss: 2.692, top k val_acc: k=1: 0.236 k=2: 0.282 k=3: 0.338 k=4: 0.411
+Epoch [6/10] 610.77secs : acc: 0.233, val_acc: 0.252, loss: 2.424, val_loss: 2.713, top k val_acc: k=1: 0.252 k=2: 0.281 k=3: 0.341 k=4: 0.415
+Epoch [7/10] 710.02secs : acc: 0.228, val_acc: 0.229, loss: 2.416, val_loss: 2.746, top k val_acc: k=1: 0.229 k=2: 0.267 k=3: 0.324 k=4: 0.395
+Epoch [8/10] 802.59secs : acc: 0.220, val_acc: 0.222, loss: 2.410, val_loss: 2.752, top k val_acc: k=1: 0.222 k=2: 0.266 k=3: 0.324 k=4: 0.394
+Epoch [9/10] 902.82secs : acc: 0.207, val_acc: 0.226, loss: 2.403, val_loss: 2.772, top k val_acc: k=1: 0.226 k=2: 0.268 k=3: 0.333 k=4: 0.405
+                     sit_64_class  sit_64_inf
+OBSEA/2020-01-06.out          PCC    0.141141
+OBSEA/2020-01-07.out          LOF    0.137348
+OBSEA/2020-01-09.out          PCC    0.103519
+OBSEA/2020-01-10.out          PCC    0.115877
+OBSEA/2020-01-12.out          PCC    0.144708
+...                           ...         ...
+OBSEA/2020-12-10.out          LOF    0.114413
+OBSEA/2020-12-12.out          LOF    0.134870
+OBSEA/2020-12-21.out          LOF    0.107243
+OBSEA/2020-12-26.out          LOF    0.127707
+OBSEA/2020-12-27.out          LOF    0.113175
+
+[99 rows x 2 columns]
+{'PCC': 78, 'LOF': 21}
+----------------------------------------------------------------
+Epoch [0/10] 92.68secs : acc: 0.185, val_acc: 0.237, loss: 2.550, val_loss: 2.536, top k val_acc: k=1: 0.237 k=2: 0.416 k=3: 0.565 k=4: 0.657
+Epoch [1/10] 185.93secs : acc: 0.274, val_acc: 0.265, loss: 2.519, val_loss: 2.512, top k val_acc: k=1: 0.265 k=2: 0.444 k=3: 0.546 k=4: 0.665
+Epoch [2/10] 277.67secs : acc: 0.303, val_acc: 0.262, loss: 2.495, val_loss: 2.497, top k val_acc: k=1: 0.262 k=2: 0.419 k=3: 0.506 k=4: 0.594
+Epoch [3/10] 386.73secs : acc: 0.321, val_acc: 0.247, loss: 2.471, val_loss: 2.488, top k val_acc: k=1: 0.247 k=2: 0.420 k=3: 0.498 k=4: 0.570
+Epoch [4/10] 503.87secs : acc: 0.323, val_acc: 0.243, loss: 2.450, val_loss: 2.478, top k val_acc: k=1: 0.243 k=2: 0.356 k=3: 0.499 k=4: 0.569
+Epoch [5/10] 620.41secs : acc: 0.321, val_acc: 0.232, loss: 2.431, val_loss: 2.473, top k val_acc: k=1: 0.232 k=2: 0.310 k=3: 0.498 k=4: 0.567
+Epoch [6/10] 715.11secs : acc: 0.313, val_acc: 0.220, loss: 2.415, val_loss: 2.472, top k val_acc: k=1: 0.220 k=2: 0.308 k=3: 0.490 k=4: 0.556
+Epoch [7/10] 806.00secs : acc: 0.311, val_acc: 0.214, loss: 2.402, val_loss: 2.463, top k val_acc: k=1: 0.214 k=2: 0.305 k=3: 0.459 k=4: 0.553
+Epoch [8/10] 893.50secs : acc: 0.308, val_acc: 0.215, loss: 2.389, val_loss: 2.454, top k val_acc: k=1: 0.215 k=2: 0.310 k=3: 0.416 k=4: 0.578
+Epoch [9/10] 979.33secs : acc: 0.290, val_acc: 0.212, loss: 2.381, val_loss: 2.457, top k val_acc: k=1: 0.212 k=2: 0.299 k=3: 0.393 k=4: 0.557
+                                   sit_128_class  sit_128_inf
+OBSEA/2020-01-12.out                         PCC     0.109479
+OBSEA/2020-01-13.out                         PCC     0.108906
+OBSEA/2020-01-15.out                         PCC     0.127992
+OBSEA/2020-01-19.out            AutoEncoder (AE)     0.118870
+OBSEA/2020-01-21.out                         PCC     0.104858
+...                                          ...          ...
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)     0.090203
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.104948
+OBSEA/2020-12-23.out  DenoisingAutoEncoder (DAE)     0.107417
+OBSEA/2020-12-25.out            AutoEncoder (AE)     0.111392
+OBSEA/2020-12-28.out            AutoEncoder (AE)     0.182272
+
+[99 rows x 2 columns]
+{'PCC': 43, 'AutoEncoder (AE)': 35, 'DenoisingAutoEncoder (DAE)': 21}
+----------------------------------------------------------------
+Epoch [0/10] 95.66secs : acc: 0.208, val_acc: 0.333, loss: 2.562, val_loss: 2.554, top k val_acc: k=1: 0.333 k=2: 0.515 k=3: 0.621 k=4: 0.695
+Epoch [1/10] 178.69secs : acc: 0.283, val_acc: 0.340, loss: 2.553, val_loss: 2.544, top k val_acc: k=1: 0.340 k=2: 0.479 k=3: 0.601 k=4: 0.659
+Epoch [2/10] 261.49secs : acc: 0.298, val_acc: 0.351, loss: 2.543, val_loss: 2.533, top k val_acc: k=1: 0.351 k=2: 0.432 k=3: 0.526 k=4: 0.650
+Epoch [3/10] 345.98secs : acc: 0.297, val_acc: 0.309, loss: 2.532, val_loss: 2.531, top k val_acc: k=1: 0.309 k=2: 0.350 k=3: 0.423 k=4: 0.515
+Epoch [4/10] 431.57secs : acc: 0.298, val_acc: 0.314, loss: 2.522, val_loss: 2.513, top k val_acc: k=1: 0.314 k=2: 0.365 k=3: 0.448 k=4: 0.552
+Epoch [5/10] 519.65secs : acc: 0.296, val_acc: 0.324, loss: 2.514, val_loss: 2.514, top k val_acc: k=1: 0.324 k=2: 0.370 k=3: 0.445 k=4: 0.511
+Epoch [6/10] 603.24secs : acc: 0.302, val_acc: 0.326, loss: 2.505, val_loss: 2.501, top k val_acc: k=1: 0.326 k=2: 0.375 k=3: 0.466 k=4: 0.511
+Epoch [7/10] 684.02secs : acc: 0.292, val_acc: 0.297, loss: 2.498, val_loss: 2.499, top k val_acc: k=1: 0.297 k=2: 0.346 k=3: 0.443 k=4: 0.493
+Epoch [8/10] 765.88secs : acc: 0.283, val_acc: 0.337, loss: 2.490, val_loss: 2.490, top k val_acc: k=1: 0.337 k=2: 0.391 k=3: 0.473 k=4: 0.517
+Epoch [9/10] 846.81secs : acc: 0.290, val_acc: 0.319, loss: 2.485, val_loss: 2.486, top k val_acc: k=1: 0.319 k=2: 0.371 k=3: 0.454 k=4: 0.486
+                                   sit_256_class  sit_256_inf
+OBSEA/2020-01-01.out                         PCC     0.117612
+OBSEA/2020-01-02.out  DenoisingAutoEncoder (DAE)     0.100076
+OBSEA/2020-01-09.out                         PCC     0.104984
+OBSEA/2020-01-15.out                         PCC     0.084883
+OBSEA/2020-01-16.out                         PCC     0.099339
+...                                          ...          ...
+OBSEA/2020-12-13.out  DenoisingAutoEncoder (DAE)     0.111768
+OBSEA/2020-12-15.out  DenoisingAutoEncoder (DAE)     0.103417
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.105687
+OBSEA/2020-12-24.out                         PCC     0.103399
+OBSEA/2020-12-27.out  DenoisingAutoEncoder (DAE)     0.110150
+
+[99 rows x 2 columns]
+{'PCC': 78, 'DenoisingAutoEncoder (DAE)': 17, 'AutoEncoder (AE)': 4}
+----------------------------------------------------------------
+Epoch [0/10] 87.06secs : acc: 0.177, val_acc: 0.350, loss: 2.564, val_loss: 2.563, top k val_acc: k=1: 0.350 k=2: 0.449 k=3: 0.500 k=4: 0.685
+Epoch [1/10] 184.34secs : acc: 0.272, val_acc: 0.354, loss: 2.560, val_loss: 2.560, top k val_acc: k=1: 0.354 k=2: 0.461 k=3: 0.577 k=4: 0.710
+Epoch [2/10] 278.24secs : acc: 0.246, val_acc: 0.196, loss: 2.556, val_loss: 2.554, top k val_acc: k=1: 0.196 k=2: 0.357 k=3: 0.570 k=4: 0.713
+Epoch [3/10] 371.43secs : acc: 0.134, val_acc: 0.142, loss: 2.552, val_loss: 2.552, top k val_acc: k=1: 0.142 k=2: 0.315 k=3: 0.471 k=4: 0.599
+Epoch [4/10] 463.88secs : acc: 0.124, val_acc: 0.151, loss: 2.549, val_loss: 2.551, top k val_acc: k=1: 0.151 k=2: 0.479 k=3: 0.604 k=4: 0.721
+Epoch [5/10] 547.99secs : acc: 0.134, val_acc: 0.111, loss: 2.545, val_loss: 2.548, top k val_acc: k=1: 0.111 k=2: 0.346 k=3: 0.609 k=4: 0.719
+Epoch [6/10] 640.84secs : acc: 0.117, val_acc: 0.107, loss: 2.540, val_loss: 2.545, top k val_acc: k=1: 0.107 k=2: 0.225 k=3: 0.349 k=4: 0.646
+Epoch [7/10] 726.15secs : acc: 0.121, val_acc: 0.103, loss: 2.536, val_loss: 2.541, top k val_acc: k=1: 0.103 k=2: 0.214 k=3: 0.384 k=4: 0.573
+Epoch [8/10] 812.10secs : acc: 0.113, val_acc: 0.103, loss: 2.531, val_loss: 2.540, top k val_acc: k=1: 0.103 k=2: 0.221 k=3: 0.437 k=4: 0.535
+Epoch [9/10] 1056.19secs : acc: 0.114, val_acc: 0.098, loss: 2.528, val_loss: 2.535, top k val_acc: k=1: 0.098 k=2: 0.187 k=3: 0.418 k=4: 0.514
+                     sit_512_class  sit_512_inf
+OBSEA/2020-01-02.out           PCC     0.196398
+OBSEA/2020-01-05.out           PCC     0.226056
+OBSEA/2020-01-06.out           PCC     0.103888
+OBSEA/2020-01-09.out           PCC     0.146934
+OBSEA/2020-01-11.out           PCC     0.236545
+...                            ...          ...
+OBSEA/2020-12-14.out           PCC     0.090744
+OBSEA/2020-12-17.out           PCC     0.090300
+OBSEA/2020-12-18.out           PCC     0.095988
+OBSEA/2020-12-22.out           PCC     0.104095
+OBSEA/2020-12-27.out           PCC     0.117140
+
+[99 rows x 2 columns]
+{'PCC': 99}
+----------------------------------------------------------------
+Epoch [0/10] 91.18secs : acc: 0.142, val_acc: 0.158, loss: 2.564, val_loss: 2.563, top k val_acc: k=1: 0.158 k=2: 0.289 k=3: 0.405 k=4: 0.460
+Epoch [1/10] 173.57secs : acc: 0.235, val_acc: 0.196, loss: 2.561, val_loss: 2.562, top k val_acc: k=1: 0.196 k=2: 0.284 k=3: 0.374 k=4: 0.454
+Epoch [2/10] 263.63secs : acc: 0.260, val_acc: 0.231, loss: 2.558, val_loss: 2.559, top k val_acc: k=1: 0.231 k=2: 0.307 k=3: 0.403 k=4: 0.484
+Epoch [3/10] 348.90secs : acc: 0.241, val_acc: 0.220, loss: 2.555, val_loss: 2.557, top k val_acc: k=1: 0.220 k=2: 0.292 k=3: 0.399 k=4: 0.488
+Epoch [4/10] 434.00secs : acc: 0.242, val_acc: 0.217, loss: 2.551, val_loss: 2.554, top k val_acc: k=1: 0.217 k=2: 0.319 k=3: 0.423 k=4: 0.513
+Epoch [5/10] 521.74secs : acc: 0.241, val_acc: 0.233, loss: 2.548, val_loss: 2.551, top k val_acc: k=1: 0.233 k=2: 0.332 k=3: 0.436 k=4: 0.542
+Epoch [6/10] 608.75secs : acc: 0.243, val_acc: 0.229, loss: 2.544, val_loss: 2.549, top k val_acc: k=1: 0.229 k=2: 0.329 k=3: 0.435 k=4: 0.530
+Epoch [7/10] 692.73secs : acc: 0.249, val_acc: 0.253, loss: 2.540, val_loss: 2.543, top k val_acc: k=1: 0.253 k=2: 0.348 k=3: 0.464 k=4: 0.576
+Epoch [8/10] 782.72secs : acc: 0.260, val_acc: 0.227, loss: 2.536, val_loss: 2.543, top k val_acc: k=1: 0.227 k=2: 0.331 k=3: 0.443 k=4: 0.533
+Epoch [9/10] 876.43secs : acc: 0.258, val_acc: 0.259, loss: 2.533, val_loss: 2.538, top k val_acc: k=1: 0.259 k=2: 0.351 k=3: 0.467 k=4: 0.565
+                                   sit_768_class  sit_768_inf
+OBSEA/2020-01-01.out                         PCC     0.144776
+OBSEA/2020-01-02.out  DenoisingAutoEncoder (DAE)     0.113609
+OBSEA/2020-01-03.out                  Hybrid KNN     0.110110
+OBSEA/2020-01-05.out                       Torsk     0.118686
+OBSEA/2020-01-06.out                         PCC     0.114734
+...                                          ...          ...
+OBSEA/2020-11-30.out    Random Black Forest (RR)     0.111241
+OBSEA/2020-12-09.out  DenoisingAutoEncoder (DAE)     0.088491
+OBSEA/2020-12-19.out  DenoisingAutoEncoder (DAE)     0.102160
+OBSEA/2020-12-21.out  DenoisingAutoEncoder (DAE)     0.107693
+OBSEA/2020-12-24.out  DenoisingAutoEncoder (DAE)     0.101965
+
+[99 rows x 2 columns]
+{'PCC': 56, 'DenoisingAutoEncoder (DAE)': 19, 'COPOD': 9, 'Hybrid KNN': 8, 'AutoEncoder (AE)': 3, 'Torsk': 2, 'Random Black Forest (RR)': 2}
+----------------------------------------------------------------
+Epoch [0/10] 87.18secs : acc: 0.219, val_acc: 0.252, loss: 2.564, val_loss: 2.565, top k val_acc: k=1: 0.252 k=2: 0.423 k=3: 0.498 k=4: 0.591
+Epoch [1/10] 179.21secs : acc: 0.230, val_acc: 0.252, loss: 2.561, val_loss: 2.567, top k val_acc: k=1: 0.252 k=2: 0.427 k=3: 0.493 k=4: 0.496
+Epoch [2/10] 268.96secs : acc: 0.245, val_acc: 0.214, loss: 2.557, val_loss: 2.566, top k val_acc: k=1: 0.214 k=2: 0.293 k=3: 0.394 k=4: 0.485
+Epoch [3/10] 352.14secs : acc: 0.286, val_acc: 0.216, loss: 2.554, val_loss: 2.567, top k val_acc: k=1: 0.216 k=2: 0.297 k=3: 0.384 k=4: 0.444
+Epoch [4/10] 434.42secs : acc: 0.288, val_acc: 0.225, loss: 2.551, val_loss: 2.565, top k val_acc: k=1: 0.225 k=2: 0.292 k=3: 0.357 k=4: 0.450
+Epoch [5/10] 520.17secs : acc: 0.291, val_acc: 0.237, loss: 2.548, val_loss: 2.563, top k val_acc: k=1: 0.237 k=2: 0.294 k=3: 0.348 k=4: 0.441
+Epoch [6/10] 616.08secs : acc: 0.315, val_acc: 0.229, loss: 2.543, val_loss: 2.566, top k val_acc: k=1: 0.229 k=2: 0.281 k=3: 0.318 k=4: 0.413
+Epoch [7/10] 697.80secs : acc: 0.303, val_acc: 0.231, loss: 2.543, val_loss: 2.565, top k val_acc: k=1: 0.231 k=2: 0.284 k=3: 0.317 k=4: 0.411
+Epoch [8/10] 776.71secs : acc: 0.297, val_acc: 0.228, loss: 2.539, val_loss: 2.565, top k val_acc: k=1: 0.228 k=2: 0.287 k=3: 0.303 k=4: 0.416
+Epoch [9/10] 859.07secs : acc: 0.294, val_acc: 0.224, loss: 2.533, val_loss: 2.563, top k val_acc: k=1: 0.224 k=2: 0.290 k=3: 0.306 k=4: 0.430
+                     sit_1024_class  sit_1024_inf
+OBSEA/2020-01-01.out            PCC      0.233994
+OBSEA/2020-01-05.out            PCC      0.133667
+OBSEA/2020-01-07.out            PCC      0.113690
+OBSEA/2020-01-13.out            PCC      0.101016
+OBSEA/2020-01-16.out            PCC      0.140269
+...                             ...           ...
+OBSEA/2020-12-15.out            PCC      0.092436
+OBSEA/2020-12-18.out            PCC      0.107846
+OBSEA/2020-12-19.out            PCC      0.100613
+OBSEA/2020-12-20.out            PCC      0.265927
+OBSEA/2020-12-27.out            PCC      0.092354
+
+[99 rows x 2 columns]
+{'PCC': 99}
