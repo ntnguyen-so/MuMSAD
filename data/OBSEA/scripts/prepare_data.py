@@ -50,7 +50,8 @@ def get_best_run(all_results):
     return obsea_results
 
 def copy_data(MSAD_root_path, TimeEval_root_path):
-    dest_path = MSAD_root_path + 'data/OBSEA/data'
+    dest_path = MSAD_root_path + 'data/OBSEA/data/OBSEA'
+    os.makedirs(dest_path, exist_ok=True)
     src_path = TimeEval_root_path + '/work_data/processed/multivariate/OBSEA'
     for data_file in os.listdir(src_path):
         if 'test' in data_file:
