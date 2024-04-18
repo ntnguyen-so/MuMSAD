@@ -106,14 +106,11 @@ def copy_metrics(MSAD_root_path, obsea_results):
 
 if __name__ == "__main__":
     MSAD_root_path = '../../../'
-    TimeEval_root_path = MSAD_root_path + '../TimeEval_work/'
-    directory = TimeEval_root_path + 'results' + '/training_data_MSAD_2020'
+    TimeEval_working_path = MSAD_root_path + '../TimeEval_work/'
+    TimeEval_results_path = MSAD_root_path + '../TimeEval_work_results/'
+    directory = TimeEval_results_path + 'training_data_MSAD_2020'
     all_results = concat_results(directory)
     obsea_results = get_best_run(all_results)
-    #obsea_results.to_csv('best_obsea_results_2020.csv')
-    #pass
-    copy_data(MSAD_root_path, TimeEval_root_path)
-    #copy_scores(MSAD_root_path, obsea_results)
-    #copy_metrics(MSAD_root_path, obsea_results)
-
-
+    copy_data(MSAD_root_path, TimeEval_working_path)
+    copy_scores(MSAD_root_path, obsea_results)
+    copy_metrics(MSAD_root_path, obsea_results)
