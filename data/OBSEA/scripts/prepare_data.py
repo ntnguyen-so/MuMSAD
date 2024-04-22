@@ -25,18 +25,19 @@ def remove_similar_duplicates(df):
     # Re-reverse the DataFrame to restore original column order
     return df.iloc[:, ::-1]
 
-def concat_results(directory):
+def concat_results(directories):
     dfs = list()
     
     # Iterate through execution dates
-    for exec_folder in os.listdir(directory):
-        for file in os.listdir(os.path.join(directory, exec_folder)):
-            if file == 'results.csv':
-                filepath = os.path.join(directory, exec_folder, file)
-                df = pd.read_csv(filepath)
-                df = remove_similar_duplicates(df)
-                df['result_path'] = filepath
-                dfs.append(df)
+    for directory in directories:
+        for exec_folder in os.listdir(directory):
+            for file in os.listdir(os.path.join(directory, exec_folder)):
+                if file == 'results.csv':
+                    filepath = os.path.join(directory, exec_folder, file)
+                    df = pd.read_csv(filepath)
+                    df = remove_similar_duplicates(df)
+                    df['result_path'] = filepath
+                    dfs.append(df)
     
     return pd.concat([df.reset_index(drop=True) for df in dfs], ignore_index=True)
 
@@ -106,11 +107,33 @@ def copy_metrics(MSAD_root_path, obsea_results):
 
 if __name__ == "__main__":
     MSAD_root_path = '../../../'
-    TimeEval_root_path = MSAD_root_path + '../TimeEval_work/'
-    directory = TimeEval_root_path + 'results'
+    TimeEval_working_path = MSAD_root_path + '../TimeEval_work/'
+    TimeEval_results_path = MSAD_root_path + '../TimeEval_work_results/'
+
+    #### START: trained 20, inferredtrained1H21, inferredtrained2H21 to infer 1H22    
+    directory = [TimeEval_results_path + 'training_data_MSAD_2020', TimeEval_results_path + 'MSAD_trained20_infer2122']
     all_results = concat_results(directory)
     obsea_results = get_best_run(all_results)
-    copy_data(MSAD_root_path, TimeEval_root_path)
+    obsea_results.to_csv('results_trained20_infer2122.csv', index=False)
+    obsea_results_1H21 = obsea_results[obsea_results['dataset'] < '2021-07-01']
+    obsea_results_1H21.to_csv('results_trained20_infer1H21.csv', index=False)
+
+    directory = [TimeEval_results_path + 'MSAD_trained20_inferredtrained1H21_infer2H21']
+    all_results = concat_results(directory)
+    obsea_results_2H21 = get_best_run(all_results)
+    obsea_results = pd.concat([df.reset_index(drop=True) for df in [obsea_results_1H21, obsea_results_2H21]], ignore_index=True)
+    obsea_results.to_csv('MSAD_trained20_inferredtrained1H21_infer2H21.csv', index=False)
+
+    directory = [TimeEval_results_path + 'MSAD_trained20_inferredtrained1H21_inferredtrained2H21_infer1H22']
+    all_results = concat_results(directory)
+    obsea_results_1H22 = get_best_run(all_results)
+    obsea_results = pd.concat([df.reset_index(drop=True) for df in [obsea_results, obsea_results_1H22]], ignore_index=True)
+    obsea_results.to_csv('MSAD_trained20_inferredtrained1H21_inferredtrained2H21_infer1H22.csv', index=False)
+    #### END: trained 20, inferredtrained1H21, inferredtrained2H21 to infer 1H22  
+
+    
+
+    copy_data(MSAD_root_path, TimeEval_working_path)
     copy_scores(MSAD_root_path, obsea_results)
     copy_metrics(MSAD_root_path, obsea_results)
 
