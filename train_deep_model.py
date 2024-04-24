@@ -28,6 +28,21 @@ from utils.timeseries_dataset import create_splits, TimeseriesDataset
 from utils.config import *
 from eval_deep_model import eval_deep_model
 
+import torch
+import numpy as np
+import random
+
+# Set the random seed for PyTorch (CPU and GPU operations)
+torch.manual_seed(42)
+
+# If you are using CUDA (GPU), also set this for reproducibility
+torch.cuda.manual_seed(42)
+torch.cuda.manual_seed_all(42)  # if you are using multi-GPU.
+
+# Set seed for other libraries that may be used (e.g., NumPy, random)
+np.random.seed(42)
+random.seed(42)
+
 
 def train_deep_model(
 	data_path,
@@ -61,7 +76,7 @@ def train_deep_model(
 
 	# Load the data
 	print('----------------------------------------------------------------')
-	training_data = TimeseriesDataset(data_path, fnames=train_set)
+	training_data = TimeseriesDataset(data_path, fnames=train_set, transform=True)
 	val_data = TimeseriesDataset(data_path, fnames=val_set)
 	test_data = TimeseriesDataset(data_path, fnames=test_set)
 	
@@ -77,9 +92,9 @@ def train_deep_model(
 	
 	# Change input size according to input
 	if 'original_length' in model_parameters:
-		model_parameters['original_length'] = window_size
+		model_parameters['original_length'] = window_size * num_dimensions
 	if 'timeseries_size' in model_parameters:
-		model_parameters['timeseries_size'] = window_size
+		model_parameters['timeseries_size'] = window_size * num_dimensions
 	
 	# Create the model, load it on GPU and print it
 	model = deep_models[model_name.lower()](**model_parameters).to(device)
@@ -92,7 +107,7 @@ def train_deep_model(
 		model=model,
 		model_name=classifier_name,
 		device=device,
-		criterion=nn.CrossEntropyLoss(weight=class_weights).to(device),
+		criterion=nn.CrossEntropyLoss().to(device),
 		runs_dir=save_runs,
 		weights_dir=save_weights,
 		learning_rate=0.00001
@@ -156,3 +171,4 @@ if __name__ == "__main__":
 		epochs=args.epochs,
 		eval_model=args.eval_true
 	)
+

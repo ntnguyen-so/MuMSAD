@@ -52,6 +52,7 @@ def create_tmp_dataset(
 	dataloader = DataLoader(data_path)
 	datasets = dataloader.get_dataset_names()
 	x, y, fnames = dataloader.load(datasets)
+	print(len(x))
 
 	# Load metrics
 	metricsloader = MetricsLoader(metric_path)
@@ -81,8 +82,8 @@ def create_tmp_dataset(
 	metrics_data = metrics_data[detector_names]
 
 	# Split timeseries and compute labels
-	ts_list, labels = split_and_compute_labels(x, metrics_data, window_size)
-
+	ts_list, labels, fnames = split_and_compute_labels(x, metrics_data, window_size, fnames)
+	
 	# Uncomment to check the results
 	# fig, axs = plt.subplots(2, 1, sharex=True)
 	# x_new = np.concatenate(ts_list[3])
@@ -98,20 +99,21 @@ def create_tmp_dataset(
 
 	# Save new dataset
 	for ts, label, fname in tqdm(zip(ts_list, labels, fnames), total=len(ts_list), desc='Save dataset'):
+		num_col = ts.shape[1]
 		fname_split = fname.split('/')
 		dataset_name = fname_split[-2]
 		ts_name = fname_split[-1]
 		new_names = [ts_name + '.{}'.format(i) for i in range(len(ts))]
-
-		data = np.concatenate((label[:, np.newaxis], ts), axis=1)
+		
+		data = np.concatenate((label[:, np.newaxis], ts.reshape((ts.shape[0], -1))), axis=1)
 		col_names = ['label']
-		col_names += ["val_{}".format(i) for i in range(window_size)]
+		col_names += ["val_{}".format(i) for i in range(data.shape[1]-1)]
 		
 		df = pd.DataFrame(data, index=new_names, columns=col_names)
 		df.to_csv(os.path.join(save_dir, name, dataset_name, ts_name + '.csv'))
 
 
-def split_and_compute_labels(x, metrics_data, window_size):
+def split_and_compute_labels(x, metrics_data, window_size, fnames):
 	'''Splits the timeseries, computes the labels and returns 
 	the segmented timeseries and the new labels.
 
@@ -127,6 +129,18 @@ def split_and_compute_labels(x, metrics_data, window_size):
 	assert(
 		len(x) == metrics_data.shape[0]
 	), "Lengths and shapes do not match. Please check"
+
+	old_indices = metrics_data.index.values.tolist()
+	metrics_data.fillna(0, inplace=True)
+	acc = metrics_data.iloc[:, 1:]
+	acc = acc[acc.sum(axis=1) > 0]
+	metrics_data = metrics_data.loc[acc.index.values.tolist(), :]
+
+	#print(len(x), len(metrics_data))
+	x = [x[old_indices.index(new_i)] for new_i in metrics_data.index.values.tolist()]
+	fnames = [fnames[old_indices.index(new_i)] for new_i in metrics_data.index.values.tolist()]
+	#print(metrics_data.index.values.tolist())
+	#print([old_indices.index(new_i) for new_i in metrics_data.index.values.tolist()])
 
 	for ts, metric_label in tqdm(zip(x, metrics_data.idxmax(axis=1)), total=len(x), desc="Create dataset"):
 		
@@ -144,15 +158,11 @@ def split_and_compute_labels(x, metrics_data, window_size):
 		len(x) == len(ts_list) == len(labels)
 	), "Timeseries split and labels computation error, lengths do not match"
 			
-	return ts_list, labels
+	return ts_list, labels, fnames
 
 
 def z_normalization(ts, decimals=5):
-	# Z-normalization (all windows with the same value go to 0)
-	if len(set(ts)) == 1:
-		ts = ts - np.mean(ts)
-	else:
-		ts = (ts - np.mean(ts)) / np.std(ts)
+	ts = (ts - np.mean(ts)) / np.std(ts)
 	ts = np.around(ts, decimals=decimals)
 
 	# Test normalization
@@ -227,4 +237,5 @@ if __name__ == "__main__":
 			window_size=int(args.window_size), 
 			metric=args.metric,
 		)
+
 
