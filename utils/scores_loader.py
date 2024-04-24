@@ -49,13 +49,11 @@ class ScoresLoader:
 				curr_detectors.append(name)
 			if len(detectors) < 1:
 				detectors = curr_detectors.copy()
-			elif not detectors == curr_detectors:
-				detectors = [x for x in detectors if x in curr_detectors]
-				#print('detectors', detectors)
-				#print('curr_detectors', curr_detectors)
-				#raise ValueError('detectors are not the same in this dataset \'{}\''.format(dataset))
+			if False:#elif not detectors == curr_detectors:
+				print('detectors', detectors)
+				print('curr_detectors', curr_detectors)
+				raise ValueError('detectors are not the same in this dataset \'{}\''.format(dataset))
 		detectors.sort()
-		#print('------------------------------\n',detectors)
 
 		return detectors
 
@@ -81,22 +79,16 @@ class ScoresLoader:
 			try:
 				for path in paths:
 					data.append(pd.read_csv(path, header=None).to_numpy())
-					#print('Loaded scores from', path)
 			except Exception as e:
-				#idx_failed.append(i)
-				#print(idx_failed, paths)
-				#continue
-				pass
+				idx_failed.append(i)
+				continue
 			scores.append(np.concatenate(data, axis=1))
 
-		#print(idx_failed)
 		# Delete ts which failed to load
 		if len(idx_failed) > 0:
 			print('failed to load')
 			for idx in sorted(idx_failed, reverse=True):
-				pass
-				#print('\t\'{}\''.format(file_names[idx]))
-
+				print('\t\'{}\''.format(file_names[idx]))
 				# del file_names[idx]
 
 		return scores, idx_failed
@@ -129,7 +121,7 @@ class ScoresLoader:
 
 # -----------------------------------------------------
 	
-	#@jit
+	@jit
 	def compute_metric(self, labels, scores, metric, verbose=1, n_jobs=1):
 		'''Computes desired metric for all labels and scores pairs.
 
@@ -140,25 +132,19 @@ class ScoresLoader:
 		:param verbose: to print or not to print info
 		:return: metric values
 		'''
-		print(len(labels))
-		print(len(scores))
 		n_files = len(labels)
 		results = []
 
 		if len(labels) != len(scores):
 			raise ValueError("length of labels and length of scores not the same")
-		
-		#if len(scores) == 0:
-		#	return results
 
 		if scores[0].ndim == 1 or scores[0].shape[-1] == 1:
 			args = [x + (metric,) for x in list(zip(labels, scores))]
 			pool = multiprocessing.Pool(n_jobs)
 
 			results = []
-			#for result in tqdm(pool.istarmap(self.compute_single_sample, args), total=len(args)):
-			#	results.append(result)
-			results = self.compute_single_sample(args)
+			for result in tqdm(pool.istarmap(self.compute_single_sample, args), total=len(args)):
+				results.append(result)
 
 			results = np.asarray([x.tolist() for x in results])
 		else:

@@ -19,6 +19,7 @@ import numpy as np
 import math
 from collections import Counter
 from sklearn.utils.class_weight import compute_class_weight
+import copy
 
 import torch
 from torch.utils.data import Dataset
@@ -136,15 +137,31 @@ def read_files(data_path):
 
 	return fnames
 
+def amplitude_scaling(sample, scale_range=(0.8, 1.2)):
+    scale_factor = np.random.uniform(*scale_range)
+    scaled_sample = sample * scale_factor
+    return scaled_sample
 
+def time_warping(sample, warp_factor_range=(0.9, 1.1)):
+    warp_factor = np.random.uniform(*warp_factor_range)
+    num_points = sample.shape[0]
+    warped_indices = np.arange(0, num_points, warp_factor)
+    warped_sample = np.interp(np.arange(num_points), warped_indices, sample)
+    return warped_sample
+
+def noise_injection(sample, noise_level=0.1):
+    noise = np.random.normal(loc=0, scale=noise_level, size=sample.shape)
+    noisy_sample = sample + noise
+    return noisy_sample
 
 class TimeseriesDataset(Dataset):
-	def __init__(self, data_path, fnames, verbose=True):
+	def __init__(self, data_path, fnames, verbose=True, transform=False):
 		self.data_path = data_path
 		self.fnames = fnames
 		self.labels = []
 		self.samples = []
 		self.indexes = []
+		self.transform = transform
 
 		if len(self.fnames) == 0:
 			return
@@ -171,9 +188,18 @@ class TimeseriesDataset(Dataset):
 		return self.labels.size
 
 	def __getitem__(self, idx):
-		return self.samples[idx], self.labels[idx]
+		sample = copy.copy(self.samples[idx])
+		if self.transform:
+			#sample = time_warping(sample)
+			sample = amplitude_scaling(sample)
+			sample = noise_injection(sample)
+		
+		return sample, self.labels[idx]
 
 	def __getallsamples__(self):
+		if self.transform:
+			for i in range(len(self.samples)):
+				self.samples[i] = noise_injection(amplitude_scaling(self.samples[i]))
 		return self.samples
 
 	def __getalllabels__(self):
@@ -205,3 +231,4 @@ class TimeseriesDataset(Dataset):
 		# 	print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
 
 		return torch.Tensor(sklearn_class_weights).to(device)
+

@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import time
 from tqdm import tqdm
-
+from sklearn.decomposition import PCA
 
 class DataLoader:
 	"""This class is used to read and load data from the benchmark.
@@ -68,7 +68,9 @@ class DataLoader:
 
 				# Skip files with no anomalies
 				if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-					x.append(curr_data[:, :-1])
+					pca = PCA(n_components=1)
+					x.append(pca.fit_transform(curr_data[:, :-1]))
+					#x.append(curr_data[:, :-1])
 					y.append(curr_data[:, -1])
 					# Remove path from file name, keep dataset, time series name
 					fname = '/'.join(fname.split('/')[-2:])		
@@ -126,8 +128,10 @@ class DataLoader:
 
 			# Skip files with no anomalies
 			if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-				x.append(curr_data[:, :-1])
+				pca = PCA(n_components=1)
+				x.append(pca.fit_transform(curr_data[:, :-1]))
 				y.append(curr_data[:, -1])
 				fnames.append(fname)
 
 		return x, y, fnames
+

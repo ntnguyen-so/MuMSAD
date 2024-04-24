@@ -58,7 +58,6 @@ class MetricsLoader:
 		df = []
 
 		# Check if metric exists
-  
 		if metric not in self.get_names():
 			raise ValueError(f"{metric} metric is not one of existing metrics")
 		

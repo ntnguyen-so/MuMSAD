@@ -30,17 +30,17 @@ path_save_results = 'results/raw_predictions'	# when evaluating a model, the pre
 
 # Detector
 detector_names = [
-	'PCC', 
+    'AutoEncoder (AE)',
+    'DenoisingAutoEncoder (DAE)',     
+    'DeepAnT', 
+    'Random Black Forest (RR)', 
+    'PCC', 
     'HBOS', 
     'Torsk', 
-    'AutoEncoder (AE)',
-    'DenoisingAutoEncoder (DAE)', 
     'EncDec-AD', 
-    'DeepAnT', 
     'Hybrid KNN',
     'CBLOF', 
     'COPOD', 
-    'Random Black Forest (RR)', 
     'RobustPCA', 
     'LOF'
 ]
@@ -55,4 +55,4 @@ deep_models = {
 	'sit':SignalTransformer,
 }
 
-num_dimensions = 3
+num_dimensions = 1
