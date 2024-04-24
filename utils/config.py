@@ -54,3 +54,5 @@ deep_models = {
 	'resnet':ResNetBaseline,
 	'sit':SignalTransformer,
 }
+
+num_dimensions = 3

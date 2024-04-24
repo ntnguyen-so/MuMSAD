@@ -101,11 +101,18 @@ class Evaluator:
 		# Timeseries to batches
 		val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=False)
 
-		for (inputs, labels) in val_loader:
-			# Move data to the same device as model
-			inputs = inputs.to(device)
-			labels = labels.to(device)
+		for val_data in val_loader:
+			if len(val_data) == 2:
+				inputs, labels = val_data
+				# Move data to the same device as model
+				inputs = inputs.to(device)
+				labels = labels.to(device)
+			else:
+				inputs = val_data
+				inputs = inputs.to(device)
+				print(inputs)
 
+			
 			# Make predictions
 			outputs = model(inputs.float())
 

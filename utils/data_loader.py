@@ -68,7 +68,7 @@ class DataLoader:
 
 				# Skip files with no anomalies
 				if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-					x.append(curr_data[:, 0])
+					x.append(curr_data[:, :-1])
 					y.append(curr_data[:, -1])
 					# Remove path from file name, keep dataset, time series name
 					fname = '/'.join(fname.split('/')[-2:])		
@@ -126,7 +126,7 @@ class DataLoader:
 
 			# Skip files with no anomalies
 			if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-				x.append(curr_data[:, 0])
+				x.append(curr_data[:, :-1])
 				y.append(curr_data[:, -1])
 				fnames.append(fname)
 
