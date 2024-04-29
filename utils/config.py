@@ -37,7 +37,7 @@ detector_names = [
     'PCC', 
     'HBOS', 
     'Torsk', 
-    'EncDec-AD', 
+    #'EncDec-AD', 
     'Hybrid KNN',
     'CBLOF', 
     'COPOD', 

@@ -26,6 +26,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from time import perf_counter, process_time
 from datetime import datetime
+from sklearn.metrics import f1_score
 
 
 
@@ -41,7 +42,8 @@ class ModelExecutioner:
 		d_model=256,
 		learning_rate=0.00001,
 		runs_dir='runs',
-		weights_dir='weights'
+		weights_dir='weights',
+		weight_decay=0
 	):                      
 		self.model = model
 		self.runs_dir = runs_dir
@@ -54,7 +56,8 @@ class ModelExecutioner:
 			self.model.parameters(), 
 			lr=learning_rate, 
 			betas=(0.9, 0.98), 
-			eps=1e-9
+			eps=1e-9,
+			weight_decay=weight_decay
 		)
 		self.n_warmup_steps = n_warmup_steps
 		self.d_model = d_model
@@ -154,7 +157,7 @@ class ModelExecutioner:
 				loss = self.criterion(outputs.float(), labels.long())
 				
 				# Compute top k accuracy
-				acc_top_k = self.compute_topk_acc(outputs, labels, k=4)
+				acc_top_k = self.compute_topk_f1(outputs, labels, k=4) #self.compute_topk_acc(outputs, labels, k=4)
 
 				all_loss.append(loss.item())
 				all_acc.append(acc_top_k[1])
@@ -168,6 +171,20 @@ class ModelExecutioner:
 					)
 
 		return np.mean(all_loss), np.mean(all_acc), all_acc_top_k
+	
+	# Validate your model
+	def evaluate_f1(self, dataloader):
+		model.eval()
+		all_labels = []
+		all_predictions = []
+		with torch.no_grad():
+			for inputs, labels in val_loader:
+				outputs = model(inputs)
+				_, predicted = torch.max(outputs, 1)
+				all_labels.extend(labels.numpy())
+				all_predictions.extend(predicted.numpy())
+		f1 = f1_score(all_labels, all_predictions, average='macro')
+		return f1
 
 
 	def train(self, n_epochs, training_loader, validation_loader, verbose=True):
@@ -235,13 +252,13 @@ class ModelExecutioner:
 			writer.flush()
 
 			# Track best performance and save the model's state
-			if avg_val_acc > best_val_acc:
-				best_val_acc = avg_val_acc
+			if avg_val_top4 > best_val_acc:
+				best_val_acc = avg_val_top4
 				best_model = copy.deepcopy(self.model)
 				torch.save(self.model.state_dict(), model_path)                                
 
 			# Early stopping
-			if (epoch > 3 and early_stopper.early_stop_acc(avg_val_acc)) or ((perf_counter()-tic) > 70000):
+			if (epoch > 3 and early_stopper.early_stop_acc(avg_val_top4)) or ((perf_counter()-tic) > 70000):
 				break
 				
 		# Collect the results
@@ -277,6 +294,39 @@ class ModelExecutioner:
 				mean_acc_top_k[k].append(topk_acc.item())
 
 			return mean_acc_top_k
+	
+	def compute_topk_f1(self, outputs, labels, k=4):
+		'''Compute top k F1-score'''
+		f1_scores_top_k = {k: [] for k in range(1, k + 1)}
+
+		_, y_pred = outputs.topk(k=k, dim=1)  # _, [B, n_classes] -> [B, k]
+		y_pred = y_pred.t()  # [B, k] -> [k, B]
+
+		target_reshaped = labels.view(1, -1).expand_as(y_pred)  # [1, B] -> [k, B]
+		correct = (y_pred == target_reshaped)  # [k, B]
+
+		for k_val in range(1, k + 1):
+			# Calculate true positives (correct predictions in the top k)
+			correct_k = correct[:k_val].any(dim=0)  # [k_val, B] -> [B]
+			true_positives = correct_k.sum().float()
+
+			# Calculate false positives (wrong predictions in the top k)
+			not_correct_k = (~correct[:k_val]).all(dim=0)  # Inverse of `correct_k`
+			false_positives = not_correct_k.sum().float()
+
+			# Calculate false negatives (missed labels not in the top k predictions)
+			missed_labels = (~correct.any(dim=0))  # [B]
+			false_negatives = missed_labels.sum().float()
+
+			# Precision and Recall calculations
+			precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) > 0 else 0
+			recall = true_positives / (true_positives + false_negatives) if (true_positives + false_negatives) > 0 else 0
+
+			# F1-score calculation
+			f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+			f1_scores_top_k[k_val].append(f1_score)
+
+		return f1_scores_top_k
 
 
 	def torch_devices_info(self):

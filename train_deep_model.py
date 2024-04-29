@@ -28,147 +28,164 @@ from utils.timeseries_dataset import create_splits, TimeseriesDataset
 from utils.config import *
 from eval_deep_model import eval_deep_model
 
-import torch
-import numpy as np
-import random
+def forward_transfer_learning(model, x):
+    # Get all modules except the last one
+    modules = list(model.children())[:-1]
 
-# Set the random seed for PyTorch (CPU and GPU operations)
-torch.manual_seed(42)
+    # Define the forward pass for the modified model
+    for module in modules:
+        x = module(x)
 
-# If you are using CUDA (GPU), also set this for reproducibility
-torch.cuda.manual_seed(42)
-torch.cuda.manual_seed_all(42)  # if you are using multi-GPU.
+    # Pass through the new last layer
+    x = model.new_classifier(x)
 
-# Set seed for other libraries that may be used (e.g., NumPy, random)
-np.random.seed(42)
-random.seed(42)
-
+    return x
 
 def train_deep_model(
-	data_path,
-	model_name,
-	split_per,
-	seed,
-	read_from_file,
-	batch_size,
-	model_parameters_file,
-	epochs,
-	eval_model=False
+        data_path,
+        model_name,
+        split_per,
+        seed,
+        read_from_file,
+        batch_size,
+        model_parameters_file,
+        epochs,
+        eval_model=False,
+        transfer_learning=None
 ):
 
-	# Set up
-	window_size = int(re.search(r'\d+', str(args.path)).group())
-	device = 'cuda' if torch.cuda.is_available() else 'cpu'
-	save_runs = 'results/runs/'
-	save_weights = 'results/weights/'
-	inf_time = True 		# compute inference time per timeseries
+        # Set up
+        window_size = int(re.search(r'\d+', str(args.path)).group())
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        save_runs = 'results/runs/'
+        save_weights = 'results/weights/'
+        inf_time = True                 # compute inference time per timeseries
 
-	# Load the splits
-	train_set, val_set, test_set = create_splits(
-		data_path,
-		split_per=split_per,
-		seed=seed,
-		read_from_file=read_from_file,
-	)
-	# Uncomment for testing
-	if epochs == 1:
-		train_set, val_set, test_set = train_set[:50], val_set[:10], test_set[:10]
+        # Load the splits
+        train_set, val_set, test_set = create_splits(
+                data_path,
+                split_per=split_per,
+                seed=10,
+                read_from_file=read_from_file,
+        )
+        # Uncomment for testing
+        if epochs == 1:
+                train_set, val_set, test_set = train_set[:50], val_set[:10], test_set[:10]
 
-	# Load the data
-	print('----------------------------------------------------------------')
-	training_data = TimeseriesDataset(data_path, fnames=train_set, transform=True)
-	val_data = TimeseriesDataset(data_path, fnames=val_set)
-	test_data = TimeseriesDataset(data_path, fnames=test_set)
-	
-	# Create the data loaders
-	training_loader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
-	validation_loader = DataLoader(val_data, batch_size=batch_size, shuffle=True)
+        # Load the data
+        print('----------------------------------------------------------------')
+        training_data = TimeseriesDataset(data_path, fnames=train_set, transform=True)
+        val_data = TimeseriesDataset(data_path, fnames=val_set)
+        test_data = TimeseriesDataset(data_path, fnames=test_set)
 
-	# Compute class weights to give them to the loss function
-	class_weights = training_data.get_weights_subset(device)
+        # Create the data loaders
+        training_loader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
+        validation_loader = DataLoader(val_data, batch_size=batch_size, shuffle=True)
 
-	# Read models parameters
-	model_parameters = json_file(model_parameters_file)
-	
-	# Change input size according to input
-	if 'original_length' in model_parameters:
-		model_parameters['original_length'] = window_size * num_dimensions
-	if 'timeseries_size' in model_parameters:
-		model_parameters['timeseries_size'] = window_size * num_dimensions
-	
-	# Create the model, load it on GPU and print it
-	model = deep_models[model_name.lower()](**model_parameters).to(device)
-	classifier_name = f"{model_parameters_file.split('/')[-1].replace('.json', '')}_{window_size}"
-	if read_from_file is not None and "unsupervised" in read_from_file:
-		classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
-	
-	# Create the executioner object
-	model_execute = ModelExecutioner(
-		model=model,
-		model_name=classifier_name,
-		device=device,
-		criterion=nn.CrossEntropyLoss().to(device),
-		runs_dir=save_runs,
-		weights_dir=save_weights,
-		learning_rate=0.00001
-	)
+        # Compute class weights to give them to the loss function
+        class_weights = training_data.get_weights_subset(device)
 
-	# Check device of torch
-	#model_execute.torch_devices_info()
+        # Read models parameters
+        model_parameters = json_file(model_parameters_file)
 
-	# Run training procedure
-	model, results = model_execute.train(
-		n_epochs=epochs, 
-		training_loader=training_loader, 
-		validation_loader=validation_loader, 
-		verbose=True,
-	)
+        # Change input size according to input
+        if 'original_length' in model_parameters:
+                model_parameters['original_length'] = window_size * num_dimensions
+        if 'timeseries_size' in model_parameters:
+                model_parameters['timeseries_size'] = window_size * num_dimensions
 
-	# Save training stats
-	timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
-	df = pd.DataFrame.from_dict(results, columns=["training_stats"], orient="index")
-	df.to_csv(os.path.join(save_done_training, f"{classifier_name}_{timestamp}.csv"))
+        # Create the model, load it on GPU and print it
+        model = deep_models[model_name.lower()](**model_parameters).to(device)
+        classifier_name = f"{model_parameters_file.split('/')[-1].replace('.json', '')}_{window_size}"
+        if read_from_file is not None and "unsupervised" in read_from_file:
+                classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
 
-	# Evaluate on test set or val set
-	if eval_model:
-		if read_from_file is not None and "unsupervised" in read_from_file:
-			os.path.join(path_save_results, "unsupervised")
-		eval_set = test_set if len(test_set) > 0 else val_set
-		eval_deep_model(
-			data_path=data_path, 
-			fnames=eval_set,
-			model_name=model_name,
-			model=model,
-			path_save=path_save_results,
-		)
-	
+        learning_rate = 0.00001
+
+        if transfer_learning:
+                print('Transfer learning')
+                state_dict = torch.load(transfer_learning, map_location=torch.device('cpu'))
+                model.load_state_dict(state_dict)
+                num_layers_to_train = 3
+                num_layers = len(list(model.named_parameters()))
+                for idx, (name, param) in enumerate(model.named_parameters()):
+                        if idx < num_layers - num_layers_to_train*2:
+                                param.requires_grad = False
+                        else:
+                                param.requires_grad = True
+                learning_rate *= 100
+
+        # Create the executioner object
+        model_execute = ModelExecutioner(
+                model=model,
+                model_name=classifier_name,
+                device=device,
+                criterion=nn.CrossEntropyLoss(weight=class_weights).to(device),
+                runs_dir=save_runs,
+                weights_dir=save_weights,
+                learning_rate=learning_rate,
+                use_scheduler=True,
+                weight_decay=learning_rate/2
+        )
+
+        # Check device of torch
+        #model_execute.torch_devices_info()
+
+        # Run training procedure
+        model, results = model_execute.train(
+                n_epochs=epochs,
+                training_loader=training_loader,
+                validation_loader=validation_loader,
+                verbose=True,
+        )
+
+        # Save training stats
+        timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
+        df = pd.DataFrame.from_dict(results, columns=["training_stats"], orient="index")
+        df.to_csv(os.path.join(save_done_training, f"{classifier_name}_{timestamp}.csv"))
+
+        # Evaluate on test set or val set
+        if eval_model:
+                if read_from_file is not None and "unsupervised" in read_from_file:
+                        os.path.join(path_save_results, "unsupervised")
+                eval_set = test_set if len(test_set) > 0 else val_set
+                eval_deep_model(
+                        data_path=data_path,
+                        fnames=eval_set,
+                        model_name=model_name,
+                        model=model,
+                        path_save=path_save_results,
+                )
+
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(
-		prog='run_experiment',
-		description='This function is made so that we can easily run configurable experiments'
-	)
-	
-	parser.add_argument('-p', '--path', type=str, help='path to the dataset to use', required=True)
-	parser.add_argument('-s', '--split', type=float, help='split percentage for train and val sets', default=0.7)
-	parser.add_argument('-se', '--seed', type=int, default=None, help='Seed for train/val split')
-	parser.add_argument('-f', '--file', type=str, help='path to file that contains a specific split', default=None)
-	parser.add_argument('-m', '--model', type=str, help='model to run', required=True)
-	parser.add_argument('-pa', '--params', type=str, help="a json file with the model's parameters", required=True)
-	parser.add_argument('-b', '--batch', type=int, help='batch size', default=64)
-	parser.add_argument('-ep', '--epochs', type=int, help='number of epochs', default=10)
-	parser.add_argument('-e', '--eval-true', action="store_true", help='whether to evaluate the model on test data after training')
+        parser = argparse.ArgumentParser(
+                prog='run_experiment',
+                description='This function is made so that we can easily run configurable experiments'
+        )
 
-	args = parser.parse_args()
-	train_deep_model(
-		data_path=args.path,
-		split_per=args.split,
-		seed=args.seed,
-		read_from_file=args.file,
-		model_name=args.model,
-		model_parameters_file=args.params,
-		batch_size=args.batch,
-		epochs=args.epochs,
-		eval_model=args.eval_true
-	)
+        parser.add_argument('-p', '--path', type=str, help='path to the dataset to use', required=True)
+        parser.add_argument('-s', '--split', type=float, help='split percentage for train and val sets', default=0.7)
+        parser.add_argument('-se', '--seed', type=int, default=None, help='Seed for train/val split')
+        parser.add_argument('-f', '--file', type=str, help='path to file that contains a specific split', default=None)
+        parser.add_argument('-m', '--model', type=str, help='model to run', required=True)
+        parser.add_argument('-pa', '--params', type=str, help="a json file with the model's parameters", required=True)
+        parser.add_argument('-b', '--batch', type=int, help='batch size', default=64)
+        parser.add_argument('-ep', '--epochs', type=int, help='number of epochs', default=10)
+        parser.add_argument('-e', '--eval-true', action="store_true", help='whether to evaluate the model on test data after training')
+        parser.add_argument('-tlm', '--tl-model', type=str, help='path to trained model')
+
+        args = parser.parse_args()
+        train_deep_model(
+                data_path=args.path,
+                split_per=args.split,
+                seed=args.seed,
+                read_from_file=args.file,
+                model_name=args.model,
+                model_parameters_file=args.params,
+                batch_size=args.batch,
+                epochs=args.epochs,
+                eval_model=args.eval_true,
+                transfer_learning=args.tl_model
+        )
 

@@ -19,11 +19,13 @@ import numpy as np
 import math
 from collections import Counter
 from sklearn.utils.class_weight import compute_class_weight
-import copy
 
 import torch
 from torch.utils.data import Dataset
 
+import copy
+import random
+import torch
 
 
 def create_splits(data_path, split_per=0.7, seed=None, read_from_file=None):
@@ -154,6 +156,7 @@ def noise_injection(sample, noise_level=0.1):
     noisy_sample = sample + noise
     return noisy_sample
 
+
 class TimeseriesDataset(Dataset):
 	def __init__(self, data_path, fnames, verbose=True, transform=False):
 		self.data_path = data_path
@@ -225,10 +228,10 @@ class TimeseriesDataset(Dataset):
 			sklearn_class_weights.insert(i, 1)
 
 		# Test
-		# print('------------------------------------------')
-		# counter = Counter(labels)
-		# for detector, weight in zip(detector_names, sklearn_class_weights):
-		# 	print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
+		print('------------------------------------------')
+		counter = Counter(labels)
+		for detector, weight in zip(detector_names, sklearn_class_weights):
+			print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
 
 		return torch.Tensor(sklearn_class_weights).to(device)
 

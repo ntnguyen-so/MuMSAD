@@ -104,7 +104,7 @@ def run_rocket(data_path, split_per=0.7, seed=None, read_from_file=None, eval_mo
 			curr_batch = indexes_shuffled[iterator_train:iterator_train+batch_size]
 			X = X_train[curr_batch]
 			Y = y_train[curr_batch]
-			clf.partial_fit(X, Y, classes=list(np.arange(12)))
+			clf.partial_fit(X, Y, classes=list(np.arange(len(detector_names))))
 	toc = perf_counter()
 
 	# Put every fitted component into a pipeline
@@ -170,3 +170,4 @@ if __name__ == "__main__":
 		eval_model=args.eval_true,
 		path_save=args.path_save,
 	)
+
