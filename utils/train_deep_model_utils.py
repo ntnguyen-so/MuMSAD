@@ -30,6 +30,7 @@ from sklearn.metrics import f1_score
 
 
 
+
 class ModelExecutioner:
 	def __init__(
 		self,
@@ -155,9 +156,12 @@ class ModelExecutioner:
 
 				# Compute the loss
 				loss = self.criterion(outputs.float(), labels.long())
+
+				outputs = outputs.cpu()
+				labels = labels.cpu()
 				
 				# Compute top k accuracy
-				acc_top_k = self.compute_topk_f1(outputs, labels, k=4) #self.compute_topk_acc(outputs, labels, k=4)
+				acc_top_k = self.compute_topk_f1(outputs, labels, k=6) #self.compute_topk_acc(outputs, labels, k=4)
 
 				all_loss.append(loss.item())
 				all_acc.append(acc_top_k[1])
@@ -233,11 +237,13 @@ class ModelExecutioner:
 			avg_val_top2 = np.mean([x[2] for x in val_topk_acc])
 			avg_val_top3 = np.mean([x[3] for x in val_topk_acc])
 			avg_val_top4 = np.mean([x[4] for x in val_topk_acc])
+			avg_val_top5 = np.mean([x[5] for x in val_topk_acc])
+			avg_val_top6 = np.mean([x[6] for x in val_topk_acc])
 
 			# Epoch reporting
 			print(
-				"Epoch [{}/{}] {:.2f}secs : acc: {:.3f}, val_acc: {:.3f}, loss: {:.3f}, val_loss: {:.3f}, top k val_acc: k=1: {:.3f} k=2: {:.3f} k=3: {:.3f} k=4: {:.3f}"\
-				.format(epoch, n_epochs, perf_counter()-tic, avg_acc, avg_val_acc, avg_loss, avg_val_loss, avg_val_top1, avg_val_top2, avg_val_top3, avg_val_top4)
+				"Epoch [{}/{}] {:.2f}secs : acc: {:.3f}, val_acc: {:.3f}, loss: {:.3f}, val_loss: {:.3f}, top k val_acc: k=1: {:.3f} k=2: {:.3f} k=3: {:.3f} k=4: {:.3f} k=5: {:.3f} k=6: {:.3f}"\
+				.format(epoch, n_epochs, perf_counter()-tic, avg_acc, avg_val_acc, avg_loss, avg_val_loss, avg_val_top1, avg_val_top2, avg_val_top3, avg_val_top4, avg_val_top5, avg_val_top6)
 			)
 			
 			# Log the running loss averaged per batch
@@ -252,13 +258,13 @@ class ModelExecutioner:
 			writer.flush()
 
 			# Track best performance and save the model's state
-			if avg_val_top4 > best_val_acc:
-				best_val_acc = avg_val_top4
+			if avg_val_top6 > best_val_acc:
+				best_val_acc = avg_val_top6
 				best_model = copy.deepcopy(self.model)
 				torch.save(self.model.state_dict(), model_path)                                
 
 			# Early stopping
-			if (epoch > 3 and early_stopper.early_stop_acc(avg_val_top4)) or ((perf_counter()-tic) > 70000):
+			if (epoch > 3 and early_stopper.early_stop_acc(avg_val_top6)) or ((perf_counter()-tic) > 70000):
 				break
 				
 		# Collect the results
@@ -272,6 +278,8 @@ class ModelExecutioner:
 			'top_2_val_acc': avg_val_top2,
 			'top_3_val_acc': avg_val_top3,
 			'top_4_val_acc': avg_val_top4,
+			'top_5_val_acc': avg_val_top5,
+			'top_6_val_acc': avg_val_top6,
 		}
 
 		return best_model, results
@@ -295,7 +303,7 @@ class ModelExecutioner:
 
 			return mean_acc_top_k
 	
-	def compute_topk_f1(self, outputs, labels, k=4):
+	def compute_topk_f1(self, outputs, labels, k=6):
 		'''Compute top k F1-score'''
 		f1_scores_top_k = {k: [] for k in range(1, k + 1)}
 
@@ -407,6 +415,8 @@ class ScheduledOptim():
 
 		for param_group in self._optimizer.param_groups:
 			param_group['lr'] = lr
+
+		#print('new lr:', lr)
 		
 		return lr
 

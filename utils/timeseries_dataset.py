@@ -228,10 +228,10 @@ class TimeseriesDataset(Dataset):
 			sklearn_class_weights.insert(i, 1)
 
 		# Test
-		print('------------------------------------------')
-		counter = Counter(labels)
-		for detector, weight in zip(detector_names, sklearn_class_weights):
-			print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
+		#print('------------------------------------------')
+		#counter = Counter(labels)
+		#for detector, weight in zip(detector_names, sklearn_class_weights):
+		#	print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
 
 		return torch.Tensor(sklearn_class_weights).to(device)
 
