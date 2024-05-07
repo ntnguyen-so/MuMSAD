@@ -136,30 +136,41 @@ def train_deep_model(
                         num_features = first_linear_layer.in_features
                         model.fc1 = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                nn.ReLU(),
+                                #nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
                                 nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
                         )
+
+                        for layer in model.fc1:
+                                if isinstance(layer, nn.Linear):
+                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
+
                         model.fc1.to(device)
                 elif "inception_time" in model_name.lower():                        
                         first_linear_layer = model.linear
                         num_features = first_linear_layer.in_features
                         model.linear = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                nn.ReLU(),
+                                #nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
                                 nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
                         )
+                        for layer in model.linear:
+                                if isinstance(layer, nn.Linear):
+                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
                         model.linear.to(device)
                 elif "resnet" in model_name.lower():
                         first_linear_layer = model.final
                         num_features = first_linear_layer.in_features
                         model.final = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                nn.ReLU(),
+                                #nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
                                 nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
                         )
+                        for layer in model.final:
+                                if isinstance(layer, nn.Linear):
+                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
                         model.final.to(device)
                 
                 learning_rate *= lr_rate
@@ -232,14 +243,26 @@ if __name__ == "__main__":
         grid_search = True
 
         if grid_search:
-                l2 = list(range(0, 4, 1))
+                l2 = list(range(0, 2, 1))
                 l2 = [10*x for x in l2]
-                batch_size = list(range(5, 9, 1))
+                batch_size = list(range(5, 7, 1))
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.001, .01, .1, 1, 10, 50, 100, 300, 500, 700] #+ lr
+                lr = [.001, .01, .1, 1, 50, 100]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))
+
+                if False:
+                        l2 = list(range(0, 4, 1))
+                        l2 = [10*x for x in l2]
+                        batch_size = list(range(5, 9, 1))
+                        batch_size = [2**x for x in batch_size]
+                        lr = list(range(1, 8, 1))
+                        #lr = [100*x for x in lr]
+                        lr = [.001, .01, .1, 1, 10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000] #+ lr
+                        new_combinations = list(itertools.product(l2, batch_size, lr))
+
+                        combinations = [x for x in new_combinations if x not in combinations]
 
                 for l2_val, batch_size_val, lr_val in combinations:
                         print('----------------------------------------------------------------')
@@ -271,5 +294,4 @@ if __name__ == "__main__":
                         eval_model=args.eval_true,
                         transfer_learning=args.tl_model
                 )
-
 

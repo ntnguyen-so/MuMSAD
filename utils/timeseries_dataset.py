@@ -68,6 +68,7 @@ def create_splits(data_path, split_per=0.7, seed=None, read_from_file=None):
 		subsets = list(df.index)
 		
 		if 'train_set' in subsets and 'val_set' in subsets:
+			print('static')
 			train_set = [x for x in df.loc['train_set'].tolist() if not isinstance(x, float) or not math.isnan(x)]
 			val_set = [x for x in df.loc['val_set'].tolist() if not isinstance(x, float) or not math.isnan(x)]
 
@@ -228,10 +229,10 @@ class TimeseriesDataset(Dataset):
 			sklearn_class_weights.insert(i, 1)
 
 		# Test
-		#print('------------------------------------------')
-		#counter = Counter(labels)
-		#for detector, weight in zip(detector_names, sklearn_class_weights):
-		#	print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
+		if False:
+			print('------------------------------------------')
+			counter = Counter(labels)
+			for detector, weight in zip(detector_names, sklearn_class_weights):
+				print(f'{detector} : {counter[detector_names.index(detector)]}, {weight:.3f}')
 
 		return torch.Tensor(sklearn_class_weights).to(device)
-

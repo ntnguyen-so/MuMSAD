@@ -135,6 +135,7 @@ def split_and_compute_labels(x, metrics_data, window_size, fnames):
 	acc = metrics_data.iloc[:, 1:]
 	acc = acc[acc.sum(axis=1) > 0]
 	metrics_data = metrics_data.loc[acc.index.values.tolist(), :]
+	metrics_data.to_csv('metric.csv')
 
 	#print(len(x), len(metrics_data))
 	x = [x[old_indices.index(new_i)] for new_i in metrics_data.index.values.tolist()]
