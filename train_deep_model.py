@@ -245,7 +245,7 @@ if __name__ == "__main__":
         if grid_search:
                 l2 = list(range(0, 2, 1))
                 l2 = [10*x for x in l2]
-                batch_size = list(range(5, 7, 1))
+                batch_size = list(range(5, 9, 1))
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]

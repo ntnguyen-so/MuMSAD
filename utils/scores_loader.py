@@ -30,6 +30,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import metrics
 import pandas as pd
+from sklearn.metrics import average_precision_score, precision_recall_curve
+import copy
 
 
 class ScoresLoader:
@@ -49,11 +51,13 @@ class ScoresLoader:
 				curr_detectors.append(name)
 			if len(detectors) < 1:
 				detectors = curr_detectors.copy()
-			if False:#elif not detectors == curr_detectors:
-				print('detectors', detectors)
-				print('curr_detectors', curr_detectors)
-				raise ValueError('detectors are not the same in this dataset \'{}\''.format(dataset))
+			elif not detectors == curr_detectors:
+				detectors = [x for x in detectors if x in curr_detectors]
+				#print('detectors', detectors)
+				#print('curr_detectors', curr_detectors)
+				#raise ValueError('detectors are not the same in this dataset \'{}\''.format(dataset))
 		detectors.sort()
+		#print('------------------------------\n',detectors)
 
 		return detectors
 
@@ -70,7 +74,7 @@ class ScoresLoader:
 		'''
 		detectors = self.get_detector_names()
 		scores = []
-		idx_failed = []
+		idx_ok = []
 
 		for i, name in enumerate(tqdm(file_names, desc='Loading scores')):
 			name_split = name.split('/')[-2:]
@@ -79,17 +83,26 @@ class ScoresLoader:
 			try:
 				for path in paths:
 					data.append(pd.read_csv(path, header=None).to_numpy())
+					#print('Loaded scores from', path)
 			except Exception as e:
-				idx_failed.append(i)
-				continue
-			scores.append(np.concatenate(data, axis=1))
+				#idx_failed.append(i)
+				#print(idx_failed, paths, e)
+				#continue
+				pass
 
+			if len(data) > 0:
+				min_length_data = min([len(df) for df in data])
+				data = [df[-min_length_data:] for df in data]
+				scores.append(np.concatenate(data, axis=1))
+				idx_ok.append(i)
+
+		#print(idx_failed)
+		idx_failed = [i for i in range(len(file_names)) if i not in idx_ok]
 		# Delete ts which failed to load
 		if len(idx_failed) > 0:
-			print('failed to load')
+			#print('failed to load')
 			for idx in sorted(idx_failed, reverse=True):
-				print('\t\'{}\''.format(file_names[idx]))
-				# del file_names[idx]
+				pass
 
 		return scores, idx_failed
 
@@ -121,7 +134,7 @@ class ScoresLoader:
 
 # -----------------------------------------------------
 	
-	@jit
+	#@jit
 	def compute_metric(self, labels, scores, metric, verbose=1, n_jobs=1):
 		'''Computes desired metric for all labels and scores pairs.
 
@@ -132,18 +145,25 @@ class ScoresLoader:
 		:param verbose: to print or not to print info
 		:return: metric values
 		'''
+		print(len(labels))
+		print(len(scores))
 		n_files = len(labels)
 		results = []
 
 		if len(labels) != len(scores):
 			raise ValueError("length of labels and length of scores not the same")
+		
+		#if len(scores) == 0:
+		#	return results
 
 		if scores[0].ndim == 1 or scores[0].shape[-1] == 1:
 			args = [x + (metric,) for x in list(zip(labels, scores))]
 			pool = multiprocessing.Pool(n_jobs)
 
 			results = []
-			for result in tqdm(pool.istarmap(self.compute_single_sample, args), total=len(args)):
+			for label, score in zip(labels, scores):
+				result = self.compute_single_sample(label, score, metric)
+				#for result in  tqdm(pool.istarmap(self.compute_single_sample, args), total=len(args)):
 				results.append(result)
 
 			results = np.asarray([x.tolist() for x in results])
@@ -163,6 +183,10 @@ class ScoresLoader:
 		:param metric: string to which metric to compute
 		:return: an array of values, one for each score
 		'''
+		if len(label) > len(score):
+			label = label[-len(score):]
+		else:
+			score = score[-len(label):]
 		if label.shape[0] != score.shape[0]:
 			raise ValueError("label and score first dimension do not match. {} != {}".format(label.shape[0], score.shape[0]))
 
@@ -215,6 +239,7 @@ class ScoresLoader:
 		return max_len if max_len > 10 else 10
 
 	def compute_single_metric(self, score, label, metric):
+		print('compute_single_metric with', metric)
 		'''Compute a metric for a single sample and score.
 
 		:param label: 1D array of 0, 1 labels
@@ -222,6 +247,7 @@ class ScoresLoader:
 		:param metric: string to which metric to compute
 		:return: a single value
 		'''
+		label = label[-len(score):]
 		if label.shape != score.shape:
 			raise ValueError("label and metric should have the same length.")
 		
@@ -230,6 +256,31 @@ class ScoresLoader:
 			combined = np.vstack((label, score)).T
 			diff = np.abs(np.diff(combined))
 			result = 1 - np.mean(diff)
+		elif metric == 'Recommendation_ACC'.lower():
+			y_pred = copy.deepcopy(score)
+			y_true = copy.deepcopy(label)
+			# remove the nan score appearing at the beginning of metrics
+			first_non_nan =  np.where(~np.isnan(y_pred))[0][0]
+			y_pred = y_pred[first_non_nan:]
+			y_true = y_true[-y_pred.shape[0]:]
+
+			# do calculation
+			precision, recall, ths = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
+			f1 = 2 * precision * recall / (precision + recall + 1e-5)
+			best_f1 = f1[np.argmax(f1)]
+			best_th = ths[np.argmax(f1)]
+
+			# Convert predicted probabilities to binary predictions based on the threshold
+			y_pred_binary = (y_pred >= best_th).astype(int)
+
+			# Calculate True Positives (TP) and False Negatives (FN)
+			TP = np.sum((y_true == 1) & (y_pred_binary == 1))
+			FN = np.sum((y_true == 1) & (y_pred_binary == 0))
+
+			# Calculate False Negative Rate (FNR)
+			fnr = FN / (FN + TP) if (FN + TP) > 0 else 0
+
+			result = best_f1 - fnr if best_f1 - fnr > 0 else 0
 		elif np.all(0 == label):
 			fpr, tpr, thresholds = metrics.roc_curve(label, score)
 			thresholds[0] = 1
