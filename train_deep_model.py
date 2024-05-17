@@ -28,6 +28,7 @@ from utils.timeseries_dataset import create_splits, TimeseriesDataset
 from utils.config import *
 from eval_deep_model import eval_deep_model
 import itertools
+import torch.nn.functional as F
 
 # Function to find the fc1 layer programmatically
 def find_fc_layer(module):
@@ -127,14 +128,11 @@ def train_deep_model(
                         num_features = first_linear_layer.in_features
                         model.fc1 = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                #nn.ReLU(),
-                                nn.BatchNorm1d(num_features),
-                                nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
+                                nn.ReLU(),
+                                nn.Dropout(),
+                                nn.Linear(num_features, len(detector_names),
+                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
-
-                        for layer in model.fc1:
-                                if isinstance(layer, nn.Linear):
-                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
 
                         model.fc1.to(device)
                 elif "inception_time" in model_name.lower():                        
@@ -142,26 +140,22 @@ def train_deep_model(
                         num_features = first_linear_layer.in_features
                         model.linear = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                #nn.ReLU(),
+                                nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
-                                nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
+                                nn.Linear(num_features, len(detector_names),
+                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
-                        for layer in model.linear:
-                                if isinstance(layer, nn.Linear):
-                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
                         model.linear.to(device)
                 elif "resnet" in model_name.lower():
                         first_linear_layer = model.final
                         num_features = first_linear_layer.in_features
                         model.final = nn.Sequential(
                                 nn.Linear(num_features, num_features),
-                                #nn.ReLU(),
+                                nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
-                                nn.Linear(num_features, len(detector_names))  # Assuming 12 output classes
+                                nn.Linear(num_features, len(detector_names),
+                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
-                        for layer in model.final:
-                                if isinstance(layer, nn.Linear):
-                                        nn.init.kaiming_uniform_(layer.weight, mode='fan_in', nonlinearity='relu')
                         model.final.to(device)
                 
                 learning_rate *= lr_rate
@@ -177,7 +171,7 @@ def train_deep_model(
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
-                use_scheduler=False,
+                use_scheduler=True,
                 weight_decay=learning_rate*l2_val,
                 n_warmup_steps=4000
         )
