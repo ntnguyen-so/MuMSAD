@@ -109,15 +109,6 @@ def train_deep_model(
                 model.to(device)
                 state_dict = {k: v.to(device) for k, v in state_dict.items()}
                 model.load_state_dict(state_dict)
-
-                if False:
-                        num_layers_to_train = 6
-                        num_layers = len(list(model.named_parameters()))
-                        for idx, (name, param) in enumerate(model.named_parameters()):
-                                if idx < num_layers - num_layers_to_train*2:
-                                        param.requires_grad = False
-                                else:
-                                        param.requires_grad = True
                 
                 for param in model.parameters():
                        param.requires_grad = False
@@ -186,7 +177,7 @@ def train_deep_model(
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
-                use_scheduler=True,
+                use_scheduler=False,
                 weight_decay=learning_rate*l2_val,
                 n_warmup_steps=4000
         )

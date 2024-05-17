@@ -15,123 +15,192 @@ import numpy as np
 import pandas as pd
 import time
 from tqdm import tqdm
-from sklearn.decomposition import PCA
+from sklearn.decomposition import KernelPCA, PCA
+from sklearn.preprocessing import StandardScaler
+
+def kernel_pca_explained_variance_ratio(X, kernel='rbf', n_components=1, **kwargs):
+    """
+    Apply Kernel PCA to the dataset X and compute the explained variance ratio.
+
+    Parameters:
+    - X: array-like, shape (n_samples, n_features)
+        The input data.
+    - kernel: string, default='rbf'
+        Kernel to be used in Kernel PCA. Must be one of 'linear', 'poly', 'rbf', 'sigmoid', 'cosine', or 'precomputed'.
+    - n_components: int, default=None
+        Number of components to keep. If None, all components are kept.
+    - kwargs: additional arguments for KernelPCA
+    
+    Returns:
+    - explained_variance_ratio: array, shape (n_components,)
+        The explained variance ratio for each principal component.
+    """
+    # Standardize the dataset
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    # Apply KernelPCA
+    kpca = KernelPCA(kernel=kernel, n_components=n_components, **kwargs)
+    X_kpca = kpca.fit_transform(X_scaled)
+
+    # Compute the variance of each principal component
+    explained_variance = np.var(X_kpca, axis=0)
+
+    # Calculate the total variance
+    total_variance = np.sum(explained_variance)
+
+    # Compute the explained variance ratio
+    explained_variance_ratio = explained_variance / total_variance
+
+    return explained_variance_ratio
 
 class DataLoader:
-        """This class is used to read and load data from the benchmark.
-        When the object is created the path to the benchmark directory
-        should be given.
-        """
+    """This class is used to read and load data from the benchmark.
+    When the object is created the path to the benchmark directory
+    should be given.
+    """
 
-        def __init__(self, data_path):
-                self.data_path = data_path
-
-
-        def get_dataset_names(self):
-                '''Returns the names of existing datasets.
-                Careful, this function will not return any files in the given
-                directory but only the names of the sub-directories
-                as they are the datasets (not the timeseries).
-
-                :return: list of datasets' names (list of strings)
-                '''
-                names = os.listdir(self.data_path)
-
-                return [x for x in names if os.path.isdir(os.path.join(self.data_path, x))]
+    def __init__(self, data_path):
+        self.data_path = data_path
 
 
-        def load(self, dataset):
-                '''
-                Loads the specified datasets
+    def get_dataset_names(self):
+        '''Returns the names of existing datasets. 
+        Careful, this function will not return any files in the given
+        directory but only the names of the sub-directories
+        as they are the datasets (not the timeseries).
 
-                :param dataset: list of datasets
-                :return x: timeseries
-                :return y: corresponding labels
-                :return fnames: list of names of the timeseries loaded
-                '''
-                x = []
-                y = []
-                fnames = []
+        :return: list of datasets' names (list of strings)
+        '''
+        names = os.listdir(self.data_path)
+        self.dataset_names = [x for x in names if os.path.isdir(os.path.join(self.data_path, x))]
+        return [x for x in names if os.path.isdir(os.path.join(self.data_path, x))]
+    
+    def calc_data_characteristics(self):
+        ret_max_vals, ret_min_vals = None, None
+        
+        for dataset_name in self.dataset_names:
+            for fname in glob.glob(os.path.join(self.data_path, dataset_name, '*.out')):
+                #print(fname)
+                df = pd.read_csv(fname, header=None)
+                max_vals = df.max().tolist()[:-1]
+                min_vals = df.min().tolist()[:-1]
 
+                if not ret_max_vals:
+                    ret_max_vals = max_vals
+                if not ret_min_vals:
+                    ret_min_vals = min_vals
 
-                if not isinstance(dataset, list):
-                        raise ValueError('only accepts list of str')
+                for i in range(len(max_vals)):
+                    if max_vals[i] > ret_max_vals[i]:
+                        ret_max_vals[i] = max_vals[i]
 
-                pbar = tqdm(dataset)
-                for name in pbar:
-                        pbar.set_description('Loading ' + name)
-                        for fname in glob.glob(os.path.join(self.data_path, name, '*.out')):
-                                curr_data = pd.read_csv(fname, header=None).to_numpy()
+                for i in range(len(min_vals)):
+                    if min_vals[i] < ret_min_vals[i]:
+                        ret_min_vals[i] = min_vals[i]
+                    
+        self.ret_max_vals = np.array(ret_max_vals)
+        self.ret_min_vals = np.array(ret_min_vals)
 
-                                if curr_data.ndim != 2:
-                                        raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
+    def load(self, dataset):
+        '''
+        Loads the specified datasets
 
-                                # Skip files with no anomalies
-                                if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-                                        pca = PCA(n_components=1)
-                                        x.append(pca.fit_transform(curr_data[:, :-1]))
-                                        #x.append(curr_data[:, :-1])
-                                        y.append(curr_data[:, -1])
-                                        # Remove path from file name, keep dataset, time series name
-                                        fname = '/'.join(fname.split('/')[-2:])
-                                        fnames.append(fname.replace(self.data_path, ''))
-
-                return x, y, fnames
-
-
-        def load_df(self, dataset):
-                '''
-                Loads the time series of the given datasets and returns a dataframe
-
-                :param dataset: list of datasets
-                :return df: a single dataframe of all loaded time series
-                '''
-                df_list = []
-                pbar = tqdm(dataset)
-
-                if not isinstance(dataset, list):
-                        raise ValueError('only accepts list of str')
-
-                for name in pbar:
-                        pbar.set_description(f'Loading {name}')
-
-                        for fname in glob.glob(os.path.join(self.data_path, name, '*.csv')):
-                                curr_df = pd.read_csv(fname, index_col=0)
-                                curr_index = [os.path.join(name, x) for x in list(curr_df.index)]
-                                curr_df.index = curr_index
-
-                                df_list.append(curr_df)
-
-                df = pd.concat(df_list)
-
-                return df
+        :param dataset: list of datasets
+        :return x: timeseries
+        :return y: corresponding labels
+        :return fnames: list of names of the timeseries loaded
+        '''
+        x = []
+        y = []
+        fnames = []
+        
+        print('before calc_data_characteristics')
+        self.calc_data_characteristics()
+        print('after calc_data_characteristics')
 
 
-        def load_timeseries(self, timeseries):
-                '''
-                Loads specified timeseries
+        if not isinstance(dataset, list):
+            raise ValueError('only accepts list of str')
 
-                :param fnames: list of file names
-                :return x: timeseries
-                :return y: corresponding labels
-                :return fnames: list of names of the timeseries loaded
-                '''
-                x = []
-                y = []
-                fnames = []
+        pbar = tqdm(dataset)
+        for name in pbar:
+            pbar.set_description('Loading ' + name)
+            for fname in glob.glob(os.path.join(self.data_path, name, '*.out')):
+                curr_data = pd.read_csv(fname, header=None).to_numpy()
+                
+                if curr_data.ndim != 2:
+                    raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
 
-                for fname in tqdm(timeseries, desc='Loading timeseries'):
-                        curr_data = pd.read_csv(os.path.join(self.data_path, fname), header=None).to_numpy()
+                # Skip files with no anomalies
+                if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
+                    curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_min_vals) / (self.ret_max_vals - self.ret_min_vals)
+                    pca = KernelPCA(n_components=1, kernel='rbf')
+                    x.append(pca.fit_transform(curr_data[:, :-1]))
+                    #print(pca.explained_variance_ratio_)
+                    #x.append(curr_data[:, :-1])
+                    y.append(curr_data[:, -1])
+                    # Remove path from file name, keep dataset, time series name
+                    fname = '/'.join(fname.split('/')[-2:])        
+                    fnames.append(fname.replace(self.data_path, ''))
+                    
+        return x, y, fnames
 
-                        if curr_data.ndim != 2:
-                                raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
 
-                        # Skip files with no anomalies
-                        if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-                                pca = PCA(n_components=1)
-                                x.append(pca.fit_transform(curr_data[:, :-1]))
-                                y.append(curr_data[:, -1])
-                                fnames.append(fname)
+    def load_df(self, dataset):
+        '''
+        Loads the time series of the given datasets and returns a dataframe
 
-                return x, y, fnames
+        :param dataset: list of datasets
+        :return df: a single dataframe of all loaded time series
+        '''
+        df_list = []
+        pbar = tqdm(dataset)
 
+        if not isinstance(dataset, list):
+            raise ValueError('only accepts list of str')
+
+        for name in pbar:
+            pbar.set_description(f'Loading {name}')
+            
+            for fname in glob.glob(os.path.join(self.data_path, name, '*.csv')):
+                curr_df = pd.read_csv(fname, index_col=0)
+                curr_index = [os.path.join(name, x) for x in list(curr_df.index)]
+                curr_df.index = curr_index
+
+                df_list.append(curr_df)
+                
+        df = pd.concat(df_list)
+
+        return df
+
+
+    def load_timeseries(self, timeseries):
+        '''
+        Loads specified timeseries
+
+        :param fnames: list of file names
+        :return x: timeseries
+        :return y: corresponding labels
+        :return fnames: list of names of the timeseries loaded
+        '''
+        x = []
+        y = []
+        fnames = []
+        self.calc_data_characteristics()
+
+        for fname in tqdm(timeseries, desc='Loading timeseries'):
+            curr_data = pd.read_csv(os.path.join(self.data_path, fname), header=None).to_numpy()
+            
+            if curr_data.ndim != 2:
+                raise ValueError('did not expect this shape of data: \'{}\', {}'.format(fname, curr_data.shape))
+
+            # Skip files with no anomalies
+            if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
+                curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_min_vals) / (self.ret_max_vals - self.ret_min_vals)
+                pca = KernelPCA(n_components=1, kernel='rbf')
+                x.append(pca.fit_transform(curr_data[:, :-1]))
+                y.append(curr_data[:, -1])
+                fnames.append(fname)
+
+        return x, y, fnames
