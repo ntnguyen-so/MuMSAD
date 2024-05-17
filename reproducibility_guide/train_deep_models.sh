@@ -2,62 +2,62 @@
 
 # Training Convnet
 echo "convnet_default 16"
-python3 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_16/model_30012023_153755"
+python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_16/model_30012023_153755"
 
 echo "convnet_default 32"
-python3 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_32/model_30012023_153816"
+python3.8 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_32/model_30012023_153816"
 
 echo "convnet_default 64"
-python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_64/model_30012023_161154"
+#python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_64/model_30012023_161154"
 
 echo "convnet_default 128"
-python3 train_deep_model.py --path=data/OBSEA_128/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_128/model_30012023_171803"
+#python3 train_deep_model.py --path=data/OBSEA_128/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_128/model_30012023_171803"
 
 echo "convnet_default 256"
-python3 train_deep_model.py --path=data/OBSEA_256/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_256/model_30012023_172408"
+#python3 train_deep_model.py --path=data/OBSEA_256/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_256/model_30012023_172408"
 
 echo "convnet_default 512"
-python3 train_deep_model.py --path=data/OBSEA_512/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_512/model_30012023_173428"
+#python3 train_deep_model.py --path=data/OBSEA_512/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_512/model_30012023_173428"
 
 echo "convnet_default 768"
-python3 train_deep_model.py --path=data/OBSEA_768/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_768/model_30012023_182436"
+#python3 train_deep_model.py --path=data/OBSEA_768/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_768/model_30012023_182436"
 
 echo "convnet_default 1024"
-python3 train_deep_model.py --path=data/OBSEA_1024/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_1024/model_30012023_183630"
+#python3 train_deep_model.py --path=data/OBSEA_1024/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/convnet_default_1024/model_30012023_183630"
 
-exit
+#exit
 # Training Inception Time
 echo "inception_time_default 16"
-python3 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_16/model_30012023_153756"
+python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=inception_time --file=reproducibility_guide/train_val_split.csv --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_16/model_30012023_153756"
 
 echo "inception_time_default 32"
-python3 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_32/model_30012023_154328"
+python3.8 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=inception_time --file=reproducibility_guide/train_val_split.csv --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_32/model_30012023_154328"
 
 echo "inception_time_default 64"
-python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_64/model_30012023_161220"
+#python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_64/model_30012023_161220"
 
 echo "inception_time_default 128"
-python3 train_deep_model.py --path=data/OBSEA_128/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_128/model_30012023_171803"
+#python3 train_deep_model.py --path=data/OBSEA_128/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_128/model_30012023_171803"
 
 echo "inception_time_default 256"
-python3 train_deep_model.py --path=data/OBSEA_256/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_256/model_30012023_172649"
+#python3 train_deep_model.py --path=data/OBSEA_256/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_256/model_30012023_172649"
 
 echo "inception_time_default 512"
-python3 train_deep_model.py --path=data/OBSEA_512/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_512/model_30012023_173647"
+#python3 train_deep_model.py --path=data/OBSEA_512/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_512/model_30012023_173647"
 
 echo "inception_time_default 768"
-python3 train_deep_model.py --path=data/OBSEA_768/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_768/model_30012023_182538"
+#python3 train_deep_model.py --path=data/OBSEA_768/ --split=0.85 --model=inception_time --params=models/configuration/inception_time_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_768/model_30012023_182538"
 
 echo "inception_time_default 1024"
-python3 train_deep_model.py --path=data/OBSEA_1024/ --split=0.85 --model=inception_time --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_1024/model_30012023_183630"
+#python3 train_deep_model.py --path=data/OBSEA_1024/ --split=0.85 --model=inception_time --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/inception_time_default_1024/model_30012023_183630"
 
 # Training Resnet
 echo "resnet 16"
-python3 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=resnet --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_16/model_30012023_153756"
+#python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=resnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_16/model_30012023_153756"
 
 echo "resnet 32"
-python3 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=resnet --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_32/model_30012023_155436"
-
+python3.8 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=resnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_32/model_30012023_155436"
+exit
 echo "resnet 64"
 python3 train_deep_model.py --path=data/OBSEA_64/ --split=0.85 --model=resnet --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_64/model_30012023_161741"
 
