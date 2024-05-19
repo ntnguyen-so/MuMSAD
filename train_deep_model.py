@@ -30,6 +30,40 @@ from eval_deep_model import eval_deep_model
 import itertools
 import torch.nn.functional as F
 
+class GlobalAveragePooling(nn.Module):
+    def __init__(self, dim):
+        super(GlobalAveragePooling, self).__init__()
+        self.dim = dim
+
+    def forward(self, x):
+        return x.mean(dim=self.dim)
+
+class FlattenAndUnsqueeze(nn.Module):
+    def __init__(self):
+        super(FlattenAndUnsqueeze, self).__init__()
+
+    def forward(self, x):
+        return x.view(x.size(0), -1).unsqueeze(1)
+
+class SelfAttention(nn.Module):
+  def __init__(self, input_dim, input_dim_):
+    super(SelfAttention, self).__init__()
+    self.input_dim = input_dim
+    self.query = nn.Linear(input_dim, input_dim) # [batch_size, seq_length, input_dim]
+    self.key = nn.Linear(input_dim, input_dim) # [batch_size, seq_length, input_dim]
+    self.value = nn.Linear(input_dim, input_dim)
+    self.softmax = nn.Softmax(dim=2)
+   
+  def forward(self, x): # x.shape (batch_size, seq_length, input_dim)
+    queries = self.query(x)
+    keys = self.key(x)
+    values = self.value(x)
+
+    score = torch.bmm(queries, keys.transpose(1, 2))/(self.input_dim**0.5)
+    attention = self.softmax(score)
+    weighted = torch.bmm(attention, values)
+    return weighted
+
 # Function to find the fc1 layer programmatically
 def find_fc_layer(module):
     for m in module.children():
@@ -130,6 +164,9 @@ def train_deep_model(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
                                 nn.Dropout(),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -141,7 +178,10 @@ def train_deep_model(
                         model.linear = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                nn.BatchNorm1d(num_features),
+                                nn.Dropout(),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -152,7 +192,10 @@ def train_deep_model(
                         model.final = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                nn.BatchNorm1d(num_features),
+                                nn.Dropout(),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -173,7 +216,6 @@ def train_deep_model(
                 learning_rate=learning_rate,
                 use_scheduler=True,
                 weight_decay=learning_rate*l2_val,
-                n_warmup_steps=4000
         )
 
         # Check device of torch

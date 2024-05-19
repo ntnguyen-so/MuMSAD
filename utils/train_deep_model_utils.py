@@ -59,7 +59,7 @@ class ModelExecutioner:
 			betas=(0.9, 0.98), 
 			eps=1e-9,
 			weight_decay=weight_decay
-		)
+		)		
 		self.n_warmup_steps = n_warmup_steps
 		self.d_model = d_model
 		self.training_time_epoch = 0
