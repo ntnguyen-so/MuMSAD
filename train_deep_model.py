@@ -106,7 +106,7 @@ def train_deep_model(
                 train_set, val_set, test_set = train_set[:50], val_set[:10], test_set[:10]
 
         # Load the data
-        training_data = TimeseriesDataset(data_path, fnames=train_set, transform=True)
+        training_data = TimeseriesDataset(data_path, fnames=train_set, transform=False)
         val_data = TimeseriesDataset(data_path, fnames=val_set)
         test_data = TimeseriesDataset(data_path, fnames=test_set)
 
@@ -163,7 +163,6 @@ def train_deep_model(
                         model.fc1 = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                nn.Dropout(),
                                 FlattenAndUnsqueeze(),
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
@@ -200,6 +199,29 @@ def train_deep_model(
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
                         model.final.to(device)
+                elif "sit" in model_name.lower():
+                        # Get the number of input features for the fully connected layer
+                        first_linear_layer = None
+                        for layer in model.cls_layer.net:
+                                if isinstance(layer, nn.Linear):
+                                        first_linear_layer = layer
+                                        break
+
+                        if first_linear_layer is None:
+                                raise ValueError("No Linear layer found in pretrained_model.fc")
+
+                        num_features = first_linear_layer.in_features
+                        model.cls_layer.net = nn.Sequential(
+                                nn.Linear(num_features, num_features),
+                                nn.ReLU(),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
+                                nn.Linear(num_features, len(detector_names),
+                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
+                        )
+
+                        model.cls_layer.net.to(device)
                 
                 learning_rate *= lr_rate
 
@@ -270,14 +292,14 @@ if __name__ == "__main__":
         grid_search = True
 
         if grid_search:
-                l2 = list(range(0, 2, 1))
+                l2 = list(range(0, 1, 1))
                 l2 = [10*x for x in l2]
-                batch_size = list(range(5, 9, 1))
+                batch_size = list(range(2, 9, 1))
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.001, .01, .1, 1, 50, 100]#, 300] #+ lr
-                combinations = list(itertools.product(l2, batch_size, lr))
+                lr = [.00001, .0001, .001, .01, .1, 1, 50, 100]#, 300] #+ lr
+                combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
                         l2 = list(range(0, 4, 1))
@@ -316,7 +338,7 @@ if __name__ == "__main__":
                         read_from_file=args.file,
                         model_name=args.model,
                         model_parameters_file=args.params,
-                        batch_size=128, #args.batch,
+                        batch_size=64, #args.batch,
                         epochs=args.epochs,
                         eval_model=args.eval_true,
                         transfer_learning=args.tl_model
