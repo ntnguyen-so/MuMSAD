@@ -38,6 +38,9 @@ class FocalLoss(nn.Module):
         self.reduction = reduction
 
     def forward(self, inputs, targets):
+        if self.alpha is not None:
+            self.alpha = self.alpha.to(inputs.device)  # Ensure alpha is on the same device as inputs
+
         logpt = -F.cross_entropy(inputs, targets, reduction='none')
         pt = torch.exp(logpt)
 
