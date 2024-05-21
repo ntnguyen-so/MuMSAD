@@ -327,7 +327,7 @@ if __name__ == "__main__":
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.00001, .0001, .001, .01, .1, 1]#, 300] #+ lr
+                lr = [.00001, .0001, .001, .01, .1, 1, 10]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
