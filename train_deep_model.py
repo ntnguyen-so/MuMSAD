@@ -221,10 +221,11 @@ def train_deep_model(
                         model.final = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                nn.Dropout(),
+                                nn.Dropout(p=.3),
                                 FlattenAndUnsqueeze(),
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
+                                nn.Dropout(p=.3),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -244,6 +245,7 @@ def train_deep_model(
                         model.cls_layer.net = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
+                                nn.Dropout(),
                                 FlattenAndUnsqueeze(),
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
