@@ -193,9 +193,9 @@ def train_deep_model(
                         model.fc1 = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                #FlattenAndUnsqueeze(),
-                                #SelfAttention(num_features, num_features),
-                                #GlobalAveragePooling(dim=1),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -208,9 +208,9 @@ def train_deep_model(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
                                 nn.Dropout(),
-                                #FlattenAndUnsqueeze(),
-                                #SelfAttention(num_features, num_features),
-                                #GlobalAveragePooling(dim=1),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -222,9 +222,9 @@ def train_deep_model(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
                                 nn.Dropout(),
-                                #FlattenAndUnsqueeze(),
-                                #SelfAttention(num_features, num_features),
-                                #GlobalAveragePooling(dim=1),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -244,9 +244,9 @@ def train_deep_model(
                         model.cls_layer.net = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                #FlattenAndUnsqueeze(),
-                                #SelfAttention(num_features, num_features),
-                                #GlobalAveragePooling(dim=1),
+                                FlattenAndUnsqueeze(),
+                                SelfAttention(num_features, num_features),
+                                GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -264,11 +264,11 @@ def train_deep_model(
                 model=model,
                 model_name=classifier_name,
                 device=device,
-                criterion=FocalLoss(alpha=alpha, gamma=2, reduction='mean'),#nn.CrossEntropyLoss(weight=class_weights).to(device),
+                criterion=FocalLoss(alpha=alpha, gamma=3, reduction='mean'),#nn.CrossEntropyLoss(weight=class_weights).to(device),
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
-                use_scheduler=True,
+                use_scheduler=False,
                 weight_decay=learning_rate*l2_val,
         )
 
@@ -330,7 +330,7 @@ if __name__ == "__main__":
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.00001, .0001, .001, .01, .1, 1, 10]#, 300] #+ lr
+                lr = [.00001, .0001, .001, .01, .1, 1, 10, 100]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
