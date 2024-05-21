@@ -27,7 +27,9 @@ import matplotlib.pyplot as plt
 from time import perf_counter, process_time
 from datetime import datetime
 from sklearn.metrics import f1_score
-
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 
 
@@ -50,7 +52,7 @@ class ModelExecutioner:
 		self.runs_dir = runs_dir
 		self.weights_dir = weights_dir
 		self.model_name = model_name
-		self.device = device
+		self.device = device		
 		self.criterion = criterion.to(self.device)
 		self.use_scheduler = use_scheduler
 		self.optimizer = torch.optim.Adam(

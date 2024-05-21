@@ -30,6 +30,33 @@ from eval_deep_model import eval_deep_model
 import itertools
 import torch.nn.functional as F
 
+class FocalLoss(nn.Module):
+    def __init__(self, alpha=None, gamma=2.0, reduction='mean'):
+        super(FocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.reduction = reduction
+
+    def forward(self, inputs, targets):
+        logpt = -F.cross_entropy(inputs, targets, reduction='none')
+        pt = torch.exp(logpt)
+
+        # Compute the focal loss
+        focal_loss = -((1 - pt) ** self.gamma) * logpt
+
+        if self.alpha is not None:
+            # Use alpha values corresponding to the target class for each sample
+            alpha_t = self.alpha[targets]
+            focal_loss = alpha_t * focal_loss
+
+        if self.reduction == 'mean':
+            return focal_loss.mean()
+        elif self.reduction == 'sum':
+            return focal_loss.sum()
+        else:
+            return focal_loss
+
+
 class GlobalAveragePooling(nn.Module):
     def __init__(self, dim):
         super(GlobalAveragePooling, self).__init__()
@@ -163,9 +190,9 @@ def train_deep_model(
                         model.fc1 = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                FlattenAndUnsqueeze(),
-                                SelfAttention(num_features, num_features),
-                                GlobalAveragePooling(dim=1),
+                                #FlattenAndUnsqueeze(),
+                                #SelfAttention(num_features, num_features),
+                                #GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -178,9 +205,9 @@ def train_deep_model(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
                                 nn.Dropout(),
-                                FlattenAndUnsqueeze(),
-                                SelfAttention(num_features, num_features),
-                                GlobalAveragePooling(dim=1),
+                                #FlattenAndUnsqueeze(),
+                                #SelfAttention(num_features, num_features),
+                                #GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -192,9 +219,9 @@ def train_deep_model(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
                                 nn.Dropout(),
-                                FlattenAndUnsqueeze(),
-                                SelfAttention(num_features, num_features),
-                                GlobalAveragePooling(dim=1),
+                                #FlattenAndUnsqueeze(),
+                                #SelfAttention(num_features, num_features),
+                                #GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -214,9 +241,9 @@ def train_deep_model(
                         model.cls_layer.net = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                FlattenAndUnsqueeze(),
-                                SelfAttention(num_features, num_features),
-                                GlobalAveragePooling(dim=1),
+                                #FlattenAndUnsqueeze(),
+                                #SelfAttention(num_features, num_features),
+                                #GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
@@ -226,13 +253,15 @@ def train_deep_model(
                 learning_rate *= lr_rate
 
                 
-
+        alpha = torch.tensor([0.02259222, 0.05130592, 0.09748125, 0.07263678, 0.08123437, 0.03781057,
+						0.0381255, 0.0649875, 0.24370312, 0.08123437, 0.06962946, 0.13925893], dtype=torch.float32)
+        
         # Create the executioner object
         model_execute = ModelExecutioner(
                 model=model,
                 model_name=classifier_name,
                 device=device,
-                criterion=nn.CrossEntropyLoss(weight=class_weights).to(device),
+                criterion=FocalLoss(alpha=alpha, gamma=2, reduction='mean'),#nn.CrossEntropyLoss(weight=class_weights).to(device),
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
@@ -298,7 +327,7 @@ if __name__ == "__main__":
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.00001, .0001, .001, .01, .1, 1, 50, 100]#, 300] #+ lr
+                lr = [.00001, .0001, .001, .01, .1, 1]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
