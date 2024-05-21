@@ -249,6 +249,7 @@ def train_deep_model(
                                 FlattenAndUnsqueeze(),
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
+                                nn.Dropout(),
                                 nn.Linear(num_features, len(detector_names),
                                 nn.LogSoftmax(dim=1))  # Assuming 12 output classes
                         )
