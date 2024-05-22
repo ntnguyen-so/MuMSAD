@@ -245,13 +245,13 @@ def train_deep_model(
                         model.cls_layer.net = nn.Sequential(
                                 nn.Linear(num_features, num_features),
                                 nn.ReLU(),
-                                nn.Dropout(),
+                                nn.BatchNorm1d(num_features),
                                 FlattenAndUnsqueeze(),
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
-                                nn.Dropout(),
-                                nn.Linear(num_features, len(detector_names),
-                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
+                                nn.BatchNorm1d(num_features),
+                                nn.Linear(num_features, len(detector_names)),
+                                nn.LogSoftmax(dim=1)  # Assuming 12 output classes
                         )
 
                         model.cls_layer.net.to(device)
@@ -329,11 +329,11 @@ if __name__ == "__main__":
         if grid_search:
                 l2 = list(range(0, 1, 1))
                 l2 = [10*x for x in l2]
-                batch_size = list(range(2, 9, 1))
+                batch_size = list(range(2, 8, 1))
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.00001, .0001, .001, .01, .1, 1, 10, 100]#, 300] #+ lr
+                lr = [.00001, .0001, .001, .01, .05, .5, .1, ]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
