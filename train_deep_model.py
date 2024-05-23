@@ -94,6 +94,52 @@ class SelfAttention(nn.Module):
     weighted = torch.bmm(attention, values)
     return weighted
 
+class MultiHeadAttention(nn.Module):
+    def __init__(self, input_dim, num_heads):
+        super(MultiHeadAttention, self).__init__()
+        self.num_heads = num_heads
+        self.head_dim = input_dim // num_heads
+
+        assert self.head_dim * num_heads == input_dim, "input_dim must be divisible by num_heads"
+
+        self.query = nn.Linear(input_dim, input_dim)
+        self.key = nn.Linear(input_dim, input_dim)
+        self.value = nn.Linear(input_dim, input_dim)
+        self.softmax = nn.Softmax(dim=2)
+        self.out = nn.Linear(input_dim, input_dim)
+
+    def forward(self, x):
+        batch_size, seq_length, input_dim = x.size()
+
+        # Linear projections
+        queries = self.query(x)  # (batch_size, seq_length, input_dim)
+        keys = self.key(x)       # (batch_size, seq_length, input_dim)
+        values = self.value(x)   # (batch_size, seq_length, input_dim)
+
+        # Reshape to (batch_size, num_heads, seq_length, head_dim)
+        queries = queries.view(batch_size, seq_length, self.num_heads, self.head_dim)
+        keys = keys.view(batch_size, seq_length, self.num_heads, self.head_dim)
+        values = values.view(batch_size, seq_length, self.num_heads, self.head_dim)
+
+        # Transpose to (batch_size, num_heads, seq_length, head_dim)
+        queries = queries.transpose(1, 2)
+        keys = keys.transpose(1, 2)
+        values = values.transpose(1, 2)
+
+        # Scaled dot-product attention
+        scores = torch.matmul(queries, keys.transpose(-2, -1)) / (self.head_dim ** 0.5)
+        attention = self.softmax(scores)
+        weighted = torch.matmul(attention, values)  # (batch_size, num_heads, seq_length, head_dim)
+
+        # Concatenate heads
+        weighted = weighted.transpose(1, 2).contiguous()
+        weighted = weighted.view(batch_size, seq_length, input_dim)
+
+        # Final linear layer
+        output = self.out(weighted)  # (batch_size, seq_length, input_dim)
+
+        return output
+
 # Function to find the fc1 layer programmatically
 def find_fc_layer(module):
     for m in module.children():
@@ -247,7 +293,8 @@ def train_deep_model(
                                 nn.ReLU(),
                                 nn.BatchNorm1d(num_features),
                                 FlattenAndUnsqueeze(),
-                                SelfAttention(num_features, num_features),
+                                MultiHeadAttention(num_features, 32),
+                                #SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
                                 nn.BatchNorm1d(num_features),
                                 nn.Linear(num_features, len(detector_names)),
@@ -285,6 +332,28 @@ def train_deep_model(
                 validation_loader=validation_loader,
                 verbose=True,
         )
+        
+        if False:
+            params = list(model.named_parameters())
+
+            for i in range(len(params))[::2]:
+                to_train = False
+                if -i-1 >= len(params)*-1:
+                    params[-i-1][1].requires_grad = True
+                    to_train = True
+                if -i-2 > len(params)*-1:                
+                    params[-i-2][1].requires_grad = True
+                    to_train = True                
+
+                # Run training procedure
+                if to_train:
+                    model_execute.learning_rate *= .9
+                    model, results = model_execute.train(
+                        n_epochs=3,
+                        training_loader=training_loader,
+                        validation_loader=validation_loader,
+                        verbose=True,
+                    )
 
         # Save training stats
         timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
@@ -329,11 +398,11 @@ if __name__ == "__main__":
         if grid_search:
                 l2 = list(range(0, 1, 1))
                 l2 = [10*x for x in l2]
-                batch_size = list(range(2, 8, 1))
+                batch_size = list(range(2, 9, 1))
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.00001, .0001, .001, .01, .05, .5, .1, ]#, 300] #+ lr
+                lr = [.01, .05, .5, .1, 1]#, 300] #+ lr
                 combinations = list(itertools.product(l2, batch_size, lr))[::-1]
 
                 if False:
