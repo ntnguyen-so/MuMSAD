@@ -40,7 +40,7 @@ def kernel_pca_explained_variance_ratio(X, kernel='rbf', n_components=1, **kwarg
     X_scaled = scaler.fit_transform(X)
 
     # Apply KernelPCA
-    kpca = KernelPCA(kernel=kernel, n_components=n_components, **kwargs)
+    kpca = PCA(kernel=kernel, n_components=n_components, **kwargs)
     X_kpca = kpca.fit_transform(X_scaled)
 
     # Compute the variance of each principal component
@@ -118,6 +118,7 @@ class DataLoader:
         print('before calc_data_characteristics')
         self.calc_data_characteristics()
         print('after calc_data_characteristics')
+        print(self.ret_max_vals, self.ret_min_vals)
 
 
         if not isinstance(dataset, list):
@@ -135,8 +136,9 @@ class DataLoader:
                 # Skip files with no anomalies
                 if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
                     curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_min_vals) / (self.ret_max_vals - self.ret_min_vals)
-                    pca = KernelPCA(n_components=1, kernel='rbf')
-                    x.append(pca.fit_transform(curr_data[:, :-1]))
+                    pca = PCA(n_components=1)#, kernel='rbf')
+                    #x.append(pca.fit_transform(curr_data[:, :-1]))
+                    x.append(np.sum(curr_data[:, :-1], axis=1))
                     #print(pca.explained_variance_ratio_)
                     #x.append(curr_data[:, :-1])
                     y.append(curr_data[:, -1])
@@ -198,8 +200,8 @@ class DataLoader:
             # Skip files with no anomalies
             if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
                 curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_min_vals) / (self.ret_max_vals - self.ret_min_vals)
-                pca = KernelPCA(n_components=1, kernel='rbf')
-                x.append(pca.fit_transform(curr_data[:, :-1]))
+                pca = PCA(n_components=1)#, kernel='rbf')
+                x.append(np.mean(curr_data[:, :-1]))
                 y.append(curr_data[:, -1])
                 fnames.append(fname)
 

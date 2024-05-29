@@ -63,7 +63,7 @@ def eval_oracle(path):
 	all_oracles = None
 	for oracle in oracles:
 		files = [os.listdir(oracle)]
-		df = pd.read_csv(os.path.join(oracle, 'AUC_PR.csv'), index_col=0)
+		df = pd.read_csv(os.path.join(oracle, 'Recommendation_ACC.csv'), index_col=0)
 
 		if all_oracles is None:
 			# all_oracles = pd.merge(first_oracle, df, left_index=True, right_index=True)
