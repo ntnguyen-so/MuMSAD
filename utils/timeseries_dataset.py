@@ -172,21 +172,34 @@ class TimeseriesDataset(Dataset):
 
 		# Read datasets
 		for fname in tqdm(self.fnames, disable=not verbose, desc="Loading dataset"):
-			data = pd.read_csv(os.path.join(self.data_path, fname), index_col=0)
+			fname_data = fname[:]
+			fname_data = fname_data.replace('.csv', '_data.npy')
+			
+			fname_label = fname[:]
+			fname_label = fname_label.replace('.csv', '_label.npy')
+			# print(os.path.join(self.data_path, fname))
+			# data = pd.read_csv(os.path.join(self.data_path, fname), index_col=0)
+			# data = np.load(os.path.join(self.data_path, fname))
 			dataset = fname.split('/')[0]
-			curr_idxs = list(data.index)
-			curr_idxs = [os.path.join(dataset, x) for x in curr_idxs]
+			# curr_idxs = list(data.index)
+			# curr_idxs = [os.path.join(dataset, x) for x in curr_idxs]
 
-			self.indexes.extend(curr_idxs)	
-			self.labels.extend(data['label'].tolist())
-			self.samples.append(data.iloc[:, 1:].to_numpy())
+			
+			# self.indexes.extend(curr_idxs)	
+			
+			label = np.load(os.path.join(self.data_path, fname_label)).ravel()
+			self.labels.extend(label.tolist())
+			
+			data_data = np.load(os.path.join(self.data_path, fname_data))
+			data_data = np.swapaxes(data_data, 1, 2)
+			self.samples.append(data_data)
 		
 		# Concatenate samples and labels
 		self.labels = np.asarray(self.labels)
 		self.samples = np.concatenate(self.samples, axis=0)
 
 		# Add channels dimension
-		self.samples = self.samples[:, np.newaxis, :]
+		# self.samples = self.samples[:, np.newaxis, :]
 		
 	def __len__(self):
 		return self.labels.size

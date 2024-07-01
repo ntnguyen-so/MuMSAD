@@ -31,6 +31,8 @@ class ConvNet(nn.Module):
 		self.num_class = num_classes
 		self.kernel_size = kernel_size
 		self.padding = padding
+		# self.dilation = dilation
+		# self.strides = strides
 		self.layers = []
 
 		dims = [original_dim]
@@ -40,8 +42,9 @@ class ConvNet(nn.Module):
 		for i in range(num_blocks):
 			self.layers.extend([
 				nn.Conv1d(dims[i], dims[i+1], kernel_size=self.kernel_size, padding=self.padding),
-				nn.BatchNorm1d(dims[i+1]),
+                nn.BatchNorm1d(dims[i+1]),
 				nn.ReLU(),
+                nn.Dropout(0.1)
 			])
 		self.layers.extend([
 			nn.Conv1d(dims[-1], dims[-1], kernel_size=self.kernel_size, padding=self.padding),
@@ -49,10 +52,11 @@ class ConvNet(nn.Module):
 		])
 		self.layers = nn.Sequential(*self.layers)
 				
-		self.GAP = nn.AvgPool1d(original_length)
+		self.GAP = nn.AvgPool1d(kernel_size=16, stride=16, padding=0) #(original_length)
 		
 		self.fc1 = nn.Sequential(
-			nn.Linear(dims[-1], num_classes)
+			nn.Linear(dims[-1], num_classes),
+            nn.LogSoftmax(dim=1) 
 		)
 
 		

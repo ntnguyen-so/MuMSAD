@@ -107,14 +107,17 @@ def create_tmp_dataset(
         fname_split = fname.split('/')
         dataset_name = fname_split[-2]
         ts_name = fname_split[-1]
-        new_names = [ts_name + '.{}'.format(i) for i in range(len(ts))]
+        # new_names = [ts_name + '.{}'.format(i) for i in range(len(ts))]
         
-        data = np.concatenate((label[:, np.newaxis], ts.reshape((ts.shape[0], -1))), axis=1)
-        col_names = ['label']
-        col_names += ["val_{}".format(i) for i in range(data.shape[1]-1)]
+        np.save(os.path.join(save_dir, name, dataset_name, ts_name + '_data'), ts)
+        np.save(os.path.join(save_dir, name, dataset_name, ts_name + '_label'), label[:, np.newaxis])
         
-        df = pd.DataFrame(data, index=new_names, columns=col_names)
-        df.to_csv(os.path.join(save_dir, name, dataset_name, ts_name + '.csv'))
+        # data = np.concatenate((label[:, np.newaxis], ts.reshape((ts.shape[0], -1))), axis=1)
+        # col_names = ['label']
+        # col_names += ["val_{}".format(i) for i in range(data.shape[1]-1)]
+        
+        # df = pd.DataFrame(data, index=new_names, columns=col_names)
+        # df.to_csv(os.path.join(save_dir, name, dataset_name, ts_name + '.csv'))
 
 
 def split_and_compute_labels(x, metrics_data, window_size, fnames):
@@ -139,6 +142,7 @@ def split_and_compute_labels(x, metrics_data, window_size, fnames):
     acc = metrics_data.iloc[:, 1:]
     acc = acc[acc.sum(axis=1) > 0]
     metrics_data = metrics_data.loc[acc.index.values.tolist(), :]
+    metrics_data.to_csv('metrics.csv')
 
     #print(len(x), len(metrics_data))
     x = [x[old_indices.index(new_i)] for new_i in metrics_data.index.values.tolist()]
@@ -146,14 +150,17 @@ def split_and_compute_labels(x, metrics_data, window_size, fnames):
     #print(metrics_data.index.values.tolist())
     #print([old_indices.index(new_i) for new_i in metrics_data.index.values.tolist()])
 
-    for ts, metric_label in tqdm(zip(x, metrics_data.idxmax(axis=1)), total=len(x), desc="Create dataset"):
-        
+    for ts_fnames, metric_label in tqdm(zip(fnames, metrics_data.idxmax(axis=1)), total=len(x), desc="Create dataset"):
+        print(ts_fnames)
+        ts = pd.read_csv('data/OBSEA/data/' + ts_fnames, header=None)
+        ts = ts.iloc[:, :-1].values
+        # print('ts.shape', ts.shape)
         # Z-normalization (windows with a single value go to 0)
         #ts = z_normalization(ts, decimals=7)
 
         # Split time series into windows
         ts_split = split_ts(ts, window_size)
-        
+        # print('ts_split', ts_split.shape)
         # Save everything to lists
         ts_list.append(ts_split)
         labels.append(np.ones(len(ts_split)) * detector_names.index(metric_label))
@@ -161,7 +168,8 @@ def split_and_compute_labels(x, metrics_data, window_size, fnames):
     assert(
         len(x) == len(ts_list) == len(labels)
     ), "Timeseries split and labels computation error, lengths do not match"
-            
+    
+    # print(len(ts_list), len(labels), len(fnames))
     return ts_list, labels, fnames
 
 

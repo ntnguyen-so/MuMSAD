@@ -1,7 +1,7 @@
 {
 	"timeseries_size": 512,
 	"window_size": 16,
-	"in_channels":1,
+	"in_channels":3,
 	"embedding_dim":256,
 	"num_layers":12,
 	"num_heads":8,

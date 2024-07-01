@@ -18,42 +18,6 @@ from tqdm import tqdm
 from sklearn.decomposition import KernelPCA, PCA
 from sklearn.preprocessing import StandardScaler
 
-def kernel_pca_explained_variance_ratio(X, kernel='rbf', n_components=1, **kwargs):
-    """
-    Apply Kernel PCA to the dataset X and compute the explained variance ratio.
-
-    Parameters:
-    - X: array-like, shape (n_samples, n_features)
-        The input data.
-    - kernel: string, default='rbf'
-        Kernel to be used in Kernel PCA. Must be one of 'linear', 'poly', 'rbf', 'sigmoid', 'cosine', or 'precomputed'.
-    - n_components: int, default=None
-        Number of components to keep. If None, all components are kept.
-    - kwargs: additional arguments for KernelPCA
-    
-    Returns:
-    - explained_variance_ratio: array, shape (n_components,)
-        The explained variance ratio for each principal component.
-    """
-    # Standardize the dataset
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Apply KernelPCA
-    kpca = PCA(kernel=kernel, n_components=n_components, **kwargs)
-    X_kpca = kpca.fit_transform(X_scaled)
-
-    # Compute the variance of each principal component
-    explained_variance = np.var(X_kpca, axis=0)
-
-    # Calculate the total variance
-    total_variance = np.sum(explained_variance)
-
-    # Compute the explained variance ratio
-    explained_variance_ratio = explained_variance / total_variance
-
-    return explained_variance_ratio
-
 class DataLoader:
     """This class is used to read and load data from the benchmark.
     When the object is created the path to the benchmark directory

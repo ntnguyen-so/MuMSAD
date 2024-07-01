@@ -140,6 +140,13 @@ class MultiHeadAttention(nn.Module):
 
         return output
 
+def init_weights(m):
+    if isinstance(m, nn.Conv1d):
+        nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+    elif isinstance(m, nn.BatchNorm1d):
+        nn.init.constant_(m.weight, 1)
+        nn.init.constant_(m.bias, 0)
+        
 # Function to find the fc1 layer programmatically
 def find_fc_layer(module):
     for m in module.children():
@@ -177,6 +184,7 @@ def train_deep_model(
                 seed=10,
                 read_from_file=read_from_file,
         )
+        print(val_set, data_path)
         # Uncomment for testing
         if epochs == 1:
                 train_set, val_set, test_set = train_set[:50], val_set[:10], test_set[:10]
@@ -186,6 +194,12 @@ def train_deep_model(
         val_data = TimeseriesDataset(data_path, fnames=val_set)
         test_data = TimeseriesDataset(data_path, fnames=test_set)
 
+        # np.save('training.npy', np.array(training_data.__getallsamples__()))
+        # np.save('training_labels.npy', np.array(training_data.__getalllabels__()))
+        # np.save('validation.npy', np.array(val_data.__getallsamples__()))
+        # np.save('validation_labels.npy', np.array(val_data.__getalllabels__()))
+            
+            
         # Create the data loaders
         training_loader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
         validation_loader = DataLoader(val_data, batch_size=batch_size, shuffle=True)
@@ -208,7 +222,7 @@ def train_deep_model(
         if read_from_file is not None and "unsupervised" in read_from_file:
                 classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
 
-        learning_rate = 0.00001
+        learning_rate = 0.00001*1
 
         if transfer_learning:
                 print('Transfer learning')
@@ -243,7 +257,7 @@ def train_deep_model(
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
-                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
+                                nn.LogSoftmax(dim=1)) 
                         )
 
                         model.fc1.to(device)
@@ -258,7 +272,7 @@ def train_deep_model(
                                 SelfAttention(num_features, num_features),
                                 GlobalAveragePooling(dim=1),
                                 nn.Linear(num_features, len(detector_names),
-                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
+                                nn.LogSoftmax(dim=1))  
                         )
                         model.linear.to(device)
                 elif "resnet" in model_name.lower():
@@ -273,7 +287,7 @@ def train_deep_model(
                                 GlobalAveragePooling(dim=1),
                                 nn.Dropout(p=.3),
                                 nn.Linear(num_features, len(detector_names),
-                                nn.LogSoftmax(dim=1))  # Assuming 12 output classes
+                                nn.LogSoftmax(dim=1))  
                         )
                         model.final.to(device)
                 elif "sit" in model_name.lower():
@@ -304,22 +318,22 @@ def train_deep_model(
                         model.cls_layer.net.to(device)
                 
                 learning_rate *= lr_rate
-
-                
-        alpha = torch.tensor([0.02259222, 0.05130592, 0.09748125, 0.07263678, 0.08123437, 0.03781057,
-						0.0381255, 0.0649875, 0.24370312, 0.08123437, 0.06962946, 0.13925893], dtype=torch.float32)
-        
+                        
+        # Compute class weights to give them to the loss function
+        class_weights = training_data.get_weights_subset(device)
+        model.apply(init_weights)
+        # print(model)
         # Create the executioner object
         model_execute = ModelExecutioner(
                 model=model,
                 model_name=classifier_name,
                 device=device,
-                criterion=FocalLoss(alpha=alpha, gamma=3, reduction='mean'),#nn.CrossEntropyLoss(weight=class_weights).to(device),
+                criterion=nn.CrossEntropyLoss(weight=class_weights).to(device),
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
-                use_scheduler=False,
-                weight_decay=learning_rate*l2_val,
+                use_scheduler=True,
+                weight_decay=5e-2,# learning_rate*l2_val,
         )
 
         # Check device of torch
@@ -365,6 +379,7 @@ def train_deep_model(
                 if read_from_file is not None and "unsupervised" in read_from_file:
                         os.path.join(path_save_results, "unsupervised")
                 eval_set = test_set if len(test_set) > 0 else val_set
+                print('before evaluating', eval_set)
                 eval_deep_model(
                         data_path=data_path,
                         fnames=eval_set,
@@ -389,11 +404,11 @@ if __name__ == "__main__":
         parser.add_argument('-b', '--batch', type=int, help='batch size', default=64)
         parser.add_argument('-ep', '--epochs', type=int, help='number of epochs', default=10)
         parser.add_argument('-e', '--eval-true', action="store_true", help='whether to evaluate the model on test data after training')
-        parser.add_argument('-tlm', '--tl-model', type=str, help='path to trained model')
+        parser.add_argument('-tlm', '--tl-model', type=str, help='path to trained model', default=None)
 
         args = parser.parse_args()
 
-        grid_search = True
+        grid_search = False
 
         if grid_search:
                 l2 = list(range(0, 1, 1))
@@ -442,7 +457,7 @@ if __name__ == "__main__":
                         read_from_file=args.file,
                         model_name=args.model,
                         model_parameters_file=args.params,
-                        batch_size=64, #args.batch,
+                        batch_size=256, #args.batch,
                         epochs=args.epochs,
                         eval_model=args.eval_true,
                         transfer_learning=args.tl_model

@@ -55,4 +55,4 @@ deep_models = {
 	'sit':SignalTransformer,
 }
 
-num_dimensions = 1
+num_dimensions = 3
