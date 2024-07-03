@@ -39,10 +39,10 @@ detector_names = [
     'Torsk', 
     #'EncDec-AD', 
     'Hybrid KNN',
-    'CBLOF', 
+    # 'CBLOF', 
     'COPOD', 
     'RobustPCA', 
-    'LOF'
+    # 'LOF'
 ]
 
 

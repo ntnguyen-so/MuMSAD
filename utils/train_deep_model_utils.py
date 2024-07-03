@@ -30,6 +30,7 @@ from sklearn.metrics import f1_score
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 
 
@@ -55,12 +56,12 @@ class ModelExecutioner:
         self.device = device        
         self.criterion = criterion.to(self.device)
         self.use_scheduler = use_scheduler
-        self.optimizer = torch.optim.Adam(
+        self.optimizer = torch.optim.RMSprop(
             self.model.parameters(), 
-            lr=learning_rate, 
-            betas=(0.9, 0.98), 
-            eps=1e-9,
-            weight_decay=weight_decay
+            # lr=learning_rate, 
+            # betas=(0.9, 0.98), 
+            # eps=1e-9,
+            # weight_decay=weight_decay
         )        
         self.n_warmup_steps = n_warmup_steps
         self.d_model = d_model
@@ -89,6 +90,7 @@ class ModelExecutioner:
             # Zero the gradients for every batch
             if self.use_scheduler:
                 self.scheduler.zero_grad()
+                pass
             else:
                 self.optimizer.zero_grad()
 
@@ -101,7 +103,8 @@ class ModelExecutioner:
 
             # Adjust learning weights
             if self.use_scheduler:
-                self.scheduler.step_and_update_lr()
+                # self.scheduler.step_and_update_lr()
+                self.scheduler.step()
             else:
                 self.optimizer.step()
 
@@ -207,12 +210,13 @@ class ModelExecutioner:
 
         # Set up scheduler
         if self.use_scheduler:
-            self.scheduler = ScheduledOptim(
-                self.optimizer,
-                lr_mul=.75,
-                d_model=self.d_model,
-                n_warmup_steps=self.n_warmup_steps,
-            )
+            # self.scheduler = ScheduledOptim(
+                # self.optimizer,
+                # lr_mul=.75,
+                # d_model=self.d_model,
+                # n_warmup_steps=self.n_warmup_steps,
+            # )
+            self.scheduler = CosineAnnealingLR(self.optimizer, T_max=500, eta_min=0)#, verbose=True)
 
         # Check if saving dirs exist (if not create them)
         model_path = os.path.join(
@@ -261,8 +265,8 @@ class ModelExecutioner:
             writer.flush()
 
             # Track best performance and save the model's state
-            if avg_val_top3 > best_val_acc:
-                best_val_acc = avg_val_top3
+            if avg_val_top1 > best_val_acc:
+                best_val_acc = avg_val_top1
                 best_model = copy.deepcopy(self.model)
                 torch.save(self.model.state_dict(), model_path)                                
 

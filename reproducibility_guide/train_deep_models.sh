@@ -55,6 +55,7 @@ echo "inception_time_default 1024"
 
 # Training Resnet
 echo "resnet 16"
+python3.8 train_deep_model.py --path=data/OBSEA_4/ --model=resnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true
 python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=resnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/resnet_default.json --batch=8 --epochs=1000 --eval-true --tl-model "./trained_models/supervised/resnet_default_16/model_30012023_153756"
 
 echo "resnet 32"

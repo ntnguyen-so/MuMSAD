@@ -190,7 +190,7 @@ def train_deep_model(
                 train_set, val_set, test_set = train_set[:50], val_set[:10], test_set[:10]
 
         # Load the data
-        training_data = TimeseriesDataset(data_path, fnames=train_set, transform=False)
+        training_data = TimeseriesDataset(data_path, fnames=train_set, transform=True)
         val_data = TimeseriesDataset(data_path, fnames=val_set)
         test_data = TimeseriesDataset(data_path, fnames=test_set)
 
@@ -222,7 +222,7 @@ def train_deep_model(
         if read_from_file is not None and "unsupervised" in read_from_file:
                 classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
 
-        learning_rate = 0.00001*1
+        learning_rate = 1e-3#0.00001*1
 
         if transfer_learning:
                 print('Transfer learning')
@@ -332,8 +332,8 @@ def train_deep_model(
                 runs_dir=save_runs,
                 weights_dir=save_weights,
                 learning_rate=learning_rate,
-                use_scheduler=True,
-                weight_decay=5e-2,# learning_rate*l2_val,
+                use_scheduler=False,
+                weight_decay=0,#1e-4,# learning_rate*l2_val,
         )
 
         # Check device of torch
@@ -457,7 +457,7 @@ if __name__ == "__main__":
                         read_from_file=args.file,
                         model_name=args.model,
                         model_parameters_file=args.params,
-                        batch_size=256, #args.batch,
+                        batch_size=64, #args.batch,
                         epochs=args.epochs,
                         eval_model=args.eval_true,
                         transfer_learning=args.tl_model

@@ -24,7 +24,6 @@ class ResNetBlock(nn.Module):
         out_channels
     ):
         super().__init__()
-        dropout_rate = 0.1
 
         channels = [in_channels, out_channels, out_channels, out_channels]
         kernel_sizes = [8, 5, 3]
@@ -32,14 +31,14 @@ class ResNetBlock(nn.Module):
         self.layers = []
         for i in range(len(kernel_sizes)):
             self.layers.extend([
-            ConvBlock(
-                in_channels=channels[i], 
-                out_channels=channels[i + 1],
-                kernel_size=kernel_sizes[i], stride=1
-            ), 
-            nn.ReLU(), 
-            nn.Dropout(p=dropout_rate)])
-
+                ConvBlock(
+                    in_channels=channels[i], 
+                    out_channels=channels[i + 1],
+                    kernel_size=kernel_sizes[i], stride=1),
+                nn.BatchNorm1d(num_features=channels[i + 1]),
+                nn.Dropout(0.1)
+                ]                
+                )
         self.layers = nn.Sequential(*self.layers)
 
         self.match_channels = False
@@ -53,8 +52,7 @@ class ResNetBlock(nn.Module):
                     stride=1
                 ),
                 nn.BatchNorm1d(num_features=out_channels),
-                nn.ReLU(),
-                nn.Dropout(p=dropout_rate)
+                nn.Dropout(0.1)
             ])
 
     def forward(self, x):

@@ -152,7 +152,7 @@ def time_warping(sample, warp_factor_range=(0.9, 1.1)):
     warped_sample = np.interp(np.arange(num_points), warped_indices, sample)
     return warped_sample
 
-def noise_injection(sample, noise_level=0.1):
+def noise_injection(sample, noise_level=0.3):
     noise = np.random.normal(loc=0, scale=noise_level, size=sample.shape)
     noisy_sample = sample + noise
     return noisy_sample
@@ -216,7 +216,7 @@ class TimeseriesDataset(Dataset):
 	def __getallsamples__(self):
 		if self.transform:
 			for i in range(len(self.samples)):
-				self.samples[i] = noise_injection(amplitude_scaling(self.samples[i]))
+				self.samples[i] = noise_injection(self.samples[i])
 		return self.samples
 
 	def __getalllabels__(self):
