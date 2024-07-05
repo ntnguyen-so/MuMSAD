@@ -222,7 +222,7 @@ def train_deep_model(
         if read_from_file is not None and "unsupervised" in read_from_file:
                 classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
 
-        learning_rate = 1e-3#0.00001*1
+        learning_rate = 0.00001*1
 
         if transfer_learning:
                 print('Transfer learning')

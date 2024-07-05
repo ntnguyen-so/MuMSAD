@@ -5,5 +5,5 @@
 	"bottleneck_channels":32, 
 	"kernel_sizes":[10,20,40,80,160],
 	"use_residuals":true, 
-	"num_pred_classes":12
+	"num_pred_classes":10
 }
