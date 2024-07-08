@@ -222,7 +222,7 @@ def train_deep_model(
         if read_from_file is not None and "unsupervised" in read_from_file:
                 classifier_name += f"_{read_from_file.split('/')[-1].replace('unsupervised_', '')[:-len('.csv')]}"
 
-        learning_rate = 0.00001*1
+        learning_rate = 1e-4#0.00001*1
 
         if transfer_learning:
                 print('Transfer learning')
@@ -417,8 +417,8 @@ if __name__ == "__main__":
                 batch_size = [2**x for x in batch_size]
                 lr = list(range(1, 8, 1))
                 #lr = [100*x for x in lr]
-                lr = [.01, .05, .5, .1, 1]#, 300] #+ lr
-                combinations = list(itertools.product(l2, batch_size, lr))[::-1]
+                lr = [.01, .5, 1, 5, 10, 30, 50, 100]#, 300] #+ lr
+                combinations = list(itertools.product(l2, batch_size, lr))[::1]
 
                 if False:
                         l2 = list(range(0, 4, 1))

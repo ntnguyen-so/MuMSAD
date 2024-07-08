@@ -206,7 +206,7 @@ class ModelExecutioner:
         best_model = None
 
         # Set up early stop
-        early_stopper = EarlyStopper(patience=200, min_delta=0.001)
+        early_stopper = EarlyStopper(patience=20, min_delta=0.001)
 
         # Set up scheduler
         if self.use_scheduler:

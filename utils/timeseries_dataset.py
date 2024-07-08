@@ -157,6 +157,16 @@ def noise_injection(sample, noise_level=0.3):
     noisy_sample = sample + noise
     return noisy_sample
 
+def z_normalization(ts, decimals=5):
+    ts = (ts - np.mean(ts)) / np.std(ts)
+    ts = np.around(ts, decimals=decimals)
+
+    # Test normalization
+    assert(
+        np.around(np.mean(ts), decimals=3) == 0 and np.around(np.std(ts) - 1, decimals=3) == 0
+    ), "After normalization it should: mean == 0 and std == 1"
+
+    return ts
 
 class TimeseriesDataset(Dataset):
     def __init__(self, data_path, fnames, verbose=True, transform=False):
@@ -170,16 +180,16 @@ class TimeseriesDataset(Dataset):
         if len(self.fnames) == 0:
             return
         
-        print('DATA TO TRAIN', self.fnames)
+        # print('DATA TO TRAIN', self.fnames)
         # Read datasets
         for fname in tqdm(self.fnames, disable=not verbose, desc="Loading dataset"):
-            if "_data.npy" not in fname:
-                continue
+            # if "_data.npy" not in fname:
+                # continue
             fname_data = copy.deepcopy(fname)
-            # fname_data = fname_data.replace('.csv', '_data.npy')
+            fname_data = fname_data.replace('.csv', '_data.npy')
             
             fname_label = copy.deepcopy(fname)
-            fname_label = fname_label.replace('_data', '_label')
+            fname_label = fname_label.replace('.csv', '_label.npy')
             # print(os.path.join(self.data_path, fname))
             # data = pd.read_csv(os.path.join(self.data_path, fname), index_col=0)
             # data = np.load(os.path.join(self.data_path, fname))
@@ -194,8 +204,9 @@ class TimeseriesDataset(Dataset):
             self.labels.extend(label.tolist())
             
             data_data = np.load(os.path.join(self.data_path, fname_data))
-            print(data_data.shape, fname_data, fname_label, fname)
+            # print(data_data.shape, fname_data, fname_label, fname)
             data_data = np.swapaxes(data_data, 1, 2)
+            data_data = z_normalization(data_data, 7)
             self.samples.append(data_data)
         
         # Concatenate samples and labels

@@ -156,7 +156,7 @@ def split_and_compute_labels(x, metrics_data, window_size, fnames):
         ts = ts.iloc[:, :-1].values
         # print('ts.shape', ts.shape)
         # Z-normalization (windows with a single value go to 0)
-        #ts = z_normalization(ts, decimals=7)
+        # ts = z_normalization(ts, decimals=7)
 
         # Split time series into windows
         ts_split = split_ts(ts, window_size)
