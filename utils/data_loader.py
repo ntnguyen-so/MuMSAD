@@ -111,7 +111,7 @@ class DataLoader:
         self.calc_data_characteristics_std()
         print('after calc_data_characteristics')
         print(self.ret_mean_vals, self.ret_std_vals)
-        exit(0)
+        # exit(0)
 
 
         if not isinstance(dataset, list):
