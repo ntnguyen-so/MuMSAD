@@ -206,7 +206,7 @@ class TimeseriesDataset(Dataset):
             data_data = np.load(os.path.join(self.data_path, fname_data))
             # print(data_data.shape, fname_data, fname_label, fname)
             data_data = np.swapaxes(data_data, 1, 2)
-            data_data = z_normalization(data_data, 7)
+            #data_data = z_normalization(data_data, 7)
             self.samples.append(data_data)
         
         # Concatenate samples and labels

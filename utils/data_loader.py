@@ -17,6 +17,7 @@ import time
 from tqdm import tqdm
 from sklearn.decomposition import KernelPCA, PCA
 from sklearn.preprocessing import StandardScaler
+import copy
 
 class DataLoader:
     """This class is used to read and load data from the benchmark.
@@ -65,6 +66,33 @@ class DataLoader:
                     
         self.ret_max_vals = np.array(ret_max_vals)
         self.ret_min_vals = np.array(ret_min_vals)
+        
+    def calc_data_characteristics_std(self):
+        ret_mean_vals, ret_std_vals = None, None
+        std_list, mean_list = [], []
+        
+        for dataset_name in self.dataset_names:
+            for fname in glob.glob(os.path.join(self.data_path, dataset_name, '*.out')):
+                #print(fname)
+                df = pd.read_csv(fname, header=None)
+                mean_list.append(df.mean().tolist()[:-1])
+                std_list.append(df.std().tolist()[:-1])
+
+                # if not ret_max_vals:
+                    # ret_max_vals = max_vals
+                # if not ret_min_vals:
+                    # ret_min_vals = min_vals
+
+                # for i in range(len(max_vals)):
+                    # if max_vals[i] > ret_max_vals[i]:
+                        # ret_max_vals[i] = max_vals[i]
+
+                # for i in range(len(min_vals)):
+                    # if min_vals[i] < ret_min_vals[i]:
+                        # ret_min_vals[i] = min_vals[i]
+                    
+        self.ret_mean_vals = np.array(mean_list).mean()
+        self.ret_std_vals = np.array(std_list).std()
 
     def load(self, dataset):
         '''
@@ -80,9 +108,10 @@ class DataLoader:
         fnames = []
         
         print('before calc_data_characteristics')
-        self.calc_data_characteristics()
+        self.calc_data_characteristics_std()
         print('after calc_data_characteristics')
-        print(self.ret_max_vals, self.ret_min_vals)
+        print(self.ret_mean_vals, self.ret_std_vals)
+        exit(0)
 
 
         if not isinstance(dataset, list):
@@ -99,7 +128,7 @@ class DataLoader:
 
                 # Skip files with no anomalies
                 if True:# not np.all(curr_data[0, 1] == curr_data[:, 1]):
-                    curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_min_vals) / (self.ret_max_vals - self.ret_min_vals)
+                    curr_data[:, :-1] = (curr_data[:, :-1] - self.ret_mean_vals) / (self.ret_std_vals)
                     pca = PCA(n_components=1)#, kernel='rbf')
                     #x.append(pca.fit_transform(curr_data[:, :-1]))
                     x.append(np.sum(curr_data[:, :-1], axis=1))
@@ -139,6 +168,42 @@ class DataLoader:
         df = pd.concat(df_list)
 
         return df
+        
+    def load_npy(self, dataset):
+        '''
+        Loads the time series of the given datasets and returns a dataframe
+
+        :param dataset: list of datasets
+        :return df: a single dataframe of all loaded time series
+        '''
+        np_data_list = []
+        np_label_list = []
+        # np_index_list = []
+        
+        pbar = tqdm(dataset)
+
+        if not isinstance(dataset, list):
+            raise ValueError('only accepts list of str')
+
+        for name in pbar:
+            pbar.set_description(f'Loading {name}')
+            
+            for fname in glob.glob(os.path.join(self.data_path, name, '*_data.npy')):
+                curr_np_data = np.load(fname)#, index_col=0)
+                
+                label_fname = copy.deepcopy(fname)
+                label_fname = label_fname.replace('_data', '_label')
+                curr_np_label = np.load(label_fname)#, index_col=0)
+                # curr_index = [os.path.join(name, x) for x in list(curr_df.index)]
+                # curr_df.index = curr_index
+
+                np_data_list.append(curr_np_data)
+                np_label_list.append(curr_np_label)
+                
+        np_data = np.concatenate(np_data_list)
+        np_label = np.concatenate(np_label_list)
+
+        return np_data, np_label
 
 
     def load_timeseries(self, timeseries):

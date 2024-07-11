@@ -229,7 +229,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.window_size == "all":
-        window_sizes = [64, 128, 256, 512, 768, 1024]
+        window_sizes = [16, 32, 64, 128, 256, 512, 768, 1024]
 
         for size in window_sizes:
             create_tmp_dataset(

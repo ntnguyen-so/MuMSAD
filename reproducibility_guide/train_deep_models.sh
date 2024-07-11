@@ -4,7 +4,7 @@
 echo "convnet_default 16"
 python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 #--eval-true --tl-model "./trained_models/supervised/convnet_default_16/model_30012023_153755"
 
-python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 #--eval-true
+# python3.8 train_deep_model.py --path=data/OBSEA_16/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 #--eval-true
 
 echo "convnet_default 32"
 python3.8 train_deep_model.py --path=data/OBSEA_32/ --split=0.85 --model=convnet --file=reproducibility_guide/train_val_split.csv --params=models/configuration/convnet_default.json --batch=8 --epochs=1000 #--eval-true --tl-model "./trained_models/supervised/convnet_default_32/model_30012023_153816"
