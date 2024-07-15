@@ -91,8 +91,8 @@ class DataLoader:
                     # if min_vals[i] < ret_min_vals[i]:
                         # ret_min_vals[i] = min_vals[i]
                     
-        self.ret_mean_vals = np.array(mean_list).mean()
-        self.ret_std_vals = np.array(std_list).std()
+        self.ret_mean_vals = np.array(mean_list).mean(axis=0)
+        self.ret_std_vals = np.array(std_list).std(axis=0)
 
     def load(self, dataset):
         '''
@@ -111,7 +111,7 @@ class DataLoader:
         self.calc_data_characteristics_std()
         print('after calc_data_characteristics')
         print(self.ret_mean_vals, self.ret_std_vals)
-        # exit(0)
+        exit(0)
 
 
         if not isinstance(dataset, list):
