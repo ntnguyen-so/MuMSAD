@@ -19,6 +19,7 @@ from utils.data_loader import DataLoader
 
 from sktime.transformations.panel.tsfresh import TSFreshFeatureExtractor
 from sktime.transformations.panel.catch22 import Catch22
+import pickle
 
 
 def generate_features(path):
@@ -29,7 +30,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['catch22']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['minimal']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
@@ -37,12 +38,13 @@ def generate_features(path):
         # new_name = f"TSFRESH_{dataset_name}.csv"
         new_name = f"TSFRESH_{dataset_name}_{default_fc_parameters}.npy"
         new_name_label = f"TSFRESH_{dataset_name}_label_{default_fc_parameters}.npy"
+        feature_extractor_path = f"TSFRESH_{dataset_name}_FE_{default_fc_parameters}.pkl"
         print(os.path.join(path, new_name))
 
-        # Load datasets
+        # Load datasets 
         dataloader = DataLoader(path)
         datasets = dataloader.get_dataset_names()
-        # df = dataloader.load_df(datasets)
+        # df = dataloader.load_df(datasets) 
         data, label = dataloader.load_npy(datasets)
         print(data.shape, label.shape)
         
@@ -52,14 +54,16 @@ def generate_features(path):
         # index = df.index
 
         # Setup the TSFresh feature extractor (too costly to use any other parameter)
-        # fe = TSFreshFeatureExtractor(
-            # default_fc_parameters=default_fc_parameters, 
-            # show_warnings=False, 
-            # n_jobs=-1
-        # )
-        fe = Catch22(
-            catch24=True
-        )
+        if default_fc_parameters == 'minimal':
+            fe = TSFreshFeatureExtractor(
+                default_fc_parameters=default_fc_parameters, 
+                show_warnings=False, 
+                n_jobs=-1
+            )
+        elif default_fc_parameters == 'catch22':            
+            fe = Catch22(
+                catch24=True
+            )
         
         # Compute features
         # X_transformed = fe.fit_transform(x)
@@ -67,6 +71,8 @@ def generate_features(path):
         np.save(os.path.join(path, new_name), X_transformed)
         np.save(os.path.join(path, new_name_label), label)
         print('Done, saved to', os.path.join(path, new_name_label))
+        with open(os.path.join(path, feature_extractor_path), 'wb') as output:
+            pickle.dump(fe, output, pickle.HIGHEST_PROTOCOL)
         # print(X_transformed.shape)
 
         # Create new dataframe

@@ -103,6 +103,8 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     label_file_name = label_path.split('/')[-1].replace(str(window_size), str(window_size) + '_label')
     label_path = '/'.join(label_path.split('/')[:-1]) + '/' + label_file_name
     data = np.load(data_path)
+    meanval = np.nanmean(data)
+    data = np.where(np.isnan(data), meanval, data)# np.nan_to_num(data)
     label = np.load(label_path)
     
     # split data for train and test
