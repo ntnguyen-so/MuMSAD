@@ -19,6 +19,7 @@ from utils.data_loader import DataLoader
 
 from sktime.transformations.panel.tsfresh import TSFreshFeatureExtractor
 from sktime.transformations.panel.catch22 import Catch22
+from sktime.transformations.panel.rocket._rocket import Rocket
 import pickle
 
 
@@ -30,7 +31,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['minimal']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['rocket']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
@@ -63,6 +64,10 @@ def generate_features(path):
         elif default_fc_parameters == 'catch22':            
             fe = Catch22(
                 catch24=True
+            )
+        elif default_fc_parameters == 'rocket':            
+            fe = Rocket(
+                n_jobs=-1
             )
         
         # Compute features
