@@ -109,7 +109,7 @@ def create_tmp_dataset(
         ts_name = fname_split[-1]
         # new_names = [ts_name + '.{}'.format(i) for i in range(len(ts))]
         
-        np.save(os.path.join(save_dir, name, dataset_name, ts_name + '_data'), ts)
+        np.save(os.path.join(save_dir, name, dataset_name, ts_name), ts)
         np.save(os.path.join(save_dir, name, dataset_name, ts_name + '_label'), label[:, np.newaxis])
         
         # data = np.concatenate((label[:, np.newaxis], ts.reshape((ts.shape[0], -1))), axis=1)
@@ -201,6 +201,7 @@ def split_ts(data, window_size):
     np_std = np.array([0.1519564, 0.0364728, 0.30773572])
 
     data = (data - np_mean) / (np_std)
+    print(np.mean(data, axis=0), np.std(data, axis=0))
 
 
     # Compute the number of windows
