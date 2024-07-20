@@ -36,7 +36,7 @@ class ResNetBlock(nn.Module):
                     out_channels=channels[i + 1],
                     kernel_size=kernel_sizes[i], stride=1),
                 nn.BatchNorm1d(num_features=channels[i + 1]),
-                nn.Dropout(0.1)
+                #nn.Dropout(0.1)
                 ]                
                 )
         self.layers = nn.Sequential(*self.layers)
@@ -52,7 +52,7 @@ class ResNetBlock(nn.Module):
                     stride=1
                 ),
                 nn.BatchNorm1d(num_features=out_channels),
-                nn.Dropout(0.1)
+                #nn.Dropout(0.1)
             ])
 
     def forward(self, x):
