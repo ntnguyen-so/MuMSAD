@@ -33,16 +33,16 @@ detector_names = [
     'AutoEncoder (AE)',
     'DenoisingAutoEncoder (DAE)',     
     'DeepAnT', 
-    'Random Black Forest (RR)', 
+    #'Random Black Forest (RR)', 
     'PCC', 
     'HBOS', 
-    'Torsk', 
+    #'Torsk', 
     #'EncDec-AD', 
     'Hybrid KNN',
-    # 'CBLOF', 
+    'CBLOF', 
     'COPOD', 
     'RobustPCA', 
-    # 'LOF'
+    'LOF'
 ]
 
 
