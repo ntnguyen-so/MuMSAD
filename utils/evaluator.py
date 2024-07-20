@@ -132,10 +132,13 @@ class Evaluator:
 		return all_preds
 
 
-def save_classifier(model, path, fname=None):
+def save_classifier(model, path, fname=None, scaler=False):
 	# Set up
 	timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
-	fname = f"model_{timestamp}" if fname is None else fname
+	if not scaler:
+		fname = f"model_{timestamp}" if fname is None else fname
+	else:
+		fname = f"scaler_{timestamp}" if fname is None else fname
 
 	# Create saving dir if we need to
 	filename = Path(os.path.join(path, f"{fname}.pkl"))
@@ -148,7 +151,7 @@ def save_classifier(model, path, fname=None):
 	return str(filename)
 
 
-def load_classifier(path):
+def load_classifier(path, scaler=False):
 	"""Loads a classifier/model that is a pickle (.pkl) object.
 	If the path is only the path to the directory of a given class
 	of models, then the youngest model of that class is retrieved.
@@ -161,7 +164,10 @@ def load_classifier(path):
 	# If model is not given, load the latest
 	if os.path.isdir(path):
 		models = [x for x in os.listdir(path) if '.pkl' in x]
-		models.sort(key=lambda date: datetime.strptime(date, 'model_%d%m%Y_%H%M%S.pkl'))
+		if not scaler:
+			models.sort(key=lambda date: datetime.strptime(date, 'model_%d%m%Y_%H%M%S.pkl'))
+		else:
+			models.sort(key=lambda date: datetime.strptime(date, 'scaler_%d%m%Y_%H%M%S.pkl'))
 		path = os.path.join(path, models[-1])
 	elif '.pkl' not in path:
 		raise ValueError(f"Can't load this type of file {path}. Only '.pkl' files please")

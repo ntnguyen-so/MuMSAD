@@ -36,6 +36,7 @@ from utils.config import *
 import copy
 from sklearn.model_selection import train_test_split
 import pickle
+from sklearn.preprocessing import StandardScaler
 
 names = {
         "knn": "Nearest Neighbors",
@@ -109,6 +110,9 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     # load data    
     data = np.load(data_path)
     data = np.where(np.isnan(data), 0, data)# np.nan_to_num(data)
+    data_scaler = StandardScaler()
+    if True: # use only when not normalized the data    
+        data = data_scaler.fit_transform(data)
 
     label_path = copy.deepcopy(data_path)
     label_file_name = label_path.split('/')[-1].replace(str(window_size), str(window_size) + '_label')
@@ -192,6 +196,7 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     # Save pipeline
     saving_dir = os.path.join(path_save, classifier_name) if classifier_name.lower() not in path_save.lower() else path_save
     saved_model_path = save_classifier(classifier, saving_dir, fname=None)
+    save_classifier(data_scaler, saving_dir, fname=None, scaler=True)
 
     # Evaluate on test set or val set
     if eval_model:
