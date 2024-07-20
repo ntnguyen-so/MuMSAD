@@ -31,7 +31,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['minimal']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['catch22']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
