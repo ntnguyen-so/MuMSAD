@@ -197,10 +197,11 @@ def split_ts(data, window_size):
     # Compute the modulo
     modulo = data.shape[0] % window_size
     
-    np_mean = np.array([37.73496027, 4.9136944, 17.99368567])
-    np_std = np.array([0.15141098, 0.03631354, 0.30473971])
+    np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
+    np_std = np.array([0.1519564, 0.0364728, 0.30773572])
 
     data = (data - np_mean) / (np_std)
+
 
     # Compute the number of windows
     k = data[modulo:].shape[0] / window_size
