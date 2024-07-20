@@ -183,10 +183,8 @@ class TimeseriesDataset(Dataset):
         # print('DATA TO TRAIN', self.fnames)
         # Read datasets
         for fname in tqdm(self.fnames, disable=not verbose, desc="Loading dataset"):
-            # if "_data.npy" not in fname:
-                # continue
             fname_data = copy.deepcopy(fname)
-            fname_data = fname_data.replace('.csv', '_data.npy')
+            fname_data = fname_data.replace('.csv', '.npy')
             
             fname_label = copy.deepcopy(fname)
             fname_label = fname_label.replace('.csv', '_label.npy')
