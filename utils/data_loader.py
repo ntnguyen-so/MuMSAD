@@ -111,7 +111,6 @@ class DataLoader:
         self.calc_data_characteristics_std()
         print('after calc_data_characteristics')
         print(self.ret_mean_vals, self.ret_std_vals)
-        exit(0)
 
 
         if not isinstance(dataset, list):
@@ -178,7 +177,7 @@ class DataLoader:
         '''
         np_data_list = []
         np_label_list = []
-        # np_index_list = []
+        np_index_list = []
         
         pbar = tqdm(dataset)
 
@@ -188,14 +187,13 @@ class DataLoader:
         for name in pbar:
             pbar.set_description(f'Loading {name}')
             
-            for fname in glob.glob(os.path.join(self.data_path, name, '*_data.npy')):
+            for fname in glob.glob(os.path.join(self.data_path, name, '*.out.npy')):
                 curr_np_data = np.load(fname)#, index_col=0)
                 
                 label_fname = copy.deepcopy(fname)
-                label_fname = label_fname.replace('_data', '_label')
-                curr_np_label = np.load(label_fname)#, index_col=0)
-                # curr_index = [os.path.join(name, x) for x in list(curr_df.index)]
-                # curr_df.index = curr_index
+                label_fname = label_fname.replace('.out', '.out_label')
+                curr_np_label = np.load(label_fname)
+                np_index_list += [fname.split('/')[-1]]*len(curr_np_label)
 
                 np_data_list.append(curr_np_data)
                 np_label_list.append(curr_np_label)
@@ -203,7 +201,7 @@ class DataLoader:
         np_data = np.concatenate(np_data_list)
         np_label = np.concatenate(np_label_list)
 
-        return np_data, np_label
+        return np_data, np_label, np_index_list
 
 
     def load_timeseries(self, timeseries):
