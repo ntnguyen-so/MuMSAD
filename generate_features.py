@@ -31,7 +31,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['rocket']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['minimal']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
@@ -39,6 +39,7 @@ def generate_features(path):
         # new_name = f"TSFRESH_{dataset_name}.csv"
         new_name = f"TSFRESH_{dataset_name}_{default_fc_parameters}.npy"
         new_name_label = f"TSFRESH_{dataset_name}_label_{default_fc_parameters}.npy"
+        index_path = f"TSFRESH_{dataset_name}_index_{default_fc_parameters}.pkl"
         feature_extractor_path = f"TSFRESH_{dataset_name}_FE_{default_fc_parameters}.pkl"
         print(os.path.join(path, new_name))
 
@@ -46,8 +47,8 @@ def generate_features(path):
         dataloader = DataLoader(path)
         datasets = dataloader.get_dataset_names()
         # df = dataloader.load_df(datasets) 
-        data, label = dataloader.load_npy(datasets)
-        print(data.shape, label.shape)
+        data, label, index = dataloader.load_npy(datasets)
+        print(data.shape, label.shape, len(index))
         
         # Divide df
         # labels = df.pop("label")
@@ -75,9 +76,12 @@ def generate_features(path):
         X_transformed = fe.fit_transform(data)
         np.save(os.path.join(path, new_name), X_transformed)
         np.save(os.path.join(path, new_name_label), label)
+
         print('Done, saved to', os.path.join(path, new_name_label))
         with open(os.path.join(path, feature_extractor_path), 'wb') as output:
             pickle.dump(fe, output, pickle.HIGHEST_PROTOCOL)
+        with open(os.path.join(path, index_path), 'wb') as output:
+            pickle.dump(index, output, pickle.HIGHEST_PROTOCOL)
         # print(X_transformed.shape)
 
         # Create new dataframe
