@@ -42,12 +42,20 @@ def concat_results(directories):
     
     return pd.concat([df.reset_index(drop=True) for df in dfs], ignore_index=True)
 
-def get_best_run(all_results):
+def get_best_run_f1MINUSfnr(all_results):
     obsea_results = all_results[(all_results['collection'] == 'OBSEA') | (all_results['collection'] == 'OBSEA_2')]
     obsea_results = obsea_results[(obsea_results['BestF1Score'].notna()) & (obsea_results['FalseNegativeRate'].notna())]
     obsea_results['collection'][obsea_results['collection'] == 'OBSEA_2'] = 'OBSEA'
     obsea_results['Recommendation_ACC'] =  obsea_results.apply(lambda row: max(row['BestF1Score'] - row['FalseNegativeRate'], 0), axis=1)
     obsea_results = obsea_results.sort_values(by='Recommendation_ACC', ascending=False)
+    obsea_results = obsea_results.drop_duplicates(subset=['algorithm', 'collection', 'dataset'], keep='first')
+    return obsea_results
+
+def get_best_run(all_results):
+    obsea_results = all_results[(all_results['collection'] == 'OBSEA') | (all_results['collection'] == 'OBSEA_2')]
+    obsea_results = obsea_results[obsea_results['PR_AUC'].notna()]
+    obsea_results['collection'][obsea_results['collection'] == 'OBSEA_2'] = 'OBSEA'
+    obsea_results = obsea_results.sort_values(by='PR_AUC', ascending=False)
     obsea_results = obsea_results.drop_duplicates(subset=['algorithm', 'collection', 'dataset'], keep='first')
     return obsea_results
 
@@ -106,7 +114,6 @@ def copy_scores(MSAD_root_path, obsea_results):
 def copy_metrics(MSAD_root_path, obsea_results):
     path_to_metrics = MSAD_root_path + 'data/OBSEA/metrics'
     refresh_content(path_to_metrics)
-    metrics = ['Recommendation_ACC']
     exec_algorithms = obsea_results['algorithm'].unique()
     for exec_algorithm in exec_algorithms:
         for metric in metrics:
@@ -168,6 +175,49 @@ def dataprep_totrainMSAD_2021(TimeEval_results_path):
     #obsea_results.to_csv('results_useMSAD_noretrain.csv', index=False)
     return obsea_results
 
+def dataprep_totrainMSAD_202122(TimeEval_results_path):
+    directory = [TimeEval_results_path + 'training_data_MSAD_2020', TimeEval_results_path + 'for_Oracle', TimeEval_results_path + 'for_Oracle3', TimeEval_results_path + 'for_Oracle4', TimeEval_results_path + 'for_Oracle23_1']
+    all_results = concat_results(directory)
+    obsea_results = get_best_run(all_results)
+    #obsea_results.to_csv('results_useMSAD_noretrain.csv', index=False)
+    return obsea_results
+
+def dataprep_totrainMSAD_23(TimeEval_results_path):
+    directory = [TimeEval_results_path + 'for_Oracle23_1', TimeEval_results_path + 'for_Oracle23_2']
+    all_results = concat_results(directory)
+    obsea_results = get_best_run(all_results)
+    #obsea_results.to_csv('results_useMSAD_noretrain.csv', index=False)
+    return obsea_results
+
+def dataprep_totrainMSAD_20212223(TimeEval_results_path):
+    directory = [TimeEval_results_path + 'best4avg_2022',
+                TimeEval_results_path + 'best4avgens_2122',
+                TimeEval_results_path + 'for_Oracle',
+                TimeEval_results_path + 'for_Oracle23_1',
+                TimeEval_results_path + 'for_Oracle23_2',
+                TimeEval_results_path + 'for_Oracle3',
+                TimeEval_results_path + 'for_Oracle4',
+                TimeEval_results_path + 'for_Oracle5',
+                TimeEval_results_path + 'imputed_training_data_MSAD_2020',
+                TimeEval_results_path + 'MSAD_trained20_infer2122',
+                TimeEval_results_path + 'MSAD_trained20_inferredtrained1H21_infer2H21',
+                TimeEval_results_path + 'MSAD_trained20_inferredtrained1H21_inferredtrained2H21_infer1H22',
+                TimeEval_results_path + 'MSAD_trained20_inferredtrained1H21_inferredtrained2H21_inferredtrained1H22_infer2H22',
+                TimeEval_results_path + 'MSAD_trained20_inferredtrained21_infer22',
+                #TimeEval_results_path + 'multihead',
+                TimeEval_results_path + 'RBF_add',
+                TimeEval_results_path + 'ReachSubsea_unsupervised',
+                TimeEval_results_path + 'training_data_MSAD_2020',
+                TimeEval_results_path + 'for_Oracle_240724',
+                TimeEval_results_path + 'transfer_learning_results']
+
+    all_results = concat_results(directory)
+    obsea_results = get_best_run(all_results)
+    obsea_results.to_csv('results_useMSAD_noretrain.csv', index=False)
+    return obsea_results
+
+
+
 def dataprep_Oracle(TimeEval_results_path):
     directory = [TimeEval_results_path + 'for_Oracle']
     all_results = concat_results(directory)
@@ -187,6 +237,7 @@ if __name__ == "__main__":
     MSAD_root_path = '../../../'
     TimeEval_working_path = MSAD_root_path + '../TimeEval_work/'
     TimeEval_results_path = MSAD_root_path + '../TimeEval_work_results/'
+    metrics = ['PR_AUC']
 
     if False:
         #### START: trained 20, inferredtrained1H21, inferredtrained2H21 to infer 1H22    
@@ -213,7 +264,7 @@ if __name__ == "__main__":
     #obsea_results = dataprep_noMSAD(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_noretrain(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_retrain1year(TimeEval_results_path)
-    obsea_results = dataprep_totrainMSAD_2021(TimeEval_results_path)
+    obsea_results = dataprep_totrainMSAD_20212223(TimeEval_results_path)
     copy_data(MSAD_root_path, TimeEval_working_path)
     copy_scores(MSAD_root_path, obsea_results)
     copy_metrics(MSAD_root_path, obsea_results)
