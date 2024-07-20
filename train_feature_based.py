@@ -35,6 +35,7 @@ from utils.evaluator import save_classifier
 from utils.config import *
 import copy
 from sklearn.model_selection import train_test_split
+import pickle
 
 names = {
         "knn": "Nearest Neighbors",
@@ -58,6 +59,13 @@ classifiers = {
         "qda": QuadraticDiscriminantAnalysis(),
 }
 
+def retrieve_indices(specified_set, data_index):
+    result = []
+    for _, fname in enumerate(specified_set):
+        indices = [ind for ind, data_index_fname in enumerate(data_index) if data_index_fname == fname]
+        result.extend(indices)
+    return result
+
 
 def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, read_from_file=None, eval_model=False, path_save=None):
     # Set up
@@ -66,14 +74,15 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     original_dataset = data_path.split('/')[:-1]
     original_dataset = '/'.join(original_dataset)
     
+    # Load the splits
+    train_set, val_set, test_set = create_splits(
+        original_dataset,
+        split_per=split_per,
+        seed=seed,
+        read_from_file=read_from_file,
+    )
+    
     if False:
-        # Load the splits
-        train_set, val_set, test_set = create_splits(
-            original_dataset,
-            split_per=split_per,
-            seed=seed,
-            read_from_file=read_from_file,
-        )
         train_indexes = [x[:-4] for x in train_set]
         val_indexes = [x[:-4] for x in val_set]
         test_indexes = [x[:-4] for x in test_set]
@@ -97,27 +106,47 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
         y_val, X_val = val_data['label'], val_data.drop('label', 1)
         y_test, X_test = test_data['label'], test_data.drop('label', 1)
     
-
     # load data    
+    data = np.load(data_path)
+    data = np.where(np.isnan(data), 0, data)# np.nan_to_num(data)
+
     label_path = copy.deepcopy(data_path)
     label_file_name = label_path.split('/')[-1].replace(str(window_size), str(window_size) + '_label')
-    label_path = '/'.join(label_path.split('/')[:-1]) + '/' + label_file_name
-    data = np.load(data_path)
-    meanval = np.nanmean(data)
-    data = np.where(np.isnan(data), meanval, data)# np.nan_to_num(data)
+    label_path = '/'.join(label_path.split('/')[:-1]) + '/' + label_file_name    
     label = np.load(label_path)
-    
-    # split data for train and test
-    label = label.flatten()
-    indices = np.arange(len(label))
-    train_indices, val_indices = train_test_split(indices, test_size=1-split_per, stratify=label, random_state=42)
-    
-    # Verify the distribution in each set
-    unique, train_counts = np.unique(label[train_indices], return_counts=True)
-    print("Train set distribution:", dict(zip(unique, train_counts)))
 
-    unique, val_counts = np.unique(label[val_indices], return_counts=True)
-    print("Validation set distribution:", dict(zip(unique, val_counts)))
+    index_path = copy.deepcopy(data_path)
+    index_file_name = index_path.split('/')[-1].replace(str(window_size), str(window_size) + '_index')
+    index_file_name = index_file_name.replace('.npy', '.pkl')
+    index_path = '/'.join(index_path.split('/')[:-1]) + '/' + index_file_name    
+    with open(index_path, 'rb') as index_file:
+        indices = pickle.load(index_file)
+
+    if read_from_file is not None:
+        train_set = [x for x in train_set if '.csv' in x]
+        train_set = [x.split('/')[1].replace('.csv', '.npy') for x in train_set]
+
+        val_set = [x for x in val_set if '.csv' in x]
+        val_set = [x.split('/')[1].replace('.csv', '.npy') for x in val_set]
+        
+        test_set = [x for x in test_set if '.csv' in x]
+        test_set = [x.split('/')[1].replace('.csv', '.npy') for x in test_set]
+
+        train_indices = retrieve_indices(train_set, indices)
+        val_indices = retrieve_indices(val_set, indices)
+    
+    if False:
+        # split data for train and test
+        label = label.flatten()
+        indices = np.arange(len(label))
+        train_indices, val_indices = train_test_split(indices, test_size=1-split_per, stratify=label, random_state=42)
+        
+        # Verify the distribution in each set
+        unique, train_counts = np.unique(label[train_indices], return_counts=True)
+        print("Train set distribution:", dict(zip(unique, train_counts)))
+
+        unique, val_counts = np.unique(label[val_indices], return_counts=True)
+        print("Validation set distribution:", dict(zip(unique, val_counts)))
     
     data_len = len(data)
     X_train, X_val = data[train_indices], data[val_indices] # data[:int(data_len * split_per)], data[int(data_len * split_per):]
