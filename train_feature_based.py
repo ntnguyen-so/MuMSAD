@@ -75,6 +75,11 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     original_dataset = data_path.split('/')[:-1]
     original_dataset = '/'.join(original_dataset)
     
+    is_not_normalized = False
+    if "not_normalized" in data_path:
+        is_not_normalized = True
+    print('is_not_normalized:', is_not_normalized)
+    
     # Load the splits
     train_set, val_set, test_set = create_splits(
         original_dataset,
@@ -110,8 +115,8 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     # load data    
     data = np.load(data_path)
     data = np.where(np.isnan(data), 0, data)# np.nan_to_num(data)
-    data_scaler = StandardScaler()
-    if True: # use only when not normalized the data    
+    if is_not_normalized: # use only when not normalized the data    
+        data_scaler = StandardScaler()
         data = data_scaler.fit_transform(data)
 
     label_path = copy.deepcopy(data_path)
@@ -163,8 +168,8 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     # For svc_linear use only a random subset of the dataset to train
     if 'svc' in classifier_name and len(y_train) > 200000:
         rand_ind = np.random.randint(low=0, high=len(y_train), size=200000)
-        X_train = X_train.iloc[rand_ind]
-        y_train = y_train.iloc[rand_ind]
+        X_train = X_train[rand_ind]
+        y_train = y_train[rand_ind]
 
     # Fit the classifier
     print(f'----------------------------------\nTraining {names[classifier_name]}...')
@@ -196,7 +201,8 @@ def train_feature_based(data_path, classifier_name, split_per=0.7, seed=None, re
     # Save pipeline
     saving_dir = os.path.join(path_save, classifier_name) if classifier_name.lower() not in path_save.lower() else path_save
     saved_model_path = save_classifier(classifier, saving_dir, fname=None)
-    save_classifier(data_scaler, saving_dir, fname=None, scaler=True)
+    if is_not_normalized:
+        save_classifier(data_scaler, saving_dir, fname=None, scaler=True)
 
     # Evaluate on test set or val set
     if eval_model:

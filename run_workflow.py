@@ -23,6 +23,9 @@ import random
 # from utils.evaluator import Evaluator, load_classifier
 import pickle
 
+os.environ["CUDA_VISIBLE_DEVICES"]=""
+
+
 def split_ts(data, window_size):
     '''Split a timeserie into windows according to window_size.
     If the timeserie can not be divided exactly by the window_size
@@ -107,29 +110,21 @@ def select_AD_model(model_path, model_name, model_parameters_file, window_size, 
     
     return top_k_detectors
 
-def read_metadata():
-    curr_path = os.getcwd()
-    path2metadata = curr_path + '/../../TimeEval_work/work_data/processed/datasets.csv'
-    metadata_df = pd.read_csv(path2metadata)
-    return metadata_df
-
-def get_dataset_id(metadata_df, data_file):
-    index = metadata_df[metadata_df['dataset_name'].str.contains(data_file)].index.values.tolist()
-    return [index[0], index[-1]]
-
-
 
 if __name__ == "__main__":
-    # MSAD_model_base_path = '/mnt/c/Users/ntng/AppData/Roaming/Notepad++/plugins/Config/NppFTP/Cache/ntnguyen@thalia.mi.parisdescartes.fr/home/ntnguyen/MSAD_work/results/weights/'
-    MSAD_model_base_paths = ['results/weights/']#, 'results/weights_no-znorm_32/']
-    votes_folders = ['results/votes/']
+    data_type = 'not_normalized'
+    MSAD_model_base_paths = ['results/weights/weights_catch22_' + data_type + '/']
+    votes_folders = ['results/votes/votes_catch22_' + data_type + '/']
     deep_models_shortform = ['convnet', 'inception', 'resnet', 'sit']
     fe_base = 'catch22'
+    np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
+    np_std = np.array([0.1519564, 0.0364728, 0.30773572])
+    i = 3
     for MSAD_model_base_path, votes_folder in zip(MSAD_model_base_paths, votes_folders):
         print(MSAD_model_base_path, votes_folder)
         if 'catch22' in MSAD_model_base_path:
             fe_base = 'catch22'
-        for model in sorted(os.listdir(MSAD_model_base_path)):
+        for model in sorted(os.listdir(MSAD_model_base_path))[i*10:(i+1)*10]:
             print('model:', model)
             is_deep_model = False
             for deep_model_name in deep_models_shortform:
@@ -139,6 +134,8 @@ if __name__ == "__main__":
             # if is_deep_model:
                 # continue
             for saved_model in sorted(os.listdir(MSAD_model_base_path + model)):
+                if "model" not in saved_model:
+                    continue
                 print(MSAD_model_base_path, model, saved_model, is_deep_model)
                 try:
                     # model_path='./results/weights/sit_stem_original_32/model_06072024_134554'
@@ -163,53 +160,43 @@ if __name__ == "__main__":
                         # continue
                             
                     if not is_deep_model:
-                        fe_name = 'TSFRESH_' + fe_base + '.pkl'
-                        fe_path = './data/OBSEA_' + str(window_size) + '/' + fe_name
+                        fe_name = 'TSFRESH_OBSEA_' + str(window_size) + '_FE_' + fe_base + '.pkl'
+                        fe_path = './data/' + data_type + '/OBSEA_' + str(window_size) + '/' + fe_name
                         with open(f'{fe_path}', 'rb') as input:
                             fe = pickle.load(input)
                     
                     
                     for data_file in data_files:
                         print(data_file)
-                        if "2022" not in data_file and "_data" not in data_file:
+                        if ("2022" not in data_file and "2023" not in data_file) and "_data" not in data_file:
                             continue
                         if "unsupervised" in data_file:
                             continue
 
                         uploaded_ts = path_to_data + data_file
                         
-                        if False: # for PCA (univariate)
-                            ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
-                            ts_data = ts_data_raw[:, :-1].astype(float)
-                            ts_data = PCA(n_components=1).fit_transform(ts_data)
-                            # print(ts_data)
-                            sequence = z_normalization(ts_data, decimals=7)
-                        else:
-                            if False: # for MinMaxScaler
-                                scaler_min = np.array([27.0415, 3.32207, 12.7718])
-                                scaler_max = np.array([38.4214, 5.94431, 27.4442])
-                                ts_data_raw = pd.read_csv(uploaded_ts, header=None).to_numpy()
-                                ts_data = ts_data_raw[:, :-1].astype(float)
-                                ts_data = (ts_data - scaler_min) / (scaler_max - scaler_min)
-                            else:
-                                np_mean = np.array([37.80610348, 4.94523778, 18.21861115])
-                                np_std = np.array([0.18258118, 0.03025344, 0.23778808])
-                                ts_data_raw = pd.read_csv(uploaded_ts, header=None).to_numpy()
-                                ts_data = ts_data_raw[:, :-1].astype(float)
-                                ts_data = (ts_data - np_mean) / (np_std)
-                            sequence = ts_data
-                            # sequence = z_normalization(ts_data, decimals=7)
-                            # print(sequence)
+                        
+                        ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
+                        ts_data = ts_data_raw[:, :-1].astype(float)
+                        if data_type == "normalized":
+                            ts_data = (ts_data - np_mean) / (np_std)
+                        sequence = ts_data
+                        # sequence = z_normalization(ts_data, decimals=7)
+                        # print(sequence)
                         
                         # Split timeseries and load to cpu
                         sequence = split_ts(sequence, window_size)#[:, np.newaxis]
                         if is_deep_model:
                             sequence = np.swapaxes(sequence, 1, 2)
                         if not is_deep_model:
-                            sequence = np.swapaxes(sequence, 1, 2)
                             sequence = fe.transform(sequence)
-                            meanval = np.nanmean(sequence)
-                            sequence = np.where(np.isnan(sequence), meanval, sequence)# np.nan_to_num(data)
+                            sequence = np.where(np.isnan(sequence), 0, sequence)
+                            
+                        if data_type == "not_normalized":
+                            scaler_path = MSAD_model_base_path + model + '/' +  saved_model.replace('model', 'scaler')
+                            scaler_ = load_classifier(scaler_path, scaler=True)
+                            sequence = scaler_.transform(sequence)
+                            # print('scaled', sequence)
                         print(sequence.shape)
                         
                         if is_deep_model:
