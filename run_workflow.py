@@ -22,6 +22,7 @@ import traceback
 import random
 # from utils.evaluator import Evaluator, load_classifier
 import pickle
+import sys
 
 os.environ["CUDA_VISIBLE_DEVICES"]=""
 
@@ -112,119 +113,124 @@ def select_AD_model(model_path, model_name, model_parameters_file, window_size, 
 
 
 if __name__ == "__main__":
-    data_type = 'not_normalized'
-    MSAD_model_base_paths = ['results/weights/weights_catch22_' + data_type + '/']
-    votes_folders = ['results/votes/votes_catch22_' + data_type + '/']
-    deep_models_shortform = ['convnet', 'inception', 'resnet', 'sit']
-    fe_base = 'catch22'
-    np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
-    np_std = np.array([0.1519564, 0.0364728, 0.30773572])
-    i = 3
-    for MSAD_model_base_path, votes_folder in zip(MSAD_model_base_paths, votes_folders):
-        print(MSAD_model_base_path, votes_folder)
-        if 'catch22' in MSAD_model_base_path:
-            fe_base = 'catch22'
-        for model in sorted(os.listdir(MSAD_model_base_path))[i*10:(i+1)*10]:
-            print('model:', model)
-            is_deep_model = False
-            for deep_model_name in deep_models_shortform:
-                if deep_model_name in model:
-                    is_deep_model = True
-                    
-            # if is_deep_model:
-                # continue
-            for saved_model in sorted(os.listdir(MSAD_model_base_path + model)):
-                if "model" not in saved_model:
-                    continue
-                print(MSAD_model_base_path, model, saved_model, is_deep_model)
-                try:
-                    # model_path='./results/weights/sit_stem_original_32/model_06072024_134554'
-                    model_path = MSAD_model_base_path + model + '/' + saved_model
-                    model_name=model_path.split('/')[-2].split('_')[0]
-                    model_parameters_file='./models/configuration/' + "_".join(model_path.split('/')[-2].split('_')[:-1]) + '.json' # sit_stem_original.json'#sit_linear_patch.json'
-                    # print(model_parameters_file)
-                    path_to_data = './data/OBSEA/data/OBSEA/'
-                    num_k = 4
-                    processes_running = list()
-                    max_process = 10
-                    # metadata_df = read_metadata()
-                    curr_path = os.getcwd()
-                    data_files = os.listdir(path_to_data)
-                    files_checked = list()
-                    files_choice = list()
-                    #random.shuffle(data_files)
-                    data_files = data_files[::1]
-                    
-                    window_size = int(model_path.split('/')[-2].split('_')[-1])
-                    # if window_size != 16:
-                        # continue
-                            
-                    if not is_deep_model:
-                        fe_name = 'TSFRESH_OBSEA_' + str(window_size) + '_FE_' + fe_base + '.pkl'
-                        fe_path = './data/' + data_type + '/OBSEA_' + str(window_size) + '/' + fe_name
-                        with open(f'{fe_path}', 'rb') as input:
-                            fe = pickle.load(input)
-                    
-                    
-                    for data_file in data_files:
-                        print(data_file)
-                        if ("2022" not in data_file and "2023" not in data_file) and "_data" not in data_file:
-                            continue
-                        if "unsupervised" in data_file:
-                            continue
-
-                        uploaded_ts = path_to_data + data_file
+    data_types = ['not_normalized', 'normalized']
+    for data_type in data_types:
+        MSAD_model_base_paths = ['results/weights/weights_custom_' + data_type + '/']
+        votes_folders = ['results/votes/votes_custom_' + data_type + '/']
+        deep_models_shortform = ['convnet', 'inception', 'resnet', 'sit']
+        fe_base = 'catch22'
+        np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
+        np_std = np.array([0.1519564, 0.0364728, 0.30773572])
+        if len(sys.argv) == 1:
+            i = 0            
+        else:
+            i = int(sys.argv[1])
+            
+        for MSAD_model_base_path, votes_folder in zip(MSAD_model_base_paths, votes_folders):
+            print(MSAD_model_base_path, votes_folder)
+            if 'catch22' in MSAD_model_base_path:
+                fe_base = 'catch22'
+            for model in sorted(os.listdir(MSAD_model_base_path))[i*10:(i+1)*10]:
+                print('model:', model)
+                is_deep_model = False
+                for deep_model_name in deep_models_shortform:
+                    if deep_model_name in model:
+                        is_deep_model = True
                         
+                # if is_deep_model:
+                    # continue
+                for saved_model in sorted(os.listdir(MSAD_model_base_path + model)):
+                    if "model" not in saved_model:
+                        continue
+                    print(MSAD_model_base_path, model, saved_model, is_deep_model)
+                    try:
+                        # model_path='./results/weights/sit_stem_original_32/model_06072024_134554'
+                        model_path = MSAD_model_base_path + model + '/' + saved_model
+                        model_name=model_path.split('/')[-2].split('_')[0]
+                        model_parameters_file='./models/configuration/' + "_".join(model_path.split('/')[-2].split('_')[:-1]) + '.json' # sit_stem_original.json'#sit_linear_patch.json'
+                        # print(model_parameters_file)
+                        path_to_data = './data/OBSEA/data/OBSEA/'
+                        num_k = 4
+                        processes_running = list()
+                        max_process = 10
+                        # metadata_df = read_metadata()
+                        curr_path = os.getcwd()
+                        data_files = os.listdir(path_to_data)
+                        files_checked = list()
+                        files_choice = list()
+                        #random.shuffle(data_files)
+                        data_files = data_files[::1]
                         
-                        ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
-                        ts_data = ts_data_raw[:, :-1].astype(float)
-                        if data_type == "normalized":
-                            ts_data = (ts_data - np_mean) / (np_std)
-                        sequence = ts_data
-                        # sequence = z_normalization(ts_data, decimals=7)
-                        # print(sequence)
-                        
-                        # Split timeseries and load to cpu
-                        sequence = split_ts(sequence, window_size)#[:, np.newaxis]
-                        if is_deep_model:
-                            sequence = np.swapaxes(sequence, 1, 2)
-                        if not is_deep_model:
-                            sequence = fe.transform(sequence)
-                            sequence = np.where(np.isnan(sequence), 0, sequence)
-                            
-                        if data_type == "not_normalized":
-                            scaler_path = MSAD_model_base_path + model + '/' +  saved_model.replace('model', 'scaler')
-                            scaler_ = load_classifier(scaler_path, scaler=True)
-                            sequence = scaler_.transform(sequence)
-                            # print('scaled', sequence)
-                        print(sequence.shape)
-                        
-                        if is_deep_model:
-                            if torch.cuda.is_available():
-                                sequence = torch.from_numpy(sequence).to('cuda')
-                            else:
-                                sequence = torch.from_numpy(sequence).to('cpu')
+                        window_size = int(model_path.split('/')[-2].split('_')[-1])
+                        # if window_size != 16:
+                            # continue
                                 
-                        pred_detector = select_AD_model(model_name=model_name, 
-                                                        model_path=model_path, 
-                                                        model_parameters_file=model_parameters_file, 
-                                                        window_size=window_size, 
-                                                        ts_data=ts_data, 
-                                                        top_k=num_k, 
-                                                        batch_size=64,
-                                                        is_deep=is_deep_model)
-                                                        
-                        print(pred_detector)
-                        files_checked.append('OBSEA/' + data_file)
-                        files_choice.append(pred_detector[0])
-                        # decisions['OBSEA/' + data_file] = pred_detector[0]
+                        if not is_deep_model:
+                            fe_name = 'TSFRESH_OBSEA_' + str(window_size) + '_FE_' + fe_base + '.pkl'
+                            fe_path = './data/' + data_type + '/OBSEA_' + str(window_size) + '/' + fe_name
+                            with open(f'{fe_path}', 'rb') as input:
+                                fe = pickle.load(input)
                         
                         
-                    decisions = {'files': files_checked, 'choice': files_choice}
-                    df = pd.DataFrame.from_dict(decisions)#, columns=['name', 'choice'])
-                    # print(df)
-                    df.to_csv(votes_folder + '/' + model_path.split('/')[-2] + '.csv')    
-                    print('save ' + votes_folder + '/' + model_path.split('/')[-2] + '.csv')
-                except:
-                    traceback.print_exc()
-                    pass
+                        for data_file in data_files:
+                            print(data_file)
+                            if ("2022" not in data_file and "2023" not in data_file) and "_data" not in data_file:
+                                continue
+                            if "unsupervised" in data_file:
+                                continue
+
+                            uploaded_ts = path_to_data + data_file
+                            
+                            
+                            ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
+                            ts_data = ts_data_raw[:, :-1].astype(float)
+                            if data_type == "normalized":
+                                ts_data = (ts_data - np_mean) / (np_std)
+                            sequence = ts_data
+                            # sequence = z_normalization(ts_data, decimals=7)
+                            # print(sequence)
+                            
+                            # Split timeseries and load to cpu
+                            sequence = split_ts(sequence, window_size)#[:, np.newaxis]
+                            if is_deep_model:
+                                sequence = np.swapaxes(sequence, 1, 2)
+                            if not is_deep_model:
+                                sequence = fe.transform(sequence)
+                                sequence = np.where(np.isnan(sequence), 0, sequence)
+                                
+                            if data_type == "not_normalized":
+                                scaler_path = MSAD_model_base_path + model + '/' +  saved_model.replace('model', 'scaler')
+                                scaler_ = load_classifier(scaler_path, scaler=True)
+                                sequence = scaler_.transform(sequence)
+                                # print('scaled', sequence)
+                            print(sequence.shape)
+                            
+                            if is_deep_model:
+                                if torch.cuda.is_available():
+                                    sequence = torch.from_numpy(sequence).to('cuda')
+                                else:
+                                    sequence = torch.from_numpy(sequence).to('cpu')
+                                    
+                            pred_detector = select_AD_model(model_name=model_name, 
+                                                            model_path=model_path, 
+                                                            model_parameters_file=model_parameters_file, 
+                                                            window_size=window_size, 
+                                                            ts_data=ts_data, 
+                                                            top_k=num_k, 
+                                                            batch_size=64,
+                                                            is_deep=is_deep_model)
+                                                            
+                            print(pred_detector)
+                            files_checked.append('OBSEA/' + data_file)
+                            files_choice.append(pred_detector[0])
+                            # decisions['OBSEA/' + data_file] = pred_detector[0]
+                            
+                            
+                        decisions = {'files': files_checked, 'choice': files_choice}
+                        df = pd.DataFrame.from_dict(decisions)#, columns=['name', 'choice'])
+                        # print(df)
+                        df.to_csv(votes_folder + '/' + model_path.split('/')[-2] + '.csv')    
+                        print('save ' + votes_folder + '/' + model_path.split('/')[-2] + '.csv')
+                    except:
+                        traceback.print_exc()
+                        pass
