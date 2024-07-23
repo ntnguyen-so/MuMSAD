@@ -32,7 +32,7 @@ path_save_results = 'results/raw_predictions'	# when evaluating a model, the pre
 detector_names = [
     'AutoEncoder (AE)',
     'DenoisingAutoEncoder (DAE)',     
-    #'DeepAnT', 
+    'DeepAnT', 
     #'Random Black Forest (RR)', 
     'PCC', 
     'HBOS', 
@@ -56,3 +56,4 @@ deep_models = {
 }
 
 num_dimensions = 3
+
