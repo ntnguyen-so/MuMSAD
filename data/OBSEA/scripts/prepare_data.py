@@ -92,10 +92,14 @@ def copy_scores(MSAD_root_path, obsea_results):
         try:
             result_path = '/'.join(obsea_results.iloc[row_idx, obsea_results.columns.get_loc('result_path')].split('/')[:-1])
             algorithm = obsea_results.iloc[row_idx, obsea_results.columns.get_loc('algorithm')]
+            if algorithm not in ad2use:
+                continue
             hyper_params_id = obsea_results.iloc[row_idx, obsea_results.columns.get_loc('hyper_params_id')]
             collection = obsea_results.iloc[row_idx, obsea_results.columns.get_loc('collection')]
             dataset = obsea_results.iloc[row_idx, obsea_results.columns.get_loc('dataset')]
-            repetition = str(obsea_results.iloc[row_idx, obsea_results.columns.get_loc('repetition')])
+            if "202" not in dataset:
+                continue
+            repetition = str(obsea_results.iloc[row_idx, obsea_results.columns.get_loc('repetitions')])
             scores_file_name = 'docker-algorithm-scores.csv'
             src_path = result_path + '/' + algorithm + '/' + hyper_params_id + '/' + collection + '/' + dataset + '/' + repetition + '/' + scores_file_name
             scores_dir_alg = dest_path + '/' + algorithm + '/score'
@@ -130,6 +134,17 @@ def copy_metrics(MSAD_root_path, obsea_results):
             metrics_dir_alg = path_to_metrics + '/' + exec_algorithm
             os.makedirs(metrics_dir_alg, exist_ok=True)
             df.to_csv(metrics_dir_alg + '/' + metric + '.csv')
+            
+def copy_metrics_2(MSAD_root_path, obsea_results):
+    path_to_metrics = MSAD_root_path + 'data/OBSEA/metrics/'
+    refresh_content(path_to_metrics)
+    path2metric = '/home/t/00_work/TimeEval_work_results/01_metric/'
+    for ad_method in ad2use:
+        metrics_dir_alg = path_to_metrics + '/' + ad_method
+        os.makedirs(metrics_dir_alg, exist_ok=True)
+        src_path = path2metric + ad_method + '.csv'
+        desc_metric_path = path_to_metrics + ad_method + '/PR_AUC.csv'
+        shutil.copy(src_path, desc_metric_path)
 
 def dataprep_useMSAD_noretrain(TimeEval_results_path):
     directory = [TimeEval_results_path + '/transfer_learning_results/' + 'MSAD_trained20_infer2122']
@@ -261,11 +276,12 @@ if __name__ == "__main__":
         obsea_results.to_csv('MSAD_trained20_inferredtrained1H21_inferredtrained2H21_infer1H22.csv', index=False)
         #### END: trained 20, inferredtrained1H21, inferredtrained2H21 to infer 1H22  
 
+    ad2use = sorted(['COPOD', 'HBOS', 'DenoisingAutoEncoder (DAE)', 'PCC', 'CBLOF', 'AutoEncoder (AE)', 'LOF', 'RobustPCA', 'DeepAnT'])
     #obsea_results = dataprep_noMSAD(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_noretrain(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_retrain1year(TimeEval_results_path)
-    obsea_results = dataprep_totrainMSAD_20212223(TimeEval_results_path)
+    obsea_results = pd.read_csv('/home/t/00_work/TimeEval_work_results/to_save.csv') #dataprep_totrainMSAD_20212223(TimeEval_results_path)
     copy_data(MSAD_root_path, TimeEval_working_path)
     copy_scores(MSAD_root_path, obsea_results)
-    copy_metrics(MSAD_root_path, obsea_results)
+    copy_metrics_2(MSAD_root_path, obsea_results)
 
