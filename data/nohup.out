@@ -1,0 +1,46 @@
+[I 09:09:45.375 NotebookApp] JupyterLab extension loaded from /opt/anaconda3/lib/python3.8/site-packages/jupyterlab
+[I 09:09:45.376 NotebookApp] JupyterLab application directory is /opt/anaconda3/share/jupyter/lab
+[I 09:09:45.378 NotebookApp] Serving notebooks from local directory: /home/ntnguyen/MSAD_work_normalized/MSAD_work/data
+[I 09:09:45.378 NotebookApp] Jupyter Notebook 6.1.4 is running at:
+[I 09:09:45.379 NotebookApp] http://localhost:2632/?token=30da1fbce87fd52e1a0cac74840625e423eed006f9987972
+[I 09:09:45.379 NotebookApp]  or http://127.0.0.1:2632/?token=30da1fbce87fd52e1a0cac74840625e423eed006f9987972
+[I 09:09:45.379 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 09:09:45.387 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///home/ntnguyen/.local/share/jupyter/runtime/nbserver-3912738-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:2632/?token=30da1fbce87fd52e1a0cac74840625e423eed006f9987972
+     or http://127.0.0.1:2632/?token=30da1fbce87fd52e1a0cac74840625e423eed006f9987972
+[I 09:10:41.334 NotebookApp] 302 GET /?token=30da1fbce87fd52e1a0cac74840625e423eed006f9987972 (127.0.0.1) 0.87ms
+[W 09:10:45.927 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:10:46.220 NotebookApp] Kernel started: 2b85c15d-220d-4988-a806-ef8fb756ecc2, name: python3
+[W 09:10:48.678 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:12:47.238 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:12:47.239 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:14:23.713 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:14:23.713 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:14:56.832 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:14:56.833 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:15:39.570 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:15:39.570 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:15:47.741 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:15:47.741 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:18:56.975 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:18:56.976 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:19:08.983 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:19:08.984 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:20:31.936 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:20:31.936 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:30:14.320 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:30:14.320 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:45:29.216 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:45:29.216 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:46:03.961 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:46:03.961 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:46:19.756 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:46:19.756 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 09:47:13.548 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 09:47:13.548 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 10:01:54.345 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 10:01:54.345 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
