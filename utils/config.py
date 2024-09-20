@@ -30,19 +30,19 @@ path_save_results = 'results/raw_predictions'	# when evaluating a model, the pre
 
 # Detector
 detector_names = [
-    'AutoEncoder (AE)',
-    'DenoisingAutoEncoder (DAE)',     
-    'DeepAnT', 
-    #'Random Black Forest (RR)', 
-    'PCC', 
-    'HBOS', 
-    #'Torsk', 
-    #'EncDec-AD', 
-    #'Hybrid KNN',
-    'CBLOF', 
-    'COPOD', 
-    'RobustPCA', 
-    'LOF'
+    'AutoEncoder (AE)', 
+      'CBLOF',
+      'COPOD', 
+      'DeepAnT',
+      'DenoisingAutoEncoder (DAE)',
+      # 'EncDec-AD',
+      'HBOS',
+      'Hybrid KNN',
+      'LOF',
+      'PCC', 
+      'RobustPCA',
+      'Random Black Forest (RR)', 
+      'Torsk',
 ]
 
 

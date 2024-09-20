@@ -44,3 +44,18 @@
 [W 09:47:13.548 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
 [I 10:01:54.345 NotebookApp] Saving file at /prepare_training_data.ipynb
 [W 10:01:54.345 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[I 12:08:34.450 NotebookApp] Saving file at /prepare_training_data.ipynb
+[W 12:08:34.451 NotebookApp] Notebook prepare_training_data.ipynb is not trusted
+[W 14:17:16.700 NotebookApp] WebSocket ping timeout after 119964 ms.
+[W 14:17:19.042 NotebookApp] WebSocket ping timeout after 119962 ms.
+[I 14:17:24.045 NotebookApp] Starting buffering for 2b85c15d-220d-4988-a806-ef8fb756ecc2:c6d9b277b58e411f8170d8e4170c88d4
+[I 09:47:06.850 NotebookApp] 302 GET / (127.0.0.1) 1.47ms
+[I 09:47:06.902 NotebookApp] 302 GET /tree? (127.0.0.1) 1.61ms
+[W 09:48:06.153 NotebookApp] 401 POST /login?next=%2Ftree%3F (127.0.0.1) 2.40ms referer=http://localhost:2632/login?next=%2Ftree%3F
+[W 09:48:08.670 NotebookApp] 401 POST /login?next=%2Ftree%3F (127.0.0.1) 2.23ms referer=http://localhost:2632/login?next=%2Ftree%3F
+[W 09:48:39.026 NotebookApp] 401 POST /login?next=%2Ftree%3F (127.0.0.1) 1.97ms referer=http://localhost:2632/login?next=%2Ftree%3F
+[W 09:48:47.866 NotebookApp] 401 POST /login?next=%2Ftree%3F (127.0.0.1) 2.34ms referer=http://localhost:2632/login?next=%2Ftree%3F
+[C 09:49:30.268 NotebookApp] received signal 15, stopping
+[I 09:49:30.269 NotebookApp] Shutting down 1 kernel
+[I 09:49:30.371 NotebookApp] Kernel shutdown: 2b85c15d-220d-4988-a806-ef8fb756ecc2
+[I 09:49:30.372 NotebookApp] Shutting down 0 terminals

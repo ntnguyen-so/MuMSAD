@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from collections import defaultdict
 import shutil
+import statistics
 
 def remove_similar_duplicates(df):
     # Reverse the DataFrame to prioritize keeping the last occurrence of duplicates
@@ -145,6 +146,44 @@ def copy_metrics_2(MSAD_root_path, obsea_results):
         src_path = path2metric + ad_method + '.csv'
         desc_metric_path = path_to_metrics + ad_method + '/PR_AUC.csv'
         shutil.copy(src_path, desc_metric_path)
+        
+def copy_scores_2(MSAD_root_path, obsea_results):
+    path_to_scores = MSAD_root_path + 'data/OBSEA/scores/OBSEA'
+    org_path2scores = '/home/t/00_work/TimeEval_work_results/00_scores/'
+    
+    src_folder = org_path2scores
+    dest_folder = path_to_scores
+    
+    # Use shutil.copytree to copy all folders and files
+    for item in os.listdir(src_folder):
+        src_item = os.path.join(src_folder, item)
+        dest_item = os.path.join(dest_folder, item)
+        
+        if os.path.isdir(src_item):
+            shutil.copytree(src_item, dest_item, dirs_exist_ok=True)
+            # print(f"Copied folder: {src_item} -> {dest_item}")
+            
+    change_file_extensions(dest_folder)
+        
+def change_file_extensions(folder_path, old_ext='.csv', new_ext='.out'):
+    # Traverse through all files in the given folder
+    for root, dirs, files in os.walk(folder_path):
+        for file_name in files:
+            # Check if the file has the old extension
+            if file_name.endswith(old_ext):
+                # Construct full file path
+                old_file_path = os.path.join(root, file_name)
+                # Create new file name by replacing the extension
+                new_file_name = file_name.replace(old_ext, new_ext)
+                new_file_path = os.path.join(root, new_file_name)
+                # Rename the file
+                os.rename(old_file_path, new_file_path)
+                print(f'Renamed: {old_file_path} -> {new_file_path}')
+
+# Specify the folder path here
+folder_path = '/path/to/your/folder'
+change_file_extensions(folder_path)
+
 
 def dataprep_useMSAD_noretrain(TimeEval_results_path):
     directory = [TimeEval_results_path + '/transfer_learning_results/' + 'MSAD_trained20_infer2122']
@@ -276,12 +315,25 @@ if __name__ == "__main__":
         obsea_results.to_csv('MSAD_trained20_inferredtrained1H21_inferredtrained2H21_infer1H22.csv', index=False)
         #### END: trained 20, inferredtrained1H21, inferredtrained2H21 to infer 1H22  
 
-    ad2use = sorted(['COPOD', 'HBOS', 'DenoisingAutoEncoder (DAE)', 'PCC', 'CBLOF', 'AutoEncoder (AE)', 'LOF', 'RobustPCA', 'DeepAnT'])
+    ad2use = sorted(['AutoEncoder (AE)', 
+                          'CBLOF',
+                          'COPOD', 
+                          'DeepAnT',
+                          'DenoisingAutoEncoder (DAE)',
+                          'EncDec-AD',
+                          'HBOS',
+                          'Hybrid KNN',
+                          'LOF',
+                          'PCC', 
+                          'RobustPCA',
+                          'Random Black Forest (RR)', 
+                          'Torsk', ])
     #obsea_results = dataprep_noMSAD(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_noretrain(TimeEval_results_path)
     #obsea_results = dataprep_useMSAD_retrain1year(TimeEval_results_path)
     obsea_results = pd.read_csv('/home/t/00_work/TimeEval_work_results/to_save.csv') #dataprep_totrainMSAD_20212223(TimeEval_results_path)
     copy_data(MSAD_root_path, TimeEval_working_path)
-    copy_scores(MSAD_root_path, obsea_results)
+    copy_scores_2(MSAD_root_path, obsea_results)
     copy_metrics_2(MSAD_root_path, obsea_results)
+
 
