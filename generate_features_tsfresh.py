@@ -20,13 +20,7 @@ from utils.data_loader import DataLoader
 from sktime.transformations.panel.tsfresh import TSFreshFeatureExtractor
 from sktime.transformations.panel.catch22 import Catch22
 from sktime.transformations.panel.rocket._rocket import Rocket
-import copy
-from tsfresh.feature_extraction import EfficientFCParameters, MinimalFCParameters
-from tsfresh.feature_extraction import extract_features
-import random
 import pickle
-
-random.seed(42)
 
 
 def generate_features(path):
@@ -37,7 +31,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['custom', 'catch22', 'minimal']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['minimal']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
@@ -76,34 +70,6 @@ def generate_features(path):
             fe = Rocket(
                 n_jobs=-1
             )
-        elif default_fc_parameters == 'custom':
-            for percentage in [.25]:
-            
-                efficient_set = EfficientFCParameters()
-                minimal_set = MinimalFCParameters()            
-                selected_features = list(efficient_set.keys())
-                selected_features = random.sample(selected_features, int(len(selected_features)*percentage))
-                for feature in list(minimal_set.keys()) + ['mean_abs_change', 'mean_change', 'number_cwt_peaks']:
-                    if feature not in selected_features:
-                        selected_features.append(feature)
-
-                features2use = copy.deepcopy(efficient_set)
-                for feature in list(features2use.keys()):
-                    if feature not in selected_features:
-                        del features2use[feature]
-
-                fe = TSFreshFeatureExtractor(
-                    default_fc_parameters=features2use, 
-                    show_warnings=False, 
-                    n_jobs=-1
-                )
-                # fe = extract_features(data, default_fc_parameters=features2use)
-                # print(fe)
-                
-                new_name = new_name.replace('custom', 'custom'+str(percentage))
-                new_name_label = new_name_label.replace('custom', 'custom'+str(percentage))
-                index_path = index_path.replace('custom', 'custom'+str(percentage))
-                feature_extractor_path = feature_extractor_path.replace('custom', 'custom'+str(percentage))
         
         # Compute features
         # X_transformed = fe.fit_transform(x)

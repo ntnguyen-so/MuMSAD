@@ -197,10 +197,10 @@ def split_ts(data, window_size):
     # Compute the modulo
     modulo = data.shape[0] % window_size
     
-    np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
-    np_std = np.array([0.1519564, 0.0364728, 0.30773572])
+    np_mean = np.array([37.79987549, 4.92507308, 18.03925078])
+    np_std = np.array([0.14562043, 0.03604426, 0.30548436])
 
-    data = (data - np_mean) / (np_std)
+    # data = (data - np_mean) / (np_std)
     print(np.mean(data, axis=0), np.std(data, axis=0))
 
 
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.window_size == "all":
-        window_sizes = [16, 32, 64, 128, 256, 512, 768, 1024]
+        window_sizes = [4, 8, 16, 32, 64, 128, 256, 512, 768, 1024]
 
         for size in window_sizes:
             create_tmp_dataset(

@@ -23,6 +23,7 @@ import random
 # from utils.evaluator import Evaluator, load_classifier
 import pickle
 import sys
+import os.path
 
 os.environ["CUDA_VISIBLE_DEVICES"]=""
 
@@ -113,24 +114,26 @@ def select_AD_model(model_path, model_name, model_parameters_file, window_size, 
 
 
 if __name__ == "__main__":
-    data_types = ['not_normalized', 'normalized']
+    data_types = ['normalized'] # ['not_normalized', 'normalized']
+    feature_models = ['custom0.25'] # ['catch22']
     for data_type in data_types:
-        MSAD_model_base_paths = ['results/weights/weights_custom_' + data_type + '/']
-        votes_folders = ['results/votes/votes_custom_' + data_type + '/']
+        # MSAD_model_base_paths = ['results/weights/weights_custom0.25_' + data_type + '/']
+        # votes_folders = ['results/votes/votes_custom_' + data_type + '/']
         deep_models_shortform = ['convnet', 'inception', 'resnet', 'sit']
-        fe_base = 'catch22'
-        np_mean = np.array([37.79667338, 4.92088478, 18.00162602])
-        np_std = np.array([0.1519564, 0.0364728, 0.30773572])
+        fe_base = 'custom0.25'
+        np_mean = np.array([37.79987549, 4.92507308, 18.03925078])
+        np_std = np.array([0.14562043, 0.03604426, 0.30548436])
         if len(sys.argv) == 1:
             i = 0            
         else:
             i = int(sys.argv[1])
             
-        for MSAD_model_base_path, votes_folder in zip(MSAD_model_base_paths, votes_folders):
-            print(MSAD_model_base_path, votes_folder)
+        for feature_model in feature_models:
+            MSAD_model_base_path = 'results/weights/' # 'results/weights/weights_' + feature_model + '_' + data_type + '/'
+            votes_folder = 'results/votes/votes_deep/' # 'results/votes/votes_' + feature_model + '_' + data_type + '/'
             if 'catch22' in MSAD_model_base_path:
                 fe_base = 'catch22'
-            for model in sorted(os.listdir(MSAD_model_base_path))[i*10:(i+1)*10]:
+            for model in sorted(os.listdir(MSAD_model_base_path), reverse=True):#[i*5:(i+1)*5]:
                 print('model:', model)
                 is_deep_model = False
                 for deep_model_name in deep_models_shortform:
@@ -150,6 +153,11 @@ if __name__ == "__main__":
                         model_parameters_file='./models/configuration/' + "_".join(model_path.split('/')[-2].split('_')[:-1]) + '.json' # sit_stem_original.json'#sit_linear_patch.json'
                         # print(model_parameters_file)
                         path_to_data = './data/OBSEA/data/OBSEA/'
+                        path2save = votes_folder + '/' + model_path.split('/')[-2] + '.csv'
+                        if os.path.exists(path2save):
+                            print('exists ', path2save)
+                            continue
+                        print(MSAD_model_base_path, votes_folder)
                         num_k = 4
                         processes_running = list()
                         max_process = 10
@@ -173,64 +181,69 @@ if __name__ == "__main__":
                         
                         
                         for data_file in data_files:
-                            print(data_file)
-                            if ("2022" not in data_file and "2023" not in data_file) and "_data" not in data_file:
-                                continue
-                            if "unsupervised" in data_file:
-                                continue
-
-                            uploaded_ts = path_to_data + data_file
-                            
-                            
-                            ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
-                            ts_data = ts_data_raw[:, :-1].astype(float)
-                            if data_type == "normalized":
-                                ts_data = (ts_data - np_mean) / (np_std)
-                            sequence = ts_data
-                            # sequence = z_normalization(ts_data, decimals=7)
-                            # print(sequence)
-                            
-                            # Split timeseries and load to cpu
-                            sequence = split_ts(sequence, window_size)#[:, np.newaxis]
-                            if is_deep_model:
-                                sequence = np.swapaxes(sequence, 1, 2)
-                            if not is_deep_model:
-                                sequence = fe.transform(sequence)
-                                sequence = np.where(np.isnan(sequence), 0, sequence)
+                            try:
+                                print(data_file)
+                                if ("2021" not in data_file and "2021" not in data_file) and "_data" not in data_file:
+                                    continue
+                                if "unsupervised" in data_file:
+                                    continue
                                 
-                            if data_type == "not_normalized":
-                                scaler_path = MSAD_model_base_path + model + '/' +  saved_model.replace('model', 'scaler')
-                                scaler_ = load_classifier(scaler_path, scaler=True)
-                                sequence = scaler_.transform(sequence)
-                                # print('scaled', sequence)
-                            print(sequence.shape)
-                            
-                            if is_deep_model:
-                                if torch.cuda.is_available():
-                                    sequence = torch.from_numpy(sequence).to('cuda')
-                                else:
-                                    sequence = torch.from_numpy(sequence).to('cpu')
+                                uploaded_ts = path_to_data + data_file
+                                
+                                
+                                ts_data_raw = pd.read_csv(uploaded_ts, header=None).dropna().to_numpy()
+                                ts_data = ts_data_raw[:, :-1].astype(float)
+                                if data_type == "normalized":
+                                    ts_data = (ts_data - np_mean) / (np_std)
+                                sequence = ts_data
+                                # sequence = z_normalization(ts_data, decimals=7)
+                                # print(sequence)
+                                
+                                # Split timeseries and load to cpu
+                                sequence = split_ts(sequence, window_size)#[:, np.newaxis]
+                                if is_deep_model:
+                                    sequence = np.swapaxes(sequence, 1, 2)
+                                if not is_deep_model:
+                                    sequence = fe.transform(sequence)
+                                    sequence = np.where(np.isnan(sequence), 0, sequence)
                                     
-                            pred_detector = select_AD_model(model_name=model_name, 
-                                                            model_path=model_path, 
-                                                            model_parameters_file=model_parameters_file, 
-                                                            window_size=window_size, 
-                                                            ts_data=ts_data, 
-                                                            top_k=num_k, 
-                                                            batch_size=64,
-                                                            is_deep=is_deep_model)
-                                                            
-                            print(pred_detector)
-                            files_checked.append('OBSEA/' + data_file)
-                            files_choice.append(pred_detector[0])
-                            # decisions['OBSEA/' + data_file] = pred_detector[0]
+                                if data_type == "not_normalized":
+                                    scaler_path = MSAD_model_base_path + model + '/' +  saved_model.replace('model', 'scaler')
+                                    scaler_ = load_classifier(scaler_path, scaler=True)
+                                    sequence = scaler_.transform(sequence)
+                                    # print('scaled', sequence)
+                                print(sequence.shape)
+                                
+                                if is_deep_model:
+                                    if torch.cuda.is_available():
+                                        sequence = torch.from_numpy(sequence).to('cuda')
+                                    else:
+                                        sequence = torch.from_numpy(sequence).to('cpu')
+                                        
+                                pred_detector = select_AD_model(model_name=model_name, 
+                                                                model_path=model_path, 
+                                                                model_parameters_file=model_parameters_file, 
+                                                                window_size=window_size, 
+                                                                ts_data=ts_data, 
+                                                                top_k=num_k, 
+                                                                batch_size=64,
+                                                                is_deep=is_deep_model)
+                                                                
+                                print(pred_detector)
+                                files_checked.append('OBSEA/' + data_file)
+                                files_choice.append(pred_detector[0])
+                                # decisions['OBSEA/' + data_file] = pred_detector[0]
+                                
+                                # break
+                            except:
+                                pass
                             
                             
                         decisions = {'files': files_checked, 'choice': files_choice}
                         df = pd.DataFrame.from_dict(decisions)#, columns=['name', 'choice'])
                         # print(df)
-                        df.to_csv(votes_folder + '/' + model_path.split('/')[-2] + '.csv')    
-                        print('save ' + votes_folder + '/' + model_path.split('/')[-2] + '.csv')
+                        df.to_csv(path2save)    
+                        print('save ' + path2save)
                     except:
                         traceback.print_exc()
                         pass

@@ -23,50 +23,48 @@ import sys
 
 
 def create_avg_ens(n_jobs=1):
-	'''Create, fit and save the results for the 'Avg_ens' model
+    '''Create, fit and save the results for the 'Avg_ens' model
 
-	:param n_jobs: Threads to use in parallel to compute the metrics faster
-	'''
+    :param n_jobs: Threads to use in parallel to compute the metrics faster
+    '''
 
-	# Load metrics' names
-	metricsloader = MetricsLoader(OBSEA_metrics_path)
-	metrics = metricsloader.get_names()
+    # Load metrics' names
+    metricsloader = MetricsLoader(OBSEA_metrics_path)
+    metrics = metricsloader.get_names()
 
-	# Load data
-	dataloader = DataLoader(OBSEA_data_path)
-	datasets = dataloader.get_dataset_names()
-	x, y, fnames = dataloader.load(datasets)
+    # Load data
+    dataloader = DataLoader(OBSEA_data_path)
+    datasets = dataloader.get_dataset_names()
+    x, y, fnames = dataloader.load(datasets)
 
-	# Load scores
-	scoresloader = ScoresLoader(OBSEA_scores_path)
-	scores, idx_failed = scoresloader.load(fnames)
-	#print(scores)
+    # Load scores
+    scoresloader = ScoresLoader(OBSEA_scores_path)
+    scores, idx_failed = scoresloader.load(fnames)
+    #print(scores)
 
-	# Remove failed idxs
-	if len(idx_failed) > 0:
-		for idx in sorted(idx_failed, reverse=True):
-			del x[idx]
-			del y[idx]
-			del fnames[idx]
+    # Remove failed idxs
+    if len(idx_failed) > 0:
+        for idx in sorted(idx_failed, reverse=True):
+            del x[idx]
+            del y[idx]
+            del fnames[idx]
 
-	# Create Avg_ens
-	avg_ens = Avg_ens()
-	metric_values = avg_ens.fit(y, scores, metrics, n_jobs=n_jobs)
-	for metric in metrics:
-		if metric != 'Recommendation_ACC':
-			continue
-		# Write metric values for avg_ens
-		metricsloader.write(metric_values[metric], fnames, 'AVG_ENS', metric)
+    # Create Avg_ens
+    avg_ens = Avg_ens()
+    metric_values = avg_ens.fit(y, scores, metrics, n_jobs=n_jobs)
+    for metric in metrics:
+        # Write metric values for avg_ens
+        metricsloader.write(metric_values[metric], fnames, 'AVG_ENS', metric)
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(
-		prog='run_avg_ense',
-		description="Create the average ensemble model"
-	)
-	parser.add_argument('-n', '--n_jobs', type=int, default=1,
-		help='Threads to use for parallel computation'
-	)
-	args = parser.parse_args()
+    parser = argparse.ArgumentParser(
+        prog='run_avg_ense',
+        description="Create the average ensemble model"
+    )
+    parser.add_argument('-n', '--n_jobs', type=int, default=1,
+        help='Threads to use for parallel computation'
+    )
+    args = parser.parse_args()
 
-	create_avg_ens(n_jobs=args.n_jobs)
+    create_avg_ens(n_jobs=args.n_jobs)
