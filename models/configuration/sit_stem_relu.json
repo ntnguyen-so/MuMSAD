@@ -17,6 +17,6 @@
 	"use_stem_scaled_relu":true,
 	"hidden_dims":[3],
 	"cls_head":false,
-	"num_classes":9,
+	"num_classes":12,
 	"representation_size":null
 }
