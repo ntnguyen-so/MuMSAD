@@ -189,10 +189,12 @@ class DataLoader:
             
             for fname in glob.glob(os.path.join(self.data_path, name, '*.out.npy')):
                 curr_np_data = np.load(fname)#, index_col=0)
+                median_value = np.nanmedian(curr_np_data)
+                curr_np_data[np.isnan(curr_np_data)] = median_value
                 
                 label_fname = copy.deepcopy(fname)
                 label_fname = label_fname.replace('.out', '.out_label')
-                curr_np_label = np.load(label_fname)
+                curr_np_label = np.load(label_fname)                
                 np_index_list += [fname.split('/')[-1]]*len(curr_np_label)
 
                 np_data_list.append(curr_np_data)

@@ -101,6 +101,8 @@ class ModelExecutioner:
             loss = self.criterion(outputs.float(), labels.long())
             loss.backward()
 
+            # torch.nn.utils.clip_grad_norm_(self.model.parameters(), 5)
+
             # Adjust learning weights
             if self.use_scheduler:
                 # self.scheduler.step_and_update_lr()
@@ -206,7 +208,7 @@ class ModelExecutioner:
         best_model = None
 
         # Set up early stop
-        early_stopper = EarlyStopper(patience=20, min_delta=0.001)
+        early_stopper = EarlyStopper(patience=10, min_delta=0.001)
 
         # Set up scheduler
         if self.use_scheduler:
