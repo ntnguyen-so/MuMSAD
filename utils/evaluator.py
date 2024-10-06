@@ -31,6 +31,8 @@ import pandas as pd
 class Evaluator:
 	"""A class with evaluation tools
 	"""
+	
+	operation_timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
 
 	def predict(
 		self,
@@ -134,11 +136,13 @@ class Evaluator:
 
 def save_classifier(model, path, fname=None, scaler=False):
 	# Set up
-	timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
+	# timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
 	if not scaler:
-		fname = f"model_{timestamp}" if fname is None else fname
+		Evaluator.operation_timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
+		fname = f"model_{Evaluator.operation_timestamp}" if fname is None else fname
+		# self.timestamp_model = timestamp
 	else:
-		fname = f"scaler_{timestamp}" if fname is None else fname
+		fname = f"scaler_{Evaluator.operation_timestamp}" if fname is None else fname
 
 	# Create saving dir if we need to
 	filename = Path(os.path.join(path, f"{fname}.pkl"))

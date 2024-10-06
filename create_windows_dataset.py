@@ -200,7 +200,7 @@ def split_ts(data, window_size):
     np_mean = np.array([37.79987549, 4.92507308, 18.03925078])
     np_std = np.array([0.14562043, 0.03604426, 0.30548436])
 
-    # data = (data - np_mean) / (np_std)
+    data = (data - np_mean) / (np_std)
     print(np.mean(data, axis=0), np.std(data, axis=0))
 
 

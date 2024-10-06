@@ -37,7 +37,7 @@ def generate_features(path):
 
     :param path: path to the dataset to be converted
     """
-    for default_fc_parameters in ['custom', 'catch22', 'minimal']:# ['minimal', 'efficient']:
+    for default_fc_parameters in ['tsfresh', 'catch22']:# ['minimal', 'efficient']:
         window_size = int(re.search(r'\d+', path).group())
 
         # Create name of new dataset
@@ -76,7 +76,7 @@ def generate_features(path):
             fe = Rocket(
                 n_jobs=-1
             )
-        elif default_fc_parameters == 'custom':
+        elif default_fc_parameters == 'tsfresh':
             for percentage in [.25]:
             
                 efficient_set = EfficientFCParameters()
@@ -100,10 +100,10 @@ def generate_features(path):
                 # fe = extract_features(data, default_fc_parameters=features2use)
                 # print(fe)
                 
-                new_name = new_name.replace('custom', 'custom'+str(percentage))
-                new_name_label = new_name_label.replace('custom', 'custom'+str(percentage))
-                index_path = index_path.replace('custom', 'custom'+str(percentage))
-                feature_extractor_path = feature_extractor_path.replace('custom', 'custom'+str(percentage))
+                new_name = new_name.replace('tsfresh', 'tsfresh'+str(percentage))
+                new_name_label = new_name_label.replace('tsfresh', 'tsfresh'+str(percentage))
+                index_path = index_path.replace('tsfresh', 'tsfresh'+str(percentage))
+                feature_extractor_path = feature_extractor_path.replace('tsfresh', 'tsfresh'+str(percentage))
         
         # Compute features
         # X_transformed = fe.fit_transform(x)

@@ -24,6 +24,8 @@ import random
 import pickle
 import sys
 import os.path
+import pandas as pd
+
 
 os.environ["CUDA_VISIBLE_DEVICES"]=""
 
@@ -114,13 +116,20 @@ def select_AD_model(model_path, model_name, model_parameters_file, window_size, 
 
 
 if __name__ == "__main__":
-    data_types = ['normalized'] # ['not_normalized', 'normalized']
-    feature_models = ['custom0.25'] # ['catch22']
+    data_types = ['not_normalized', 'normalized'] # ['normalized'] #
+    feature_models = ['custom0.25', 'catch22']
+    
+    working_on_deep = True
+    
+    test_data_files = pd.read_csv('./reproducibility_guide/train_val_split.csv')
+    test_data_files = test_data_files.iloc[2, :].tolist()[1:]
+    test_data_files = [str(x) for x in test_data_files if 'OBSEA' in str(x)]
+    
     for data_type in data_types:
         # MSAD_model_base_paths = ['results/weights/weights_custom0.25_' + data_type + '/']
         # votes_folders = ['results/votes/votes_custom_' + data_type + '/']
         deep_models_shortform = ['convnet', 'inception', 'resnet', 'sit']
-        fe_base = 'custom0.25'
+        # fe_base = 'tsfresh0.25'
         np_mean = np.array([37.79987549, 4.92507308, 18.03925078])
         np_std = np.array([0.14562043, 0.03604426, 0.30548436])
         if len(sys.argv) == 1:
@@ -129,11 +138,18 @@ if __name__ == "__main__":
             i = int(sys.argv[1])
             
         for feature_model in feature_models:
-            MSAD_model_base_path = 'results/weights/' # 'results/weights/weights_' + feature_model + '_' + data_type + '/'
-            votes_folder = 'results/votes/votes_deep/' # 'results/votes/votes_' + feature_model + '_' + data_type + '/'
-            if 'catch22' in MSAD_model_base_path:
-                fe_base = 'catch22'
-            for model in sorted(os.listdir(MSAD_model_base_path), reverse=True):#[i*5:(i+1)*5]:
+            if working_on_deep:
+                MSAD_model_base_path =   'results/weights/' #
+                votes_folder =  'results/votes/votes_deep/' #
+            else:
+                MSAD_model_base_path =   'results/weights_feature/weights_' + feature_model + '_' + data_type + '/' # 'results/weights/' #            
+                votes_folder =  'results/votes/votes_' + feature_model + '_' + data_type + '/' # 'results/votes/votes_deep_2/' #
+            
+            fe_base = feature_model
+            # if 'tsfresh0.25' in MSAD_model_base_path:
+                # fe_base = 'custom0.25'
+            jump = 300
+            for model in sorted(os.listdir(MSAD_model_base_path), reverse=True)[i*jump:(i+1)*jump]:
                 print('model:', model)
                 is_deep_model = False
                 for deep_model_name in deep_models_shortform:
@@ -153,7 +169,7 @@ if __name__ == "__main__":
                         model_parameters_file='./models/configuration/' + "_".join(model_path.split('/')[-2].split('_')[:-1]) + '.json' # sit_stem_original.json'#sit_linear_patch.json'
                         # print(model_parameters_file)
                         path_to_data = './data/OBSEA/data/OBSEA/'
-                        path2save = votes_folder + '/' + model_path.split('/')[-2] + '.csv'
+                        path2save = votes_folder + '/' + model_path.split('/')[-2] + '-' + saved_model + '-' + '.csv'
                         if os.path.exists(path2save):
                             print('exists ', path2save)
                             continue
@@ -175,15 +191,17 @@ if __name__ == "__main__":
                                 
                         if not is_deep_model:
                             fe_name = 'TSFRESH_OBSEA_' + str(window_size) + '_FE_' + fe_base + '.pkl'
-                            fe_path = './data/' + data_type + '/OBSEA_' + str(window_size) + '/' + fe_name
+                            fe_path = './data/ood_example/' + data_type + '/OBSEA_' + str(window_size) + '/' + fe_name
                             with open(f'{fe_path}', 'rb') as input:
                                 fe = pickle.load(input)
                         
                         
                         for data_file in data_files:
-                            try:
-                                print(data_file)
-                                if ("2021" not in data_file and "2021" not in data_file) and "_data" not in data_file:
+                            # try:
+                                print(data_file, test_data_files)
+                                # if ("2021" not in data_file and "2021" not in data_file) and "_data" not in data_file:
+                                    # continue
+                                if not any(data_file in file for file in test_data_files):
                                     continue
                                 if "unsupervised" in data_file:
                                     continue
@@ -235,8 +253,8 @@ if __name__ == "__main__":
                                 # decisions['OBSEA/' + data_file] = pred_detector[0]
                                 
                                 # break
-                            except:
-                                pass
+                            # except:# Exception e:
+                                # pass
                             
                             
                         decisions = {'files': files_checked, 'choice': files_choice}
